@@ -1,0 +1,16 @@
+.carousel {
+  border-radius: 0 !important;
+  display: hidden;
+}
+
+.rounded-lg {
+  border-radius: 0 !important;
+}
+
+.buttonCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 4rem;
+}
