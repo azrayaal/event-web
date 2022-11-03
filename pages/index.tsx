@@ -46,7 +46,7 @@ export default function Home() {
           </div>
           <div className="mt-10 ">
             <Link href="/event">
-              <button className="bg-slate-500 hover:bg-slate-700  font-semibold text-white py-2 px-4 border  hover:border-transparent rounded">View More</button>
+              <button className="bg-slate-500 hover:bg-slate-700  font-semibold text-white py-2 px-4 border  hover:border-transparent rounded">Discover More Events</button>
             </Link>
           </div>
         </div>
