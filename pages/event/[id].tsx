@@ -21,7 +21,7 @@ export default function EventDetails() {
       <div className={clicked2 || 'block'}>
         <NavbarsDetail />
 
-        <nav className="sticky  top-0 z-20 bg-[#172029] hidden sm:block  drop-shadow shadow-blue-600">
+        <nav className="sticky  top-0  bg-[#172029] hidden sm:block  drop-shadow shadow-blue-600">
           <div className="grid grid-cols-3  ">
             <div className="pl-16 text-slate-50 my-10">
               <div className="NAMAEVENT font-extrabold text-3xl">Gemas Festival</div>

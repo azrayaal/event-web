@@ -9,7 +9,7 @@ import { TextInput } from 'flowbite-react';
 export default function transactions() {
   return (
     <Layouts pageTitle="Transactions">
-      <div className=" sticky  top-0 z-20 bg-[#172029] hidden sm:block py-8 drop-shadow shadow-blue-600">
+      <div className=" sticky  top-0 bg-[#172029] hidden sm:block py-8 drop-shadow shadow-blue-600">
         <div className="grid grid-cols-3  ">
           <div className="pl-16 text-slate-50 my-auto ">
             <div className="NAMAEVENT font-extrabold text-3xl">Transactions History</div>
