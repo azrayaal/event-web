@@ -2,39 +2,70 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import Layouts from '../components/layout';
+import { Label } from 'flowbite-react';
+import { Select } from 'flowbite-react';
+import { TextInput } from 'flowbite-react';
 
 export default function transactions() {
   return (
     <Layouts pageTitle="Transactions">
-      <div className=" sticky  top-0 z-20 bg-[#172029] hidden sm:block  drop-shadow shadow-blue-600">
+      <div className=" sticky  top-0 z-20 bg-[#172029] hidden sm:block py-8 drop-shadow shadow-blue-600">
         <div className="grid grid-cols-3  ">
-          <div className="pl-16 text-slate-50 my-10">
-            <div className="NAMAEVENT font-extrabold text-3xl">Gemas Festival</div>
-            <ul className="pt-10">
-              <li className="inline-block text-sm text-slate-400">Created by:</li>
-              <li className="inline-block text-sm text-yellow-500 font-bold pl-2">Gema Smansagra Choir</li>
-              <li className="inline-block text-sm pl-6 text-slate-400">Status: </li>
-              <li className="inline-block text-sm pl-2">Publish</li>
-            </ul>
+          <div className="pl-16 text-slate-50 my-auto ">
+            <div className="NAMAEVENT font-extrabold text-3xl">Transactions History</div>
           </div>
-          <div className="text-right">
-            <div className="absolute left-[67%] top-10 -ml-0.5 w-0.5 h-[6rem] bg-yellow-500"></div>
+          <div className=" justify-center flex  items-center ">
+            <div className="w-4/5">
+              <div className="input-group relative flex flex-wrap items-stretch w-full rounded">
+                <input
+                  type="search"
+                  className="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  placeholder="Search Transactions"
+                  aria-label="Search"
+                  aria-describedby="button-addon2"
+                />
+                <span className="input-group-text flex items-center px-3  text-base font-normal text-gray-700 text-center whitespace-nowrap rounded" id="basic-addon2"></span>
+              </div>
+            </div>
           </div>
-          <div className="">
-            <ul className="pl-8 text-slate-50 my-10">
-              <li className="Time text-sm">February 4, 2023 | 17:00:00</li>
-              <li className="Place my-5 text-sm">SMA Negeri 1 Grabag | Lapangan Sepak Bola SMAN 1 Grabag</li>
-              <li className="Map text-sm font-bold">
-                <a target="_blank" href="/" className="text-yellow-500">
-                  View in Maps
-                </a>
-              </li>
-            </ul>
+          <div className=" justify-center flex  items-center ">
+            <div id="select" className="w-4/5">
+              <Select id="transactions" required={true}>
+                <option>All Transactions</option>
+                <option>Waiting Payment</option>
+                <option>Paid</option>
+                <option>Expired</option>
+              </Select>
+            </div>
           </div>
         </div>
       </div>
+
       <div className="px-[4rem] h-[65vh] ">
-        <div className=" text-center justify-center items-center  h-4/5 pt-10">
+        {/* Mobile form input search */}
+        <div className="pt-10 sm:hidden block">
+          <div className="font-extrabold text-2xl pb-5">Transations.</div>
+          <div className="input-group relative flex flex-wrap items-stretch w-full rounded ">
+            <input
+              type="search"
+              className="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              placeholder="Search Transactions"
+              aria-label="Search"
+              aria-describedby="button-addon2"
+            />
+            <span className="input-group-text flex items-center px-3  text-base font-normal text-gray-700 text-center whitespace-nowrap rounded" id="basic-addon2"></span>
+          </div>
+          <div id="select" className="pt-5">
+            <Select id="Transactions" required={true}>
+              <option>All Transactions</option>
+              <option>Waiting Payment</option>
+              <option>Paid</option>
+              <option>Expired</option>
+            </Select>
+          </div>
+        </div>
+
+        <div className=" text-center justify-center items-center  h-4/5 py-10">
           <Image src="/dompet.svg" width={150} height={150} alt="dompet" className=" flex mx-auto "></Image>
           <div className="text-lg font-bold">Oops, no transaction history yet </div>
           <div className="text-slate-700 my-5">Maybe you took the wrong route or address. Let’s go back before it gets dark!</div>
