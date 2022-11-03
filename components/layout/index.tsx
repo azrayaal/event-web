@@ -3,6 +3,7 @@ import Headers from '../header/index';
 import { ReactNode } from 'react';
 import styles from './layout.module.css';
 import Head from 'next/head';
+// import '../../styles/globals.css';
 
 interface LayoutProps {
   children: ReactNode;
@@ -19,9 +20,9 @@ export default function Layouts(props: LayoutProps) {
         <script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"></script>
       </Head>
       <Headers />
-      <div className={styles.container}>
-        <div className={styles.main}>{children}</div>
-      </div>
+      {/* <div className={styles.container}> */}
+      <div className={styles.main}>{children}</div>
+      {/* </div> */}
       <Footers />
     </>
   );

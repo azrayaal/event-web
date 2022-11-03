@@ -1,16 +1,24 @@
 import React from 'react';
+import { useState } from 'react';
 import Layouts from '../../components/layout';
 import NavbarsDetail from '../../components/header/headerEventDetail';
 import Footers from '../../components/footer';
 import Link from 'next/link';
 import { Card } from 'flowbite-react';
 import Image from 'next/image';
+import '../../styles/Event.module.css';
 
 export default function EventDetails() {
+  const [clicked, setClicked] = useState('');
+  const [clicked2, setClicked2] = useState('');
+  const handleClick = () => {
+    clicked ? setClicked('') : setClicked(' buttonbeliticketmobile w-full h-full bg-white z-30 absolute top-0 ');
+    clicked2 ? setClicked2('') : setClicked2(' hidden ');
+  };
+
   return (
     <>
-      <div className="">
-        {/* atas kasih hidden */}
+      <div className={clicked2 || 'block'}>
         <NavbarsDetail />
 
         <nav className="sticky  top-0 z-20 bg-[#172029] hidden sm:block  drop-shadow shadow-blue-600">
@@ -32,9 +40,9 @@ export default function EventDetails() {
                 <li className="Time text-sm">February 4, 2023 | 17:00:00</li>
                 <li className="Place my-5 text-sm">SMA Negeri 1 Grabag | Lapangan Sepak Bola SMAN 1 Grabag</li>
                 <li className="Map text-sm font-bold">
-                  <Link href="/" className="text-yellow-500">
+                  <a target="_blank" href="/" className="text-yellow-500">
                     View in Maps
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -62,8 +70,8 @@ export default function EventDetails() {
                       <div className="max-w-sm">
                         <Card>
                           <div className="flex ">
-                            <Image width={50} height={50} src="/favicon.ico" alt="" />
-                            <h5 className="text-2xl font-bold tracking-tight pl-10 mt-2 text-gray-900 dark:text-white">Noteworthy </h5>
+                            <Image width={50} height={50} src="/favicon.ico" className="pr-2" alt="" />
+                            <h5 className="text-2xl font-bold tracking-tight px-auto mt-1 text-gray-900 dark:text-white">Noteworthy </h5>
                           </div>
                         </Card>
                       </div>
@@ -72,8 +80,8 @@ export default function EventDetails() {
                       <div className="max-w-sm">
                         <Card>
                           <div className="flex ">
-                            <Image width={50} height={50} src="/favicon.ico" alt="" />
-                            <h5 className="text-2xl font-bold tracking-tight pl-10 mt-2 text-gray-900 dark:text-white">Noteworthy </h5>
+                            <Image width={50} height={50} src="/favicon.ico" className="pr-2" alt="" />
+                            <h5 className="text-2xl font-bold tracking-tight px-auto mt-1 text-gray-900 dark:text-white">Noteworthy </h5>
                           </div>
                         </Card>
                       </div>
@@ -82,8 +90,8 @@ export default function EventDetails() {
                       <div className="max-w-sm">
                         <Card>
                           <div className="flex ">
-                            <Image width={50} height={50} src="/favicon.ico" alt="" />
-                            <h5 className="text-2xl font-bold tracking-tight pl-10 mt-2 text-gray-900 dark:text-white">Noteworthy </h5>
+                            <Image width={50} height={50} src="/favicon.ico" className="pr-2" alt="" />
+                            <h5 className="text-2xl font-bold tracking-tight px-auto mt-1 text-gray-900 dark:text-white">Noteworthy </h5>
                           </div>
                         </Card>
                       </div>
@@ -132,8 +140,10 @@ export default function EventDetails() {
           </div>
         </div>
 
-        <div className="sm:hidden py-5 justify-center flex mx-6  border-solid border-t-[0.1px] border-slate-400">
-          <button className="bg-slate-500 hover:bg-slate-700  font-semibold text-white py-2 w-full h-12 px-6 hover:border-transparent rounded">Buy TIcket</button>
+        <div className="sm:hidden  py-5 justify-center flex mx-6  border-solid border-t-[0.1px] border-slate-400">
+          <button className="bg-slate-500 hover:bg-slate-700  font-semibold text-white py-2 w-full h-12 px-6 hover:border-transparent rounded" onClick={handleClick}>
+            Buy TIcket
+          </button>
         </div>
 
         {/* Footer */}
@@ -143,11 +153,13 @@ export default function EventDetails() {
       </div>
 
       {/* ticket mobile */}
-      <div className="w-full h-full bg-white z-30 absolute top-0 hidden">
-        <div className="px-3 py-4 ">
-          <div className="font-bold text-xl mb-2 "> -Ticket Category</div>
+      <div className={clicked || 'w-full h-full bg-white z-30 absolute top-0 hidden '}>
+        <div className="px-3  flex items-center h-[7%] ">
+          <div className="font-bold text-xl" onClick={handleClick}>
+            -Ticket Category
+          </div>
         </div>
-        <div className="px-3 py-4 bg-yellow-200 h-[81%]">
+        <div className="px-3 py-4 bg-slate-300 h-[84%]">
           <div className=" text-xl ">
             <ul className="my-4 space-y-3 border-yellow-500 border-solid border-l-4 rounded-lg">
               <li>
@@ -164,15 +176,22 @@ export default function EventDetails() {
             </ul>
           </div>
         </div>
-        <div className="px-3 pt-4 ">
-          <div className="font-semibold text-md ">Total:</div>
-          <div className="grid-cols-2 grid">
-            <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. 0</div>
-            <div className="font-bold text-xl mb-2 text-yellow-500 ml-auto">
-              <Link href="/event">
-                <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">Chekout</button>
-              </Link>
+        <div className="px-3 h-[9%] ">
+          <div className="h-full ">
+            <div className="font-semibold text-md absolute pt-1">Total:</div>
+            <div className="grid-cols-2 grid  items-center h-full ">
+              <div className="font-bold text-xl mb-2 text-yellow-500 ">RP. 0</div>
+              <div className="font-bold text-xl mb-2 text-yellow-500 ml-auto">
+                <Link href="/event">
+                  <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">Chekout</button>
+                </Link>
+              </div>
             </div>
+            {/* <div className="flex  bg-green-500 h-full">
+            <div className="flex float-left">Total</div>
+            <div className="flex float-left">RP. 0</div>
+            <div className="flex float-right">Chekout</div>
+          </div> */}
           </div>
         </div>
       </div>
