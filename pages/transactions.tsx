@@ -2,9 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import Layouts from '../components/layout';
-import { Label } from 'flowbite-react';
-import { Select } from 'flowbite-react';
-import { TextInput } from 'flowbite-react';
+import { Select, TextInput, Label } from 'flowbite-react';
 
 export default function transactions() {
   return (
