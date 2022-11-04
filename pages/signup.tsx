@@ -12,7 +12,7 @@ const inputan = [
 export default function signup() {
   const [startDate, setStartDate] = useState(new Date());
   return (
-    <div className="sm:px-[4rem] px-[3rem] h-[100vh] pb-10 bg-slate-100">
+    <div className="sm:px-[4rem] px-[3rem] h-[100%] pb-10 bg-slate-100">
       <div className="flex h-full">
         <div className=" w-[100%] sm:w-[35%] pt-10">
           <div className="max-w-sm mx-auto">
@@ -24,7 +24,7 @@ export default function signup() {
             </Card>
             {/* mobile data input */}
             <div className=" sm:hidden block w-[100%] pt-10 ">
-              <div className=" bg-red-600 mx-5">
+              <div className=" ">
                 <Card className="shadow-2xl">
                   {inputan.map((item) => (
                     <div className="inputan1">
