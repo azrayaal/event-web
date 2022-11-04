@@ -10,6 +10,13 @@ body {
 .container {
 
   MAU PAKE KONTAINER???? PAKE px-[4rem] AJA!!!!
+
+
+  Kalo mau buat ikon dan tulisan sejsajar harus kaya gini
+  <div className=" h-full w-26 flex  items-center ">
+                            <div className="pr-2 font-semibold whitespace-nowrap">{item.logo}</div>
+                            <div className="font-semibold whitespace-nowrap">{item.name}</div>
+                          </div>
  */
 
 a {
