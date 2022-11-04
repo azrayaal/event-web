@@ -15,7 +15,7 @@ export default function profile() {
   const [startDate, setStartDate] = useState(new Date());
   return (
     <Layouts pageTitle="Edit Profile">
-      <div className="sm:px-[4rem] px-[3rem] h-content pb-10">
+      <div className="sm:px-[4rem] px-[3rem] h-content pb-24">
         <div className="flex h-full">
           <div className=" w-[100%] sm:w-[35%] pt-10">
             <div className="max-w-sm mx-auto">
@@ -27,7 +27,7 @@ export default function profile() {
               </Card>
               {/* mobile data input */}
               <div className=" sm:hidden block w-[100%] pt-10 ">
-                <div className=" bg-red-600 mx-5">
+                <div className="">
                   <Card>
                     {inputan.map((item) => (
                       <div className="inputan1">

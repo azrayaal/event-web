@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const navigation = [
@@ -41,7 +42,7 @@ export default function Navbars() {
       <Disclosure as="nav" className="bg-gray-800 shadow-lg z-40">
         {({ open }) => (
           <>
-            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
               <div className="relative flex  h-16 items-center justify-between">
                 {/* <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 Mobile menu button
@@ -199,22 +200,19 @@ export default function Navbars() {
             <div className="h-full ">
               <div className="flex">
                 <div className="w-[33%] hover:bg-gray-500 py-[18px]">
-                  <a href="/" className="flex items-center justify-center text-8xl font-semibold whitespace-nowrap ">
-                    <img src="/home.svg" className="logonya pr-2" />
-                    {/* <div className="textnya">Home</div> */}
-                  </a>
+                  <Link href="/" className="flex items-center justify-center text-8xl font-semibold whitespace-nowrap ">
+                    <Image alt="icon" width={35} height={35} src="/home.svg" className="logonya pr-2" />
+                  </Link>
                 </div>
                 <div className="w-[33%] hover:bg-gray-500 py-[18px]">
-                  <a href="/transactions" className="flex items-center justify-center text-8xl font-semibold whitespace-nowrap ">
-                    <img src="/dompet.svg" className="logonya pr-2" />
-                    {/* <div className="textnya">Transactions</div> */}
-                  </a>
+                  <Link href="/transactions" className="flex items-center justify-center text-8xl font-semibold whitespace-nowrap ">
+                    <Image alt="icon" width={35} height={35} src="/dompet.svg" className="logonya pr-2" />
+                  </Link>
                 </div>
                 <div className="w-[33%] hover:bg-gray-500 py-[18px]">
-                  <a href="coupons" className="flex items-center justify-center text-8xl font-semibold whitespace-nowrap ">
-                    <img src="/coupon.svg" className="logonya pr-2" />
-                    {/* <div className="textnya">Tickets</div> */}
-                  </a>
+                  <Link href="tickets" className="flex items-center justify-center text-8xl font-semibold whitespace-nowrap ">
+                    <Image alt="icon" width={35} height={35} src="/coupon.svg" className="logonya pr-2" />
+                  </Link>
                 </div>
               </div>
             </div>

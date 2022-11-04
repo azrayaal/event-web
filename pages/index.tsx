@@ -16,7 +16,7 @@ export default function Home() {
       </Head>
       <Navbars />
       <Carousels />
-      <div className={styles.container}>
+      <div className="px-5 pb-6">
         <div className="sm:pl-16 sm:pt-24 sm:pb-8 pt-10">
           <p className=" font-bold text-4xl pb-3">Popular Event</p>
           <p>Find your favorite events, and let's have fun</p>
