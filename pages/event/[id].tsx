@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useState } from 'react';
 import Layouts from '../../components/layout';
 import NavbarsDetail from '../../components/header/headerEventDetail';
@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { Card } from 'flowbite-react';
 import Image from 'next/image';
 import '../../styles/Event.module.css';
+import { getDetailEvent } from '../../services/pages';
+import { useRouter } from 'next/router';
 
 export default function EventDetails() {
   const [clicked, setClicked] = useState('');
@@ -16,15 +18,40 @@ export default function EventDetails() {
     clicked2 ? setClicked2('') : setClicked2(' hidden ');
   };
 
+  const { query, isReady } = useRouter();
+
+  const [dataItem, setDataItem] = useState({
+    event_name: '',
+    description: '',
+    date: '',
+    location: '',
+    banner: '',
+  });
+
+  const [talentItem, setTalentitem] = useState([]);
+  const [categoryItem, setCategoryItem] = useState([]);
+
+  const getEventDetailAPI = useCallback(async (id) => {
+    const data = await getDetailEvent(id);
+    console.log('data ', data);
+    setDataItem(data);
+    setTalentitem(data.talent);
+    setCategoryItem(data.category);
+  }, []);
+
+  useEffect(() => {
+    getEventDetailAPI(query.id);
+  }, [isReady]);
+
   return (
     <>
       <div className={clicked2 || 'block'}>
         <NavbarsDetail />
 
-        <nav className="sticky  top-0  bg-[#172029] hidden sm:block  drop-shadow shadow-blue-600">
+        <nav className="sticky z-30 top-0  bg-[#172029] hidden sm:block  drop-shadow shadow-blue-600">
           <div className="grid grid-cols-3  ">
             <div className="pl-16 text-slate-50 my-10">
-              <div className="NAMAEVENT font-extrabold text-3xl">Gemas Festival</div>
+              <div className="NAMAEVENT font-extrabold text-3xl">{dataItem.event_name}</div>
               <ul className="pt-10">
                 <li className="inline-block text-sm text-slate-400">Created by:</li>
                 <li className="inline-block text-sm text-yellow-500 font-bold pl-2">Gema Smansagra Choir</li>
@@ -37,8 +64,8 @@ export default function EventDetails() {
             </div>
             <div className="">
               <ul className="pl-8 text-slate-50 my-10">
-                <li className="Time text-sm">February 4, 2023 | 17:00:00</li>
-                <li className="Place my-5 text-sm">SMA Negeri 1 Grabag | Lapangan Sepak Bola SMAN 1 Grabag</li>
+                <li className="Time text-sm">{dataItem.date} | 17:00:00</li>
+                <li className="Place my-5 text-sm">{dataItem.location} </li>
                 <li className="Map text-sm font-bold">
                   <a target="_blank" href="/" className="text-yellow-500">
                     View in Maps
@@ -53,12 +80,12 @@ export default function EventDetails() {
             <div className=" w-full sm:w-[70%] h-full  ">
               <div className=" pt-0 sm:pt-10 sm:px-16 px-0">
                 <div className="sm:border-[1.5px] border-0 sm:py-10 py-0 justify-center flex  border-solid border-slate-400 rounded-md">
-                  <img src="/Noah.png" className="sm:rounded-md rounded-none" alt="" />
+                  <img src={`http://localhost:4000/uploads/${dataItem.banner}`} className="sm:rounded-md rounded-none" alt="" />
                 </div>
                 <div className="Description pt-10 sm:px-0 px-10">
-                  <h1 className="text-2xl font-bold">Lorem, ipsum dolor.</h1>
+                  <h1 className="text-2xl font-bold">{dataItem.event_name}</h1>
                   <p className="text-sm font-semibold pb-3 pt-5">Description:</p>
-                  <p className="text-sm pb-14 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque iusto fugit explicabo, ex aut nobis totam atque culpa eius voluptates.</p>
+                  <p className="text-sm pb-14 ">{dataItem.description}</p>
                   <p className="text-sm font-semibold pb-3">Terms And Conditions:</p>
                   <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem doloremque corrupti veniam laboriosam!</p>
                 </div>
@@ -66,63 +93,59 @@ export default function EventDetails() {
                 <div className="TALENT">
                   <div className="text-2xl font-bold pb-10 pl-10 sm:pl-0 ">Talent</div>
                   <div className=" grid-cols-1 grid md:grid-cols-3 sm:grid-cols-2 gap-2 pb-5 mx-6 ">
-                    <div className=" justify-center flex">
-                      <div className="max-w-sm">
-                        <Card>
-                          <div className="flex ">
-                            <Image width={50} height={50} src="/favicon.ico" className="pr-2" alt="" />
-                            <h5 className="text-2xl font-bold tracking-tight px-auto mt-1 text-gray-900 dark:text-white">Noteworthy </h5>
+                    {talentItem.map((item) => {
+                      return (
+                        <div key={item._id} className=" justify-center flex">
+                          <div className="max-w-sm">
+                            <Card>
+                              <div className="flex ">
+                                <img width={50} height={50} src={`http://localhost:4000/uploads/${item.talent_picture}`} className="pr-2 rounded-full" alt="" />
+                                <h5 className="text-2xl font-bold tracking-tight px-auto mt-1 text-gray-900 dark:text-white">{item.talent_name} </h5>
+                              </div>
+                            </Card>
                           </div>
-                        </Card>
-                      </div>
-                    </div>
-                    <div className=" justify-center flex">
-                      <div className="max-w-sm">
-                        <Card>
-                          <div className="flex ">
-                            <Image width={50} height={50} src="/favicon.ico" className="pr-2" alt="" />
-                            <h5 className="text-2xl font-bold tracking-tight px-auto mt-1 text-gray-900 dark:text-white">Noteworthy </h5>
-                          </div>
-                        </Card>
-                      </div>
-                    </div>
-                    <div className=" justify-center flex">
-                      <div className="max-w-sm">
-                        <Card>
-                          <div className="flex ">
-                            <Image width={50} height={50} src="/favicon.ico" className="pr-2" alt="" />
-                            <h5 className="text-2xl font-bold tracking-tight px-auto mt-1 text-gray-900 dark:text-white">Noteworthy </h5>
-                          </div>
-                        </Card>
-                      </div>
-                    </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
             </div>
+
             <div className="w-[30%] h-full sticky top-36 z-10   hidden sm:block">
               <div className="py-10 pr-16 pl-7">
                 <div className="max-w-sm  rounded-md overflow-hidden bg-white border-slate-400 border border-solid   hover:drop-shadow-xl">
                   <div className="px-3 py-4 ">
-                    <div className="font-bold text-xl mb-2 ">Ticket Category</div>
+                    <div className="font-bold text-xl mb-2 pb-1 ">Ticket Category</div>
                   </div>
+
                   <div className="px-3 py-4 bg-slate-200 divide-x-2 ">
                     <div className=" text-xl mb-2  ">
                       <ul className="my-4 space-y-3 border-yellow-500 border-solid border-l-4 rounded-lg">
                         <li>
-                          <div className="group flex items-center rounded-lg bg-white p-3 text-base font-bold text-gray-900  dark:bg-gray-600 dark:text-white ">
-                            <ul className=" flex-1">
-                              <li className="ml-3 text-xs whitespace-nowrap">Presale 1</li>
-                              <li className="ml-3 whitespace-nowrap">Rp. 100.000</li>
-                            </ul>
-                            <a href="/event">
-                              <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-3 border  hover:border-transparent rounded-lg">add</button>
-                            </a>
+                          <div className="row gap-1">
+                            <div className="col ">
+                              {categoryItem.map((item) => {
+                                return (
+                                  <div className="group flex items-center rounded-lg bg-white p-3 text-base font-bold text-gray-900  dark:bg-gray-600 dark:text-white ">
+                                    <ul className=" flex-1">
+                                      <li className="ml-3 text-xs whitespace-nowrap">{item.category_name}</li>
+                                      <li className="ml-3 whitespace-nowrap">Rp. {item.price}</li>
+                                    </ul>
+
+                                    <a href="/event">
+                                      <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-3 border  hover:border-transparent rounded-lg">add</button>
+                                    </a>
+                                  </div>
+                                );
+                              })}
+                            </div>
                           </div>
                         </li>
                       </ul>
                     </div>
                   </div>
+
                   <div className="px-3 py-4 ">
                     <div className="font-semibold text-md ">Total:</div>
                     <div className="grid-cols-2 grid">

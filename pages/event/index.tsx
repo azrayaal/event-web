@@ -1,9 +1,21 @@
 import Link from 'next/link';
+import { useCallback, useEffect, useState } from 'react';
 import CardsEvent from '../../components/cards/cards-event';
 import Layouts from '../../components/layout';
+import { getFeaturedEvent } from '../../services/pages';
 import styles from '../../styles/Event.module.css';
 
 export default function Event() {
+  const [eventList, setEventList] = useState([]);
+
+  const getEventList = useCallback(async () => {
+    const data = await getFeaturedEvent();
+    setEventList(data);
+  }, [getFeaturedEvent]);
+
+  useEffect(() => {
+    getEventList();
+  }, []);
   return (
     <>
       <Layouts pageTitle="Events">
@@ -14,27 +26,10 @@ export default function Event() {
           </div>
 
           <div className="div">
-            <div className=" grid md:grid-cols-3 sm:grid-cols-2 gap-8 pb-5 sm:px-16 px-0">
-              <div>
-                <Link href="/event/33">
-                  <CardsEvent />
-                </Link>
-              </div>
-              <div>
-                <Link href="/event/33">
-                  <CardsEvent />
-                </Link>
-              </div>
-              <div>
-                <Link href="/event/33">
-                  <CardsEvent />
-                </Link>
-              </div>
-              <div>
-                <Link href="/event/33">
-                  <CardsEvent />
-                </Link>
-              </div>
+            <div className=" grid md:grid-cols-3 sm:grid-cols-2 gap-8 pb-5 ">
+              {eventList.map((item) => {
+                return <CardsEvent key={item._id} id={item._id} event_name={item.event_name} description={item.description} banner={item.banner} />;
+              })}
             </div>
             <div className="mt-10 ">
               <div className={styles.buttonCenter}>
