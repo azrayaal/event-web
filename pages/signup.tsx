@@ -4,7 +4,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Layouts from '../components/layout';
 import { getSignUpApi } from '../services/auth';
 import Link from 'next/link';
-// import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
 export default function signup() {
   const [name, setName] = useState('');
@@ -13,6 +14,8 @@ export default function signup() {
   const [phoneNumber, setphoneNumber] = useState('');
   const [image, setImage] = useState<any>('');
   const [imagePreview, setImagePreview] = useState<any>(null);
+
+  const route = useRouter();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -23,21 +26,26 @@ export default function signup() {
     data.append('email', email);
     data.append('phoneNumber', phoneNumber);
     data.append('password', password);
-    // data.append('password', password);
 
-    // const result = await getSignUpApi(data);
-    // if (result.error) {
-    //   toast.error(result.message, {
-    //     theme: 'colored',
-    //   });
-    // } else {
-    //   toast.success('Register Berhasil');
-    //   // router.push('/sign-up-success');
-    //   localStorage.removeItem('user-form');
-    // }
+    const dataSignUp = {
+      image,
+      name,
+      email,
+      phoneNumber,
+      password,
+    };
 
     const result = await getSignUpApi(data);
-    console.log('result: ', result);
+    if (result.error) {
+      toast.error(result.message, {
+        theme: 'colored',
+      });
+    } else {
+      // localStorage.setItem('signup', JSON.stringify(dataSignUp));
+      toast.success('Register Berhasil');
+      // console.log('result: ', result);
+      route.push('/signin');
+    }
   };
 
   // const [startDate, setStartDate] = useState(new Date());

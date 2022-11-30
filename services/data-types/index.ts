@@ -13,6 +13,7 @@ export interface TalentTypes {
 
 export interface CategoryTypes {
   _id: string;
+  key: string;
   category_name: string;
   price: string;
 }

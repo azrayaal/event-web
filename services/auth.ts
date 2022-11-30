@@ -1,13 +1,16 @@
-import axios from 'axios';
+import callAPI from '../config/api';
 
 const URL = 'auth';
+const ROOT_API = process.env.NEXT_PUBLIC_API;
 
 export async function getSignUpApi(data: FormData) {
-  const ROOT_API = process.env.NEXT_PUBLIC_API;
-  const response = await axios.post(`${ROOT_API}/${URL}/signup`, data);
-  const axiosResponse = response.data;
-  // console.log(response.data);
-  return axiosResponse.data;
+  const url = `${ROOT_API}/${URL}/signup`;
+
+  return callAPI({
+    url,
+    method: 'POST',
+    data,
+  });
 }
 
 export async function getDetailEvent() {
