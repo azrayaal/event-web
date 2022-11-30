@@ -1,14 +1,12 @@
-import React, { useCallback, useEffect } from 'react';
-import { useState } from 'react';
-import Layouts from '../../components/layout';
-import NavbarsDetail from '../../components/header/headerEventDetail';
-import Footers from '../../components/footer';
-import Link from 'next/link';
 import { Card } from 'flowbite-react';
-import Image from 'next/image';
-import '../../styles/Event.module.css';
-import { getDetailEvent } from '../../services/pages';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import Footers from '../../components/footer';
+import NavbarsDetail from '../../components/header/headerEventDetail';
+import { CategoryTypes, TalentTypes } from '../../services/data-types';
+import { getDetailEvent } from '../../services/pages';
+import '../../styles/Event.module.css';
 
 export default function EventDetails() {
   const [clicked, setClicked] = useState('');
@@ -47,7 +45,6 @@ export default function EventDetails() {
     <>
       <div className={clicked2 || 'block'}>
         <NavbarsDetail />
-
         <nav className="sticky z-30 top-0  bg-[#172029] hidden sm:block  drop-shadow shadow-blue-600">
           <div className="grid grid-cols-3  ">
             <div className="pl-16 text-slate-50 my-10">
@@ -93,7 +90,7 @@ export default function EventDetails() {
                 <div className="TALENT">
                   <div className="text-2xl font-bold pb-10 pl-10 sm:pl-0 ">Talent</div>
                   <div className=" grid-cols-1 grid md:grid-cols-3 sm:grid-cols-2 gap-2 pb-5 mx-6 ">
-                    {talentItem.map((item) => {
+                    {talentItem.map((item: TalentTypes) => {
                       return (
                         <div key={item._id} className=" justify-center flex">
                           <div className="max-w-sm">
@@ -125,7 +122,7 @@ export default function EventDetails() {
                         <li>
                           <div className="row gap-1">
                             <div className="col ">
-                              {categoryItem.map((item) => {
+                              {categoryItem.map((item: CategoryTypes) => {
                                 return (
                                   <div className="group flex items-center rounded-lg bg-white p-3 text-base font-bold text-gray-900  dark:bg-gray-600 dark:text-white ">
                                     <ul className=" flex-1">

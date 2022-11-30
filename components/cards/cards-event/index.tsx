@@ -2,20 +2,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-interface cardEventProps {
+interface CardEventProps {
   event_name: string;
   description: string;
   id: string;
   banner: string;
 }
 
-export default function CardsEvent(props: cardEventProps) {
+export default function CardsEvent(props: CardEventProps) {
+  const IMG = process.env.NEXT_PUBLIC_IMG;
+
   const { event_name, description, id, banner } = props;
   return (
     <Link href={`/event/${id}`}>
       <div className="max-w-sm  rounded-2xl overflow-hidden  border-slate-200 border border-solid bg-slate-100  hover:drop-shadow-xl">
         <div className="px-3 py-4 ">
-          <img className="w-full rounded-2xl min-h-[250px] max-h-[250px]" src={`http://localhost:4000/uploads/${banner}`} alt="Sunset in the mountains" />
+          <img className="w-full rounded-2xl min-h-[250px] max-h-[250px]" src={`${IMG}/${banner}`} alt="Sunset in the mountains" />
           <div className="font-bold text-xl mb-2 pt-4">{event_name}</div>
 
           <div className="max-h-24 min-h-24  h-[100px]">
