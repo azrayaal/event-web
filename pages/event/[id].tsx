@@ -2,8 +2,10 @@ import { Card } from 'flowbite-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import CategoryCards from '../../components/cards/card-category';
 import Footers from '../../components/footer';
-import NavbarsDetail from '../../components/header/headerEventDetail';
+import Navbars from '../../components/header';
 import { CategoryTypes, TalentTypes } from '../../services/data-types';
 import { getDetailEvent } from '../../services/pages';
 import '../../styles/Event.module.css';
@@ -28,6 +30,7 @@ export default function EventDetails() {
 
   const [talentItem, setTalentitem] = useState([]);
   const [categoryItem, setCategoryItem] = useState([]);
+  const [totalCO, setTotalCO] = useState(0);
 
   const getEventDetailAPI = useCallback(async (id) => {
     const data = await getDetailEvent(id);
@@ -38,16 +41,26 @@ export default function EventDetails() {
   }, []);
 
   useEffect(() => {
+    const dataFromLocal = localStorage.getItem('checkout-item');
+    const dataItemLocal = JSON.parse(dataFromLocal!);
+    const dataTotal = dataItemLocal.price;
+    // console.log('data CO=>', dataItemLocal);
+    setTotalCO(dataTotal);
+
     getEventDetailAPI(query.id);
   }, [isReady]);
+
+  const IMG = process.env.NEXT_PUBLIC_IMG;
 
   return (
     <>
       <div className={clicked2 || 'block'}>
-        <NavbarsDetail />
-        <nav className="sticky z-30 top-0  bg-[#172029] hidden sm:block  drop-shadow shadow-blue-600">
+        {/* <NavbarsDetail /> */}
+        <Navbars />
+
+        <nav className="sticky z-20 top-0  bg-[#172029] hidden sm:block max-h-32 drop-shadow shadow-blue-600">
           <div className="grid grid-cols-3  ">
-            <div className="pl-16 text-slate-50 my-10">
+            <div className="pl-16 text-slate-50 my-3">
               <div className="NAMAEVENT font-extrabold text-3xl">{dataItem.event_name}</div>
               <ul className="pt-10">
                 <li className="inline-block text-sm text-slate-400">Created by:</li>
@@ -57,10 +70,10 @@ export default function EventDetails() {
               </ul>
             </div>
             <div className="text-right">
-              <div className="absolute left-[67%] top-10 -ml-0.5 w-0.5 h-[6rem] bg-yellow-500"></div>
+              <div className="absolute left-[67%] top-4 -ml-0.5 w-0.5 h-[6rem] bg-yellow-500"></div>
             </div>
             <div className="">
-              <ul className="pl-8 text-slate-50 my-10">
+              <ul className="pl-8 text-slate-50 my-3">
                 <li className="Time text-sm">{dataItem.date} | 17:00:00</li>
                 <li className="Place my-5 text-sm">{dataItem.location} </li>
                 <li className="Map text-sm font-bold">
@@ -72,12 +85,13 @@ export default function EventDetails() {
             </div>
           </div>
         </nav>
+
         <div className="h-full">
           <div className="flex mb-4">
             <div className=" w-full sm:w-[70%] h-full  ">
               <div className=" pt-0 sm:pt-10 sm:px-16 px-0">
                 <div className="sm:border-[1.5px] border-0 sm:py-10 py-0 justify-center flex  border-solid border-slate-400 rounded-md">
-                  <img src={`http://localhost:4000/uploads/${dataItem.banner}`} className="sm:rounded-md rounded-none" alt="" />
+                  <img src={`${IMG}/${dataItem.banner}`} className="sm:rounded-md rounded-none" alt="" />
                 </div>
                 <div className="Description pt-10 sm:px-0 px-10">
                   <h1 className="text-2xl font-bold">{dataItem.event_name}</h1>
@@ -96,7 +110,7 @@ export default function EventDetails() {
                           <div className="max-w-sm">
                             <Card>
                               <div className="flex ">
-                                <img width={50} height={50} src={`http://localhost:4000/uploads/${item.talent_picture}`} className="pr-2 rounded-full" alt="" />
+                                <img width={50} height={50} src={`${IMG}/${item.talent_picture}`} className="pr-2 rounded-full" alt="" />
                                 <h5 className="text-2xl font-bold tracking-tight px-auto mt-1 text-gray-900 dark:text-white">{item.talent_name} </h5>
                               </div>
                             </Card>
@@ -116,37 +130,17 @@ export default function EventDetails() {
                     <div className="font-bold text-xl mb-2 pb-1 ">Ticket Category</div>
                   </div>
 
-                  <div className="px-3 py-4 bg-slate-200 divide-x-2 ">
-                    <div className=" text-xl mb-2  ">
-                      <ul className="my-4 space-y-3 border-yellow-500 border-solid border-l-4 rounded-lg">
-                        <li>
-                          <div className="row gap-1">
-                            <div className="col ">
-                              {categoryItem.map((item: CategoryTypes) => {
-                                return (
-                                  <div className="group flex items-center rounded-lg bg-white p-3 text-base font-bold text-gray-900  dark:bg-gray-600 dark:text-white ">
-                                    <ul className=" flex-1">
-                                      <li className="ml-3 text-xs whitespace-nowrap">{item.category_name}</li>
-                                      <li className="ml-3 whitespace-nowrap">Rp. {item.price}</li>
-                                    </ul>
-
-                                    <a href="/event">
-                                      <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-3 border  hover:border-transparent rounded-lg">add</button>
-                                    </a>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                  <div className="px-3 py-2 bg-slate-200 divide-x-2 " />
+                  {categoryItem.map((item: CategoryTypes) => {
+                    return <CategoryCards category_name={item.category_name} price={item.price} key={item._id} id={item._id} />;
+                    // return <CategoryCards />;
+                  })}
+                  <div className="px-3 py-2 bg-slate-200 divide-x-2 " />
 
                   <div className="px-3 py-4 ">
                     <div className="font-semibold text-md ">Total:</div>
                     <div className="grid-cols-2 grid">
-                      <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. 0</div>
+                      <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. {totalCO}</div>
                       <div className="font-bold text-xl mb-2 text-yellow-500 ml-auto">
                         <Link href="/event">
                           <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">Chekout</button>
