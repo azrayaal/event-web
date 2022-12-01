@@ -17,3 +17,8 @@ export interface CategoryTypes {
   category_name: string;
   price: string;
 }
+
+export interface LoginTypes {
+  email: string;
+  password: string;
+}

@@ -1,118 +1,106 @@
-import React, { useState } from 'react';
+import { Card } from 'flowbite-react';
+import { useState } from 'react';
 import Layouts from '../components/layout';
-import { Card, Label, FileInput, TextInput, Radio } from 'flowbite-react';
-import DatePicker from 'react-datepicker';
-
+import Image from 'next/image';
 import 'react-datepicker/dist/react-datepicker.css';
-
-const inputan = [
-  { nama: 'Email', Placeholder: 'Apa Emailnya??' },
-  { nama: 'Nama', Placeholder: 'Siapa Namanya??' },
-  { nama: 'Nomor Telefon', Placeholder: 'Nomor Telefonya kaka' },
-];
+import styles from '../styles/Signup.module.css';
 
 export default function profile() {
-  const [startDate, setStartDate] = useState(new Date());
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [phoneNumber, setphoneNumber] = useState('');
+  const [image, setImage] = useState<any>('');
+  const [imagePreview, setImagePreview] = useState<any>('');
+
+  const onSubmit = () => {
+    console.log('hahah');
+  };
   return (
     <Layouts pageTitle="Edit Profile">
-      <div className="sm:px-[4rem] px-[3rem] h-content pb-24">
-        <div className="flex h-full">
-          <div className=" w-[100%] sm:w-[35%] pt-10">
-            <div className="max-w-sm mx-auto">
-              <Card>
-                <img src="/profile.svg" alt="a" className="rounded-full" />
-                <div id="fileUpload">
-                  <FileInput id="file" />
-                </div>
-              </Card>
-              {/* mobile data input */}
-              <div className=" sm:hidden block w-[100%] pt-10 ">
-                <div className="">
-                  <Card>
-                    {inputan.map((item) => (
-                      <div className="inputan1">
-                        <div className="mb-2 block ">
-                          <Label htmlFor="username3" color="green" value={item.nama} />
-                        </div>
-                        <TextInput id="username" placeholder={item.Placeholder} required={true} color="green" className="w-[90%] " />
-                      </div>
-                    ))}
-
-                    {/* date */}
-                    <div>
-                      <div className="mb-2 block ">
-                        <Label htmlFor="username3" color="green" value="Tanggal berapa lahirnya" />
-                      </div>
-                      <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} className="rounded-lg" />
-                    </div>
-
-                    {/* gender */}
-                    <div>
-                      <fieldset className="flex flex-col gap-4" id="radio">
-                        <div className="mb-2 block ">
-                          <Label htmlFor="username3" color="green" value="gender" />
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Radio id="Male" name="gender" value="USA" defaultChecked={true} />
-                          <Label htmlFor="Male">Male</Label>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Radio id="Female" name="gender" value="Female" />
-                          <Label htmlFor="Female">Female</Label>
-                        </div>
-                      </fieldset>
-                    </div>
-                    <a href="" className="">
-                      <button className="bg-slate-500 w-full hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">Simpan</button>
-                    </a>
-                  </Card>
+      <div className="sm:px-[4rem] px-[1rem] h-screen  py-10  bg-slate-100">
+        <div className=" h-full place-content-center flex">
+          <div className="sm:mx-5 mx-auto sm:w-[50%] w-[100%]">
+            <Card>
+              <div className={styles.signupphoto}>
+                <label htmlFor="image">
+                  {imagePreview ? (
+                    <Image src={imagePreview} width={120} height={120} className="img-upload rounded-full" alt="upload" />
+                  ) : (
+                    <Image src="/upload.svg" width={120} height={120} className="img-upload rounded-full" alt="upload" />
+                  )}
+                </label>
+                <input
+                  id="image"
+                  type="file"
+                  name="avatar"
+                  accept="image/png, image/jpeg"
+                  onChange={(event) => {
+                    // console.log(event.target.files);
+                    const img = event.target.files![0];
+                    setImagePreview(URL.createObjectURL(img));
+                    return setImage(img);
+                  }}
+                />
+              </div>
+              {/* </Card> */}
+              <div className="inputan1 email">
+                <div className=" content-center">
+                  <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Email</label>
+                  <input
+                    className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                    type="email"
+                    placeholder="email@mail.com"
+                    id="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="hidden sm:block sm:w-[65%] pt-10 ">
-            <div className="  mx-5">
-              <Card>
-                {inputan.map((item) => (
-                  <div className="inputan1">
-                    <div className="mb-2 block ">
-                      <Label htmlFor="username3" color="green" value={item.nama} />
-                    </div>
-                    <TextInput id="username" placeholder={item.Placeholder} required={true} color="green" className="w-[90%] " />
-                  </div>
-                ))}
-
-                {/* date */}
-                <div>
-                  <div className="mb-2 block ">
-                    <Label htmlFor="username3" color="green" value="Tanggal berapa lahirnya" />
-                  </div>
-                  <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} className="rounded-lg" />
+              <div className="inputan1 nama">
+                <div className=" content-center">
+                  <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">name</label>
+                  <input
+                    className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                    type="name"
+                    placeholder="siapa namanya??"
+                    id="name"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                  />
                 </div>
-
-                {/* gender */}
-                <div>
-                  <fieldset className="flex flex-col gap-4" id="radio">
-                    <div>
-                      <div className="mb-2 block ">
-                        <Label htmlFor="username3" color="green" value="gender" />
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Radio id="Male" name="gender" value="USA" defaultChecked={true} />
-                        <Label htmlFor="Male">Male</Label>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio id="Female" name="gender" value="Female" />
-                      <Label htmlFor="Female">Female</Label>
-                    </div>
-                  </fieldset>
+              </div>
+              <div className="inputan1 nama">
+                <div className=" content-center">
+                  <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Nomor Telfon</label>
+                  <input
+                    className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                    type=""
+                    placeholder="Berapa nomernya??"
+                    id="phoneNumber"
+                    value={phoneNumber}
+                    onChange={(event) => setphoneNumber(event.target.value)}
+                  />
                 </div>
-                <a href="" className="">
-                  <button className="bg-slate-500 w-full hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">Simpan</button>
-                </a>
-              </Card>
-            </div>
+              </div>
+              <div className="inputan1 nama">
+                <div className=" content-center">
+                  <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Password</label>
+                  <input
+                    className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                    type="password"
+                    placeholder="Masukan Password"
+                    id="password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
+                </div>
+              </div>
+
+              <button onClick={onSubmit} className="bg-slate-800 w-full hover:bg-slate-700 font-semibold text-white py-2 px-2 border  hover:border-transparent rounded-3xl">
+                Create my account
+              </button>
+            </Card>
           </div>
         </div>
       </div>

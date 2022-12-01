@@ -1,6 +1,5 @@
-import React from 'react';
 import Image from 'next/image';
-import styles from './footer.module.css';
+import Link from 'next/link';
 
 export default function Footers() {
   return (
@@ -9,7 +8,6 @@ export default function Footers() {
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <a href="#" target="_blank" className="flex items-center">
-              {/* <img src="https://flowbite.com/docs/images/logo.svg" className="mr-4 h-10" alt="FlowBite Logo" /> */}
               <span className="self-center text-xl font-semibold whitespace-nowrap text-gray-200"> Leisure Event</span>
             </a>
           </div>
@@ -92,6 +90,32 @@ export default function Footers() {
           </div>
         </div>
       </footer>
+
+      <div className="w-full ">
+        <section id="bottom-navigation" className="md:hidden block fixed inset-x-0 bottom-0 z-10  bg-white shadow">
+          <nav className="bg-gray-300 border-gray-200 sm:px-4 dark:bg-gray-900">
+            <div className="h-full ">
+              <div className="flex">
+                <div className="w-[33%] hover:bg-gray-500 py-[18px]">
+                  <Link href="/" className="flex items-center justify-center text-8xl font-semibold whitespace-nowrap ">
+                    <Image alt="icon" width={35} height={35} src="/home.svg" className="logonya pr-2" />
+                  </Link>
+                </div>
+                <div className="w-[33%] hover:bg-gray-500 py-[18px]">
+                  <Link href="/transactions" className="flex items-center justify-center text-8xl font-semibold whitespace-nowrap ">
+                    <Image alt="icon" width={35} height={35} src="/dompet.svg" className="logonya pr-2" />
+                  </Link>
+                </div>
+                <div className="w-[33%] hover:bg-gray-500 py-[18px]">
+                  <Link href="tickets" className="flex items-center justify-center text-8xl font-semibold whitespace-nowrap ">
+                    <Image alt="icon" width={35} height={35} src="/coupon.svg" className="logonya pr-2" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </section>
+      </div>
     </>
   );
 }

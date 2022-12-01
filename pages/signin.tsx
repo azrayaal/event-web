@@ -1,7 +1,46 @@
-import React from 'react';
-import { TextInput, Label } from 'flowbite-react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { getSignIn } from '../services/auth';
+
+import Cookies from 'js-cookie';
 
 export default function signin() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const route = useRouter();
+
+  const onSubmitLogin = async (event) => {
+    event.preventDefault();
+    const dataLogin = {
+      email,
+      password,
+    };
+
+    if (!email || !password) {
+      toast.error('Email atau Password tidak boleh kosong', { theme: 'colored' });
+    } else {
+      const response = await getSignIn(dataLogin);
+      if (response.error) {
+        toast.error(response.message, {
+          theme: 'colored',
+        });
+      } else {
+        toast.success('Berhasil Login', {
+          theme: 'colored',
+        });
+        // console.log(response.data);
+        const { token } = response.data;
+        const tokenBase64 = btoa(token);
+        Cookies.set('token', tokenBase64, {
+          expires: 1,
+        });
+        route.push('/');
+      }
+    }
+  };
+
   return (
     <div className="relative min-h-screen flex ">
       <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
@@ -25,22 +64,29 @@ export default function signin() {
               <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome Back!</h2>
               <p className="mt-2 text-sm text-gray-500">Please sign in to your account</p>
             </div>
+
             <form className="mt-8 space-y-6" action="#" method="POST">
               <input type="hidden" name="remember" value="true" />
               <div className="relative">
-                {/* <div className="absolute right-3 mt-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                </div> */}
                 <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Email</label>
-
-                <input className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500" type="" placeholder="email@mail.com" id="email"></input>
+                <input
+                  className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                  type=""
+                  placeholder="email@mail.com"
+                  id="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
               </div>
               <div className="mt-8 content-center">
                 <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Password</label>
-
-                <input className="w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-indigo-500" type="" placeholder="Enter your password" />
+                <input
+                  className="w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-indigo-500"
+                  type=""
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                />
               </div>
 
               <div className="flex items-center justify-between">
@@ -60,6 +106,7 @@ export default function signin() {
                 <button
                   type="submit"
                   className="w-full flex justify-center bg-gradient-to-r from-indigo-500 to-blue-600  hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-4  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500"
+                  onClick={onSubmitLogin}
                 >
                   Sign in
                 </button>

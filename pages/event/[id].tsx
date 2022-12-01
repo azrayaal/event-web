@@ -30,22 +30,22 @@ export default function EventDetails() {
 
   const [talentItem, setTalentitem] = useState([]);
   const [categoryItem, setCategoryItem] = useState([]);
-  const [totalCO, setTotalCO] = useState(0);
+  // const [totalCO, setTotalCO] = useState(0);
 
   const getEventDetailAPI = useCallback(async (id) => {
     const data = await getDetailEvent(id);
-    console.log('data ', data);
-    setDataItem(data);
-    setTalentitem(data.talent);
-    setCategoryItem(data.category);
+    // console.log('data detail', data.data.category);
+    setDataItem(data.data);
+    setTalentitem(data.data.talent);
+    setCategoryItem(data.data.category);
   }, []);
 
   useEffect(() => {
-    const dataFromLocal = localStorage.getItem('checkout-item');
-    const dataItemLocal = JSON.parse(dataFromLocal!);
-    const dataTotal = dataItemLocal.price;
+    // const dataFromLocal = localStorage.getItem('checkout-item');
+    // const dataItemLocal = JSON.parse(dataFromLocal!);
+    // const dataTotal = dataItemLocal.price;
     // console.log('data CO=>', dataItemLocal);
-    setTotalCO(dataTotal);
+    // setTotalCO(dataTotal);
 
     getEventDetailAPI(query.id);
   }, [isReady]);
@@ -140,7 +140,7 @@ export default function EventDetails() {
                   <div className="px-3 py-4 ">
                     <div className="font-semibold text-md ">Total:</div>
                     <div className="grid-cols-2 grid">
-                      <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. {totalCO}</div>
+                      {/* <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. {totalCO}</div> */}
                       <div className="font-bold text-xl mb-2 text-yellow-500 ml-auto">
                         <Link href="/event">
                           <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">Chekout</button>

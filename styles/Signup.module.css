@@ -1,0 +1,22 @@
+/*
+.signupphoto .image-upload > input {
+  background-color: red;
+  width: 0;
+  height: 0;
+}
+
+.signupphoto .image-upload > label {
+  cursor: pointer;
+}
+*/
+.signupphoto > input {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.signupphoto > label {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}

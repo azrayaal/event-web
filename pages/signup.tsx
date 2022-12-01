@@ -1,11 +1,12 @@
-import { Card, Label } from 'flowbite-react';
+import { Card, FileInput } from 'flowbite-react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
-import Layouts from '../components/layout';
-import { getSignUpApi } from '../services/auth';
-import Link from 'next/link';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/router';
+import { getSignUpApi } from '../services/auth';
+
+import styles from '../styles/Signup.module.css';
 
 export default function signup() {
   const [name, setName] = useState('');
@@ -27,13 +28,13 @@ export default function signup() {
     data.append('phoneNumber', phoneNumber);
     data.append('password', password);
 
-    const dataSignUp = {
-      image,
-      name,
-      email,
-      phoneNumber,
-      password,
-    };
+    // const dataSignUp = {
+    //   image,
+    //   name,
+    //   email,
+    //   phoneNumber,
+    //   password,
+    // };
 
     const result = await getSignUpApi(data);
     if (result.error) {
@@ -48,152 +49,88 @@ export default function signup() {
     }
   };
 
-  // const [startDate, setStartDate] = useState(new Date());
   return (
-    <Layouts pageTitle="Sign Up">
-      <div className="sm:px-[4rem] px-[3rem] h-[100%] pb-24 bg-slate-100">
-        <div className="flex h-full">
-          <div className=" w-[100%] sm:w-[35%] pt-10">
-            <div className="max-w-sm mx-auto">
-              <Card className="">
-                {/* <img src="/profile.svg" alt="a" className="rounded-full" /> */}
-                {/* img */}
-                <div className="image-upload text-center">
-                  <label htmlFor="image">{imagePreview ? <img src={imagePreview} className="img-upload rounded-full" alt="upload" /> : <img src="/profile.svg" width={120} height={120} className="img-upload rounded-full" />}</label>
-                  {/* kalo buat input yg biasa dia 'event.target.value'
-                   kalo buat masukin gambar ' event.target.files' */}
-                  <input
-                    id="avatar"
-                    type="file"
-                    name="avatar"
-                    accept="image/png, image/jpeg"
-                    onChange={(event) => {
-                      // console.log(event.target.files);
-                      const img = event.target.files![0];
-                      setImagePreview(URL.createObjectURL(img));
-                      return setImage(img);
-                    }}
-                  />
-                </div>
-                {/* end of img */}
-                {/* <div id="fileUpload">
-                  <FileInput id="file" />
-                </div> */}
-              </Card>
-              {/* mobile data input */}
-              <div className=" sm:hidden block w-[100%] pt-10 ">
-                <div className=" ">
-                  <Card className="shadow-2xl">
-                    <div className="inputan1 email">
-                      <div className="mb-2 block ">
-                        <Label htmlFor="username3" color="green" value="Email" />
-                      </div>
-                      <input id="username" value={email} name="email" onChange={(event) => setEmail(event.target.value)} placeholder="apa emailnya??" required={true} color="green" className="w-[90%] " />
-                    </div>
-                    <div className="inputan1 nama">
-                      <div className="mb-2 block ">
-                        <Label htmlFor="username3" color="green" value="Nama" />
-                      </div>
-                      <input id="username" value={name} name="name" onChange={(event) => setName(event.target.value)} placeholder="siapa namanya??" required={true} color="green" className="w-[90%] " />
-                    </div>
-                    <div className="inputan1 notelp">
-                      <div className="mb-2 block ">
-                        <Label htmlFor="username3" color="green" value="No Telp" />
-                      </div>
-                      <input id="username" value={phoneNumber} name="phoneNumber" onChange={(event) => setphoneNumber(event.target.value)} placeholder="berapa nomernya??" required={true} color="green" className="w-[90%] " />
-                    </div>
-                    <div className="inputan1 password">
-                      <div className="mb-2 block ">
-                        <Label htmlFor="username3" color="green" value="Password" />
-                      </div>
-                      <input
-                        id="username"
-                        type="password"
-                        value={password}
-                        name="password"
-                        aria-describedby="password"
-                        onChange={(event) => setPassword(event.target.value)}
-                        placeholder="Masukan Password"
-                        required={true}
-                        color="green"
-                        className="w-[90%] "
-                      />
-                    </div>
-
-                    <Link href="/" className="">
-                      <button onClick={onSubmit} className="bg-slate-500 w-full hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">
-                        Create my account
-                      </button>
-                    </Link>
-                  </Card>
-                </div>
+    <div className="sm:px-[4rem] px-[1rem] h-[100%] pb-24 py-10 bg-slate-100">
+      <div className=" h-full   place-content-center flex">
+        <div className="sm:mx-5 mx-auto sm:w-[50%] w-[100%]">
+          <Card>
+            <div className={styles.signupphoto}>
+              <label htmlFor="image">
+                {imagePreview ? <Image src={imagePreview} width={120} height={120} className="img-upload rounded-full" alt="upload" /> : <Image src="/upload.svg" width={120} height={120} className="img-upload rounded-full" alt="upload" />}
+              </label>
+              <input
+                id="image"
+                type="file"
+                name="avatar"
+                accept="image/png, image/jpeg"
+                onChange={(event) => {
+                  // console.log(event.target.files);
+                  const img = event.target.files![0];
+                  setImagePreview(URL.createObjectURL(img));
+                  return setImage(img);
+                }}
+              />
+            </div>
+            {/* </Card> */}
+            <div className="inputan1 email">
+              <div className=" content-center">
+                <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Email</label>
+                <input
+                  className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                  type="email"
+                  placeholder="email@mail.com"
+                  id="email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
               </div>
             </div>
-          </div>
-          <div className="hidden sm:block sm:w-[65%] pt-10 ">
-            <div className="  mx-5">
-              <Card>
-                <div className="inputan1 email">
-                  <div className="mb-2 block ">
-                    <Label htmlFor="username3" color="green" value="Email" />
-                  </div>
-                  <input id="username" value={email} name="email" onChange={(event) => setEmail(event.target.value)} placeholder="apa emailnya??" required={true} color="green" className="w-[90%] " />
-                </div>
-                <div className="inputan1 nama">
-                  <div className="mb-2 block ">
-                    <Label htmlFor="username3" color="green" value="Nama" />
-                  </div>
-                  <input id="username" value={name} name="name" onChange={(event) => setName(event.target.value)} placeholder="siapa namanya??" required={true} color="green" className="w-[90%] " />
-                </div>
-                <div className="inputan1 notelp">
-                  <div className="mb-2 block ">
-                    <Label htmlFor="username3" color="green" value="No Telp" />
-                  </div>
-                  <input id="username" value={phoneNumber} name="phoneNumber" onChange={(event) => setphoneNumber(event.target.value)} placeholder="berapa nomernya??" required={true} color="green" className="w-[90%] " />
-                </div>
-                <div className="inputan1 password">
-                  <div className="mb-2 block ">
-                    <Label htmlFor="username3" color="green" value="Password" />
-                  </div>
-                  <input id="username" value={password} name="password" aria-describedby="password" onChange={(event) => setPassword(event.target.value)} placeholder="Masukan Password" required={true} color="green" className="w-[90%] " />
-                </div>
-
-                {/* date */}
-                {/* <div>
-                  <div className="mb-2 block ">
-                    <Label htmlFor="username3" color="green" value="Tanggal berapa lahirnya" />
-                  </div>
-                  <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} className="rounded-lg" />
-                </div> */}
-
-                {/* gender */}
-                {/* <div>
-                  <fieldset className="flex flex-col gap-4" id="radio">
-                    <div>
-                      <div className="mb-2 block ">
-                        <Label htmlFor="username3" color="green" value="gender" />
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Radio id="Male" name="gender" value="USA" defaultChecked={true} />
-                        <Label htmlFor="Male">Male</Label>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Radio id="Female" name="gender" value="Female" />
-                      <Label htmlFor="Female">Female</Label>
-                    </div>
-                  </fieldset>
-                </div> */}
-                <Link href="/" className="">
-                  <button onClick={onSubmit} className="bg-slate-500 w-full hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">
-                    Create my account
-                  </button>
-                </Link>
-              </Card>
+            <div className="inputan1 nama">
+              <div className=" content-center">
+                <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">name</label>
+                <input
+                  className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                  type="name"
+                  placeholder="siapa namanya??"
+                  id="name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
+                />
+              </div>
             </div>
-          </div>
+            <div className="inputan1 nama">
+              <div className=" content-center">
+                <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Nomor Telfon</label>
+                <input
+                  className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                  type=""
+                  placeholder="Berapa nomernya??"
+                  id="phoneNumber"
+                  value={phoneNumber}
+                  onChange={(event) => setphoneNumber(event.target.value)}
+                />
+              </div>
+            </div>
+            <div className="inputan1 nama">
+              <div className=" content-center">
+                <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Password</label>
+                <input
+                  className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
+                  type="password"
+                  placeholder="Masukan Password"
+                  id="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                />
+              </div>
+            </div>
+
+            <button onClick={onSubmit} className="bg-slate-800 w-full hover:bg-slate-700 font-semibold text-white py-2 px-2 border  hover:border-transparent rounded-3xl">
+              Create my account
+            </button>
+          </Card>
         </div>
       </div>
-    </Layouts>
+    </div>
   );
 }
