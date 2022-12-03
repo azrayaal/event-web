@@ -15,7 +15,7 @@ export default function Home() {
   const getEventList = useCallback(async () => {
     const data = await getFeaturedEvent();
     setEventList(data);
-    console.log(data);
+    // console.log(data);
   }, []);
 
   useEffect(() => {

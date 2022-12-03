@@ -43,7 +43,9 @@ export default function signup() {
       });
     } else {
       // localStorage.setItem('signup', JSON.stringify(dataSignUp));
-      toast.success('Register Berhasil');
+      toast.success('Register Berhasil', {
+        theme: 'colored',
+      });
       // console.log('result: ', result);
       route.push('/signin');
     }

@@ -71,7 +71,7 @@ export default function signin() {
                 <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Email</label>
                 <input
                   className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
-                  type=""
+                  type="email"
                   placeholder="email@mail.com"
                   id="email"
                   value={email}
@@ -82,7 +82,7 @@ export default function signin() {
                 <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Password</label>
                 <input
                   className="w-full content-center text-base px-4 py-2 border-b rounded-2xl border-gray-300 focus:outline-none focus:border-indigo-500"
-                  type=""
+                  type="password"
                   placeholder="Enter your password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}

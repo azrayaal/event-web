@@ -18,3 +18,13 @@ export async function getDetailEvent(id: any) {
     method: 'GET',
   });
 }
+
+export async function putEditProfile(data: FormData, id: any) {
+  const url = `${ROOT_API}/${URL}/editprofile/${id}`;
+  return callAPI({
+    url,
+    data,
+    method: 'PUT',
+    token: true,
+  });
+}

@@ -22,3 +22,18 @@ export interface LoginTypes {
   email: string;
   password: string;
 }
+
+export interface UserTypes {
+  email: string;
+  name: string;
+  username: string;
+  avatar: any;
+  id: string;
+  phoneNumber: string;
+  password: string;
+}
+
+export interface JWTPayloadsTypes {
+  user: UserTypes;
+  iat: string;
+}

@@ -1,10 +1,9 @@
+import { Select } from 'flowbite-react';
+import jwtDecode from 'jwt-decode';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import Layouts from '../components/layout';
-import { Label } from 'flowbite-react';
-import { Select } from 'flowbite-react';
-import { TextInput } from 'flowbite-react';
+import { JWTPayloadsTypes, UserTypes } from '../services/data-types';
 
 export default function Tickets() {
   return (
@@ -67,4 +66,35 @@ export default function Tickets() {
       </div>
     </Layouts>
   );
+}
+
+interface GetServerSideProps {
+  req: {
+    cookies: {
+      token: string;
+    };
+  };
+}
+
+export async function getServerSideProps({ req }: GetServerSideProps) {
+  const { token } = req.cookies;
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+  const jwtToken = Buffer.from(token, 'base64').toString('ascii');
+  const payload: JWTPayloadsTypes = jwtDecode(jwtToken);
+  const userFromPayload: UserTypes = payload.user;
+  const IMG = process.env.NEXT_PUBLIC_IMG;
+  userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;
+
+  return {
+    props: {
+      user: userFromPayload,
+    },
+  };
 }
