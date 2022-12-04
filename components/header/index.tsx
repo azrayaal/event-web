@@ -1,4 +1,3 @@
-import { Disclosure } from '@headlessui/react';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 import Link from 'next/link';
@@ -55,7 +54,7 @@ export default function Navbars() {
       const userFromPayload: UserTypes = payload.user;
       const IMG = process.env.NEXT_PUBLIC_IMG;
       user.avatar = `${IMG}/${userFromPayload.avatar}`;
-      console.log('data token=>', userFromPayload);
+      // console.log('data token=>', userFromPayload);
       setIsLogin(true);
       setUser(user);
     }
@@ -64,59 +63,59 @@ export default function Navbars() {
   if (isLogin) {
     return (
       <>
-        <Disclosure as="nav" className="bg-gray-800 shadow-lg z-40">
-          {({ open }) => (
-            <>
-              <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
-                <div className="relative flex  h-16 items-center justify-between">
-                  <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                    <div className="flex flex-shrink-0 items-center mr-auto text-gray-300 ">
-                      <Link href="/" className="font-semibold whitespace-nowrap">
-                        Leisuere Eventaaa
-                      </Link>
-                    </div>
+        <nav className="bg-gray-800 shadow-lg  z-40">
+          {/* {({ open }) => ( */}
+          <>
+            <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8 ">
+              <div className="relative flex  h-16 items-center justify-between">
+                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                  <div className="flex flex-shrink-0 items-center mr-auto text-gray-300 ">
+                    <Link href="/" className="font-semibold whitespace-nowrap">
+                      Leisuere Event
+                    </Link>
+                  </div>
 
-                    {/* search box */}
-                    <div className=" justify-center hidden sm:ml-6 sm:block">
-                      <div className="mt-7 xl:w-96">
-                        <div className="input-group relative flex flex-wrap items-stretch w-full mb-4 rounded">
-                          <input
-                            type="search"
-                            className="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            placeholder="Search"
-                            aria-label="Search"
-                            aria-describedby="button-addon2"
-                          />
-                          <span className="input-group-text flex items-center px-3 py-1.5 text-base font-normal text-gray-700 text-center whitespace-nowrap rounded" id="basic-addon2"></span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Nav item */}
-                    <div className="hidden sm:ml-6 sm:block">
-                      <div className="flex mt-4 space-x-4  h-[67%]">
-                        {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3  rounded-md text-sm font-medium ')}
-                            aria-current={item.current ? 'page' : undefined}
-                          >
-                            <div className=" h-full w-26 flex  items-center ">
-                              <div className="pr-2 font-semibold whitespace-nowrap">{item.logo}</div>
-                              <div className="font-semibold whitespace-nowrap">{item.name}</div>
-                            </div>
-                          </a>
-                        ))}
+                  {/* search box */}
+                  <div className=" justify-center hidden sm:ml-6 sm:block">
+                    <div className="mt-7 xl:w-96">
+                      <div className="input-group relative flex flex-wrap items-stretch w-full mb-4 rounded">
+                        <input
+                          type="search"
+                          className="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          placeholder="Search"
+                          aria-label="Search"
+                          aria-describedby="button-addon2"
+                        />
+                        <span className="input-group-text flex items-center px-3 py-1.5 text-base font-normal text-gray-700 text-center whitespace-nowrap rounded" id="basic-addon2"></span>
                       </div>
                     </div>
                   </div>
-                  <Auth avatar={user.avatar} />
+
+                  {/* Nav item */}
+                  <div className="hidden sm:ml-6 sm:block">
+                    <div className="flex mt-4 space-x-4  h-[67%]">
+                      {navigation.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'px-3  rounded-md text-sm font-medium ')}
+                          aria-current={item.current ? 'page' : undefined}
+                        >
+                          <div className=" h-full w-26 flex  items-center ">
+                            <div className="pr-2 font-semibold whitespace-nowrap">{item.logo}</div>
+                            <div className="font-semibold whitespace-nowrap">{item.name}</div>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+                <Auth avatar={user.avatar} />
               </div>
-            </>
-          )}
-        </Disclosure>
+            </div>
+          </>
+          {/* )} */}
+        </nav>
       </>
     );
   }

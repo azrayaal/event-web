@@ -3,6 +3,8 @@ export interface EventListTypes {
   event_name: string;
   description: string;
   banner: string;
+  date: string;
+  time: string;
 }
 
 export interface TalentTypes {
@@ -15,7 +17,7 @@ export interface CategoryTypes {
   _id: string;
   key: string;
   category_name: string;
-  price: string;
+  price: number;
 }
 
 export interface LoginTypes {

@@ -2,7 +2,6 @@ import { Card } from 'flowbite-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import CategoryCards from '../../components/cards/card-category';
 import Footers from '../../components/footer';
 import Navbars from '../../components/header';
@@ -13,10 +12,26 @@ import '../../styles/Event.module.css';
 export default function EventDetails() {
   const [clicked, setClicked] = useState('');
   const [clicked2, setClicked2] = useState('');
+
+  // const [price, setPrice] = useState(1000);
+
+  // const CounterIncrement = () => {
+  //   setCount(count + 1);
+  // };
+  // const CounterDecrement = () => {
+  //   if (count > 0) {
+  //     setCount(count - 1);
+  //   } else {
+  //     null;
+  //   }
+  // };
+
   const handleClick = () => {
     clicked ? setClicked('') : setClicked(' buttonbeliticketmobile w-full h-full bg-white z-30 absolute top-0 ');
     clicked2 ? setClicked2('') : setClicked2(' hidden ');
   };
+
+  const [total, setTotal] = useState(0);
 
   const { query, isReady } = useRouter();
 
@@ -30,35 +45,39 @@ export default function EventDetails() {
 
   const [talentItem, setTalentitem] = useState([]);
   const [categoryItem, setCategoryItem] = useState([]);
-  // const [totalCO, setTotalCO] = useState(0);
 
-  const getEventDetailAPI = useCallback(async (id) => {
+  const getEventDetailAPI = useCallback(async (id: any) => {
     const data = await getDetailEvent(id);
-    // console.log('data detail', data.data.category);
+    console.log('data detail=>', data);
     setDataItem(data.data);
     setTalentitem(data.data.talent);
     setCategoryItem(data.data.category);
   }, []);
 
   useEffect(() => {
-    // const dataFromLocal = localStorage.getItem('checkout-item');
-    // const dataItemLocal = JSON.parse(dataFromLocal!);
-    // const dataTotal = dataItemLocal.price;
-    // console.log('data CO=>', dataItemLocal);
-    // setTotalCO(dataTotal);
-
+    // const getDataCount = localStorage.getItem('data-count');
+    // setTotal(getDataCount);
+    // console.log('data Count', getDataCount);
     getEventDetailAPI(query.id);
   }, [isReady]);
+
+  const router = useRouter();
+
+  const onSubmit = () => {
+    console.log('haha');
+    localStorage.setItem('data-item', JSON.stringify(dataItem));
+    router.push('/payment');
+  };
 
   const IMG = process.env.NEXT_PUBLIC_IMG;
 
   return (
-    <>
+    <div className="bodyasli bg-slate-100">
       <div className={clicked2 || 'block'}>
         {/* <NavbarsDetail /> */}
         <Navbars />
 
-        <nav className="sticky z-20 top-0  bg-[#172029] hidden sm:block max-h-32 drop-shadow shadow-blue-600">
+        <nav className="sticky z-[1] top-0  bg-[#172029] hidden sm:block max-h-32 drop-shadow shadow-blue-600">
           <div className="grid grid-cols-3  ">
             <div className="pl-16 text-slate-50 my-3">
               <div className="NAMAEVENT font-extrabold text-3xl">{dataItem.event_name}</div>
@@ -87,10 +106,10 @@ export default function EventDetails() {
         </nav>
 
         <div className="h-full">
-          <div className="flex mb-4">
+          <div className="flex mb-4 ">
             <div className=" w-full sm:w-[70%] h-full  ">
-              <div className=" pt-0 sm:pt-10 sm:px-16 px-0">
-                <div className="sm:border-[1.5px] border-0 sm:py-10 py-0 justify-center flex  border-solid border-slate-400 rounded-md">
+              <div className=" pt-0 sm:pt-10 sm:px-16 px-0 ">
+                <div className="sm:border-[1.5px] border-0 sm:py-10 py-0 justify-center flex border-solid border-slate-400 rounded-md drop-shadow-xl">
                   <img src={`${IMG}/${dataItem.banner}`} className="sm:rounded-md rounded-none" alt="" />
                 </div>
                 <div className="Description pt-10 sm:px-0 px-10">
@@ -123,28 +142,27 @@ export default function EventDetails() {
               </div>
             </div>
 
-            <div className="w-[30%] h-full sticky top-36 z-10   hidden sm:block">
+            <div className="w-[30%] h-full sticky top-36 z-[-0]   hidden sm:block">
               <div className="py-10 pr-16 pl-7">
                 <div className="max-w-sm  rounded-md overflow-hidden bg-white border-slate-400 border border-solid   hover:drop-shadow-xl">
                   <div className="px-3 py-4 ">
                     <div className="font-bold text-xl mb-2 pb-1 ">Ticket Category</div>
                   </div>
-
                   <div className="px-3 py-2 bg-slate-200 divide-x-2 " />
-                  {categoryItem.map((item: CategoryTypes) => {
+                  {/* {categoryItem.map((item: CategoryTypes) => {
                     return <CategoryCards category_name={item.category_name} price={item.price} key={item._id} id={item._id} />;
-                    // return <CategoryCards />;
-                  })}
+                  })} */}
+                  <CategoryCards />
                   <div className="px-3 py-2 bg-slate-200 divide-x-2 " />
-
                   <div className="px-3 py-4 ">
                     <div className="font-semibold text-md ">Total:</div>
                     <div className="grid-cols-2 grid">
-                      {/* <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. {totalCO}</div> */}
+                      <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. </div>
+                      {/* <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. {price * count}</div> */}
                       <div className="font-bold text-xl mb-2 text-yellow-500 ml-auto">
-                        <Link href="/event">
-                          <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">Chekout</button>
-                        </Link>
+                        <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded" onClick={onSubmit}>
+                          Chekout
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -156,7 +174,7 @@ export default function EventDetails() {
 
         <div className="sm:hidden  py-5 justify-center flex mx-6  border-solid border-t-[0.1px] border-slate-400">
           <button className="bg-slate-500 hover:bg-slate-700  font-semibold text-white py-2 w-full h-12 px-6 hover:border-transparent rounded" onClick={handleClick}>
-            Buy TIcket
+            Buy Ticket
           </button>
         </div>
 
@@ -209,6 +227,6 @@ export default function EventDetails() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

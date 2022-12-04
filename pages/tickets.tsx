@@ -7,7 +7,7 @@ import { JWTPayloadsTypes, UserTypes } from '../services/data-types';
 
 export default function Tickets() {
   return (
-    <Layouts pageTitle="Transactions z-30">
+    <Layouts pageTitle="Transactions z-30 ">
       <div className=" sticky  top-0  bg-[#172029] hidden sm:block py-8 drop-shadow shadow-blue-600">
         <div className="grid grid-cols-3  ">
           <div className="pl-16 text-slate-50 my-auto ">
@@ -31,7 +31,7 @@ export default function Tickets() {
         </div>
       </div>
 
-      <div className="px-[4rem] h-[65vh] ">
+      <div className="px-[4rem] h-[65vh] bg-slate-100">
         {/* Mobile form input search */}
         <div className="pt-10 sm:hidden block">
           <div className="font-extrabold text-2xl pb-5">Transations.</div>

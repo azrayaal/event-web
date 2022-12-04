@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface PriceItemProps {
-  price: string;
+  price: number;
 }
 
 export default function PriceItem(props: PriceItemProps) {

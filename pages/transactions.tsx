@@ -40,7 +40,7 @@ export default function transactions() {
         </div>
       </div>
 
-      <div className="px-[4rem] h-[65vh] ">
+      <div className="px-[4rem] h-[65vh] bg-slate-100">
         {/* Mobile form input search */}
         <div className="pt-10 sm:hidden block">
           <div className="font-extrabold text-2xl pb-5">Transations.</div>
