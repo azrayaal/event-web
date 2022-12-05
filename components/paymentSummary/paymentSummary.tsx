@@ -25,8 +25,8 @@ export default function PaymentSummary() {
       </div>
       <div className="flex justify-between xl:h-full  items-stretch w-full flex-col mt-6 md:mt-0">
         <div className="flex w-full justify-center items-center md:justify-start md:items-start">
-          <button className="mt-6 md:mt-0 py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base leading-4 text-gray-800">
-            Confirmation
+          <button className="mt-6 md:mt-0 py-5 bg-[#504CD8] hover:bg-slate-700 rounded-full  font-medium w-96 2xl:w-full text-base leading-4 text-white">
+            <a href="/payment/confirmation">Confirmation</a>
           </button>
         </div>
       </div>

@@ -1,9 +1,14 @@
+import Head from 'next/head';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import CardsEvent from '../../components/cards/cards-event';
-import Layouts from '../../components/layout';
+import Carousels from '../../components/carousel';
+import Footers from '../../components/footer';
+import Navbars from '../../components/header';
+import { EventListTypes } from '../../services/data-types';
 import { getFeaturedEvent } from '../../services/pages';
-import styles from '../../styles/Event.module.css';
+// import styles from '../../styles/Event.module.css';
+import styles from '../../styles/Home.module.css';
 
 export default function Event() {
   const [eventList, setEventList] = useState([]);
@@ -18,29 +23,34 @@ export default function Event() {
   }, []);
   return (
     <>
-      <Layouts pageTitle="Events">
-        <div className="px-5 pb-6">
-          <div className="sm:pl-16 sm:pt-10 pb-8 pt-10">
-            <p className=" font-bold text-4xl pb-3">All Events</p>
+      <Head>
+        <title>Leisure Event | Event</title>
+        <meta name="description" content="Website NextJS Basic" />
+        <script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"></script>
+      </Head>
+
+      <Navbars />
+      <div className="bodyasli bg-slate-100">
+        <div className=" pb-6 ">
+          <div className="sm:pl-16 sm:pt-12 sm:pb-8 pt-10">
+            <p className=" font-bold text-4xl pb-3">Popular Event</p>
             <p>Find your favorite events, and let's have fun</p>
           </div>
-
-          <div className="div">
+          <div className={styles.main}>
             <div className=" grid md:grid-cols-3 sm:grid-cols-2 gap-8 pb-5 ">
-              {eventList.map((item) => {
+              {eventList.map((item: EventListTypes) => {
                 return <CardsEvent key={item._id} id={item._id} event_name={item.event_name} description={item.description} banner={item.banner} />;
               })}
             </div>
             <div className="mt-10 ">
-              <div className={styles.buttonCenter}>
-                <Link href="/event">
-                  <button className="bg-slate-500 hover:bg-slate-700  font-semibold text-white py-2 px-4 border  hover:border-transparent rounded">View More</button>
-                </Link>
-              </div>
+              <Link href="/event">
+                <button className="bg-[#504CD8] hover:bg-slate-700  font-semibold text-white py-2 px-4 border  hover:border-transparent rounded">Discover More Events</button>
+              </Link>
             </div>
           </div>
         </div>
-      </Layouts>
+      </div>
+      <Footers />
     </>
   );
 }

@@ -9,7 +9,7 @@ function classNames(...classes) {
 export default function NologinNavbar() {
   return (
     <>
-      <Disclosure as="nav" className="bg-gray-800 shadow-lg z-40">
+      <Disclosure as="nav" className=" shadow-lg z-40">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
@@ -17,7 +17,7 @@ export default function NologinNavbar() {
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center mr-auto text-gray-300 ">
                     <Link href="/" className="font-semibold whitespace-nowrap">
-                      Leisuere Eventaaa
+                      Leisuere Event
                     </Link>
                   </div>
 

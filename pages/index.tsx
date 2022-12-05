@@ -28,10 +28,11 @@ export default function Home() {
         <meta name="description" content="Website NextJS Basic" />
         <script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"></script>
       </Head>
+
       <Navbars />
       <div className="bodyasli bg-slate-100">
         <Carousels />
-        <div className="px-5 pb-6 ">
+        <div className=" pb-6 ">
           <div className="sm:pl-16 sm:pt-12 sm:pb-8 pt-10">
             <p className=" font-bold text-4xl pb-3">Popular Event</p>
             <p>Find your favorite events, and let's have fun</p>
@@ -44,7 +45,7 @@ export default function Home() {
             </div>
             <div className="mt-10 ">
               <Link href="/event">
-                <button className="bg-slate-500 hover:bg-slate-700  font-semibold text-white py-2 px-4 border  hover:border-transparent rounded">Discover More Events</button>
+                <button className="bg-[#504CD8] rounded-full hover:bg-slate-700  font-semibold text-white py-2 px-4 border  hover:border-transparent ">Discover More Events</button>
               </Link>
             </div>
           </div>

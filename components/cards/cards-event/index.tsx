@@ -25,13 +25,13 @@ export default function CardsEvent(props: CardEventProps) {
           </div>
         </div>
 
-        <div className="px-3 pt-4 pb-3">
+        {/* <div className="px-3 pt-4 pb-3">
           <div className="py-[1px] mb-2 bg-slate-600 rounded" />
           <div className="">
             <span className="float-left inline-block text-sm font-semibold text-gray-600 pl-2 mb-2 pt-1">Start From: </span>
             <span className="float-right inline-block text-lg font-semibold text-yellow-300 pr-2 mb-2">RP. 100.000</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </Link>
   );

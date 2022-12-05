@@ -35,7 +35,7 @@ export default function EventDetails() {
     banner: '',
   });
 
-  const handleChange = (item: any, d) => {
+  const handleChange = (item, d) => {
     const ind = categoryItem.indexOf(item);
     const arr = categoryItem;
     arr[ind].quantity += d;
@@ -162,11 +162,11 @@ export default function EventDetails() {
                                   </li>
                                   <li className="inline-block float-right mr-3">
                                     <div className="flex items-center justify-center">
-                                      <div className="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
+                                      <div className="inline-flex focus:shadow-lg" role="group">
                                         <button
                                           onClick={() => handleChange(item, -1)}
                                           type="button"
-                                          className="rounded-l inline-block px-3 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 trans ition duration-150 ease-in-out"
+                                          className="rounded-l-full inline-block px-3 py-2.5 bg-[#504CD8] text-white font-medium text-xs leading-tight uppercase hover:bg-slate-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 trans ition duration-150 ease-in-out"
                                         >
                                           -
                                         </button>
@@ -174,7 +174,7 @@ export default function EventDetails() {
                                         <button
                                           onClick={() => handleChange(item, 1)}
                                           type="button"
-                                          className=" rounded-r inline-block px-3 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out"
+                                          className="  inline-block px-3 py-2.5 bg-[#504CD8] text-white font-medium text-xs leading-tight uppercase hover:bg-slate-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out rounded-r-full"
                                         >
                                           +
                                         </button>
@@ -184,7 +184,7 @@ export default function EventDetails() {
                                 </ul>
                               </div>
                             </div>
-                            <h1>{item.quantity * item.price}</h1>
+                            {/* <h1>{item.quantity * item.price}</h1> */}
                           </div>
                         </div>
                       </div>
@@ -197,7 +197,7 @@ export default function EventDetails() {
                     <div className="grid-cols-2 grid">
                       <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. {totalCartPrice}</div>
                       <div className="font-bold text-xl mb-2 text-yellow-500 ml-auto">
-                        <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded" onClick={onSubmit}>
+                        <button className="bg-[#504CD8] hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded-full" onClick={onSubmit}>
                           Chekout
                         </button>
                       </div>

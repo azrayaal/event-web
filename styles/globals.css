@@ -58,3 +58,17 @@ a {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+nav {
+  background-color: #015e95;
+}
+
+/*
+
+.color {
+color: #504CD8
+color: #4E6FF4
+color: #504CD8
+}
+
+*/

@@ -40,10 +40,26 @@ export default function CouponSummary(props: CouponProps) {
           </div>
           <div className="flex justify-between space-x-8 items-start w-full">
             <p className="text-base xl:text-lg leading-6">
-              $36.00 <span className="text-red-300 line-through"> $45.00</span>
+              {/* CATEGORY <span className="text-red-300 line-through"> $45.00</span> */}
+              <ul>
+                <li>
+                  <p className="text-base xl:text-lg leading-6 text-gray-800">CATEGORY</p>
+                </li>
+                <li>
+                  <p className="text-base xl:text-lg leading-6 text-gray-800">01</p>
+                </li>
+              </ul>
             </p>
-            <p className="text-base xl:text-lg leading-6 text-gray-800">01</p>
-            <p className="text-base xl:text-lg font-semibold leading-6 text-gray-800">$36.00</p>
+            <ul>
+              <li>
+                <p className="text-base xl:text-lg leading-6 text-gray-800">JUMLAH TIKET</p>
+              </li>
+              <li>
+                <p className="text-base xl:text-lg leading-6 text-gray-800">01</p>
+              </li>
+            </ul>
+            {/* <p className="text-base xl:text-lg leading-6 text-gray-800">01</p> */}
+            {/* <p className="text-base xl:text-lg font-semibold leading-6 text-gray-800">$36.00</p> */}
           </div>
         </div>
       </div>

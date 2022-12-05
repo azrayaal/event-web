@@ -20,6 +20,7 @@ export interface QuantityTypes {
 
 export interface CategoryTypes {
   _id: string;
+  item: any;
   key: string;
   category_name: string;
   price: number;
