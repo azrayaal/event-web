@@ -4,79 +4,46 @@ import { CategoryTypes } from '../../../services/data-types';
 import { getDetailEvent } from '../../../services/pages';
 import PriceItem from './priceItem';
 
-// interface CategoryProps {
-//   category_name: string;
-//   price: number;
-//   id: string;
-//   // countRst: number;
-//   // CounterIncrement: () => void;
-//   // CounterDecrement: () => void;
-// }
-
 export default function CategoryCards() {
-  // export default function CategoryCards(props: CategoryProps) {
-  // const { category_name, price, id } = props;
-  // const { category_name, price, id, CounterIncrement, CounterDecrement, count } = props;
+  // const {  category_name, price, id, count } = props;
+
+  const { query, isReady } = useRouter();
+  const [categoryItem, setCategoryItem] = useState([]);
+  const [cart, setCart] = useState([]);
 
   const [count, setCount] = useState(0);
-  const [category, setCategory] = useState([]);
-  const [price, setPrice] = useState(0);
-  // const [price, setPrice] = useState(1000);
 
+  const [total, setTotal] = useState(0);
   const CounterIncrement = () => {
     setCount(count + 1);
-    // const dataCount = {
-    //   count: count,
-    //   price,
-    //   total: count * price,
-    // };
-
-    // console.log('data count', dataCount);
-    // localStorage.setItem('data-count', JSON.stringify(dataCount));
   };
   const CounterDecrement = () => {
     if (count > 0) {
       setCount(count - 1);
-      // const dataCount = {
-      //   count: count - 1,
-      //   price,
-      //   // total: counter,
-      // };
-      // const total = dataCount * price;
-      // console.log('data count', dataCount);
-      // localStorage.setItem('data-count', JSON.stringify(dataCount));
     } else {
       null;
     }
   };
-  const { query, isReady } = useRouter();
 
-  const getEventDetailAPI = useCallback(async (id: any) => {
+  const detailCategoryAPI = useCallback(async (id: any) => {
     const data = await getDetailEvent(id);
-    setCategory(data.data.category);
-
-    // console.log('data card=>', data.data.category);
+    const dataCategory = data.data;
+    console.log('data category', dataCategory.category);
+    setCart(dataCategory);
   }, []);
 
   useEffect(() => {
-    getEventDetailAPI(query.id);
+    detailCategoryAPI(query.id);
   }, [isReady]);
 
-  const onSubmit = () => {
-    // const dataCount = {
-    //   category_name,
-    //   price,
-    // };
-    // console.log('data count', dataCount);
-    // localStorage.setItem('data-count', JSON.stringify(dataCount));
-  };
+  const onSubmit = () => {};
 
   return (
     <div>
-      {category.map((item: CategoryTypes) => {
+      {categoryItem.map((item: CategoryTypes) => {
         return (
           <div className="px-3 py-2 bg-slate-200 divide-x-2 " key={item._id} id={item._id}>
-            <div className=" text-xl mb-2  ">
+            <div className=" text-xl mb-2 ">
               <div className=" space-y-3 border-yellow-500 border-solid border-l-4 rounded-lg">
                 <div className="group flex items-center rounded-lg bg-white p-3 text-base font-bold text-gray-900  dark:bg-gray-600 dark:text-white ">
                   <div className=" flex-1">
@@ -109,12 +76,22 @@ export default function CategoryCards() {
                     </ul>
                   </div>
                 </div>
-                <h1>total: {count * price}</h1>
+                {/* <h1>{price * count}</h1> */}
               </div>
             </div>
           </div>
         );
       })}
+      {/* <div className="px-3 py-2 bg-slate-200 divide-x-2 " />
+      <div className="px-3 py-4 ">
+        <div className="font-semibold text-md ">Total:</div>
+        <div className="grid-cols-2 grid"> */}
+      {/* <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. {categoryItem.price * count}</div> */}
+      {/* <div className="font-bold text-xl mb-2 text-yellow-500 ml-auto">
+            <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">Chekout</button>
+          </div>
+        </div>
+      </div> */}
     </div>
   );
 }

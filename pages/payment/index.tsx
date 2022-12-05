@@ -15,6 +15,9 @@ export default function Payment() {
     time: '',
     date: '',
   });
+  const [totalItem, setTotalItem] = useState({
+    totalCartPrice: 0,
+  });
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -39,10 +42,13 @@ export default function Payment() {
       setUser(userFromPayload);
 
       const dataFromLocal = localStorage.getItem('data-item');
+      const totalFromLocal = localStorage.getItem('data-total');
       const dataItemLocals = JSON.parse(dataFromLocal!);
+      const totalItemLocals = JSON.parse(totalFromLocal!);
       bannerImg.banner = `${IMG}/${dataItemLocals.banner}`;
       setDataItem(dataItemLocals);
       setBannerImg(bannerImg);
+      setTotalItem(totalItemLocals);
       console.log('data dataItem=>', dataItemLocals);
     }
   }, []);
@@ -60,7 +66,7 @@ export default function Payment() {
         <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
           <CouponSummary banner={bannerImg.banner} event_name={dataItem.event_name} location={dataItem.location} time={dataItem.time} date={dataItem.date} />
           <div className="flex justify-center md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
-            <TotalSummary />
+            <TotalSummary totalCartPrice={totalItem.totalCartPrice} />
 
             <PaymentSummary />
           </div>

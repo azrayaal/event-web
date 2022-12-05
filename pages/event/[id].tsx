@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import CategoryCards from '../../components/cards/card-category';
+import PriceItem from '../../components/cards/card-category/priceItem';
 import Footers from '../../components/footer';
 import Navbars from '../../components/header';
 import { CategoryTypes, TalentTypes } from '../../services/data-types';
@@ -12,28 +13,19 @@ import '../../styles/Event.module.css';
 export default function EventDetails() {
   const [clicked, setClicked] = useState('');
   const [clicked2, setClicked2] = useState('');
+  const { query, isReady } = useRouter();
+  const [categoryItem, setCategoryItem] = useState([]);
+  const [count, setCount] = useState(0);
+  const [talentItem, setTalentitem] = useState([]);
 
-  // const [price, setPrice] = useState(1000);
-
-  // const CounterIncrement = () => {
-  //   setCount(count + 1);
-  // };
-  // const CounterDecrement = () => {
-  //   if (count > 0) {
-  //     setCount(count - 1);
-  //   } else {
-  //     null;
-  //   }
-  // };
+  let totalCartPrice = 0;
+  const router = useRouter();
+  const IMG = process.env.NEXT_PUBLIC_IMG;
 
   const handleClick = () => {
     clicked ? setClicked('') : setClicked(' buttonbeliticketmobile w-full h-full bg-white z-30 absolute top-0 ');
     clicked2 ? setClicked2('') : setClicked2(' hidden ');
   };
-
-  const [total, setTotal] = useState(0);
-
-  const { query, isReady } = useRouter();
 
   const [dataItem, setDataItem] = useState({
     event_name: '',
@@ -43,33 +35,38 @@ export default function EventDetails() {
     banner: '',
   });
 
-  const [talentItem, setTalentitem] = useState([]);
-  const [categoryItem, setCategoryItem] = useState([]);
+  const handleChange = (item: any, d) => {
+    const ind = categoryItem.indexOf(item);
+    const arr = categoryItem;
+    arr[ind].quantity += d;
+
+    if (arr[ind].quantity === 0) arr[ind].quantity = 1;
+    setCategoryItem([...arr]);
+  };
 
   const getEventDetailAPI = useCallback(async (id: any) => {
     const data = await getDetailEvent(id);
-    console.log('data detail=>', data);
+    console.log('data detail=>', data.data);
     setDataItem(data.data);
     setTalentitem(data.data.talent);
     setCategoryItem(data.data.category);
   }, []);
 
   useEffect(() => {
-    // const getDataCount = localStorage.getItem('data-count');
-    // setTotal(getDataCount);
-    // console.log('data Count', getDataCount);
     getEventDetailAPI(query.id);
   }, [isReady]);
 
-  const router = useRouter();
-
   const onSubmit = () => {
     console.log('haha');
+    const dataTotal = {
+      totalCartPrice,
+      // categoryItem,
+    };
     localStorage.setItem('data-item', JSON.stringify(dataItem));
+    localStorage.setItem('data-total', JSON.stringify(dataTotal));
+    console.log('data total', dataTotal);
     router.push('/payment');
   };
-
-  const IMG = process.env.NEXT_PUBLIC_IMG;
 
   return (
     <div className="bodyasli bg-slate-100">
@@ -149,16 +146,56 @@ export default function EventDetails() {
                     <div className="font-bold text-xl mb-2 pb-1 ">Ticket Category</div>
                   </div>
                   <div className="px-3 py-2 bg-slate-200 divide-x-2 " />
-                  {/* {categoryItem.map((item: CategoryTypes) => {
-                    return <CategoryCards category_name={item.category_name} price={item.price} key={item._id} id={item._id} />;
-                  })} */}
-                  <CategoryCards />
+
+                  {categoryItem.map((item: CategoryTypes, idx) => {
+                    totalCartPrice += item.price * item.quantity;
+                    return (
+                      <div className="px-3 py-2 bg-slate-200 divide-x-2 " key={idx} id={item._id}>
+                        <div className=" text-xl mb-2 ">
+                          <div className=" space-y-3 border-yellow-500 border-solid border-l-4 rounded-lg">
+                            <div className="group flex items-center rounded-lg bg-white p-3 text-base font-bold text-gray-900  dark:bg-gray-600 dark:text-white ">
+                              <div className=" flex-1">
+                                <div className="ml-3 text-xs whitespace-nowrap">{item.category_name}</div>
+                                <ul className="">
+                                  <li className="inline-block ml-3">
+                                    <PriceItem price={item.price} key={item._id} />
+                                  </li>
+                                  <li className="inline-block float-right mr-3">
+                                    <div className="flex items-center justify-center">
+                                      <div className="inline-flex shadow-md hover:shadow-lg focus:shadow-lg" role="group">
+                                        <button
+                                          onClick={() => handleChange(item, -1)}
+                                          type="button"
+                                          className="rounded-l inline-block px-3 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 trans ition duration-150 ease-in-out"
+                                        >
+                                          -
+                                        </button>
+                                        <div className=" inline-block px-3 py-2.5 bg-slate-300 text-slate-800 font-medium text-xs leading-tight uppercase "> {item.quantity} </div>
+                                        <button
+                                          onClick={() => handleChange(item, 1)}
+                                          type="button"
+                                          className=" rounded-r inline-block px-3 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase hover:bg-blue-700 focus:bg-blue-700 focus:outline-none focus:ring-0 active:bg-blue-800 transition duration-150 ease-in-out"
+                                        >
+                                          +
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <h1>{item.quantity * item.price}</h1>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+
                   <div className="px-3 py-2 bg-slate-200 divide-x-2 " />
                   <div className="px-3 py-4 ">
-                    <div className="font-semibold text-md ">Total:</div>
+                    <div className="font-semibold text-md ">Total: </div>
                     <div className="grid-cols-2 grid">
-                      <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. </div>
-                      {/* <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. {price * count}</div> */}
+                      <div className="font-bold text-xl mb-2 text-yellow-500 mt-2">RP. {totalCartPrice}</div>
                       <div className="font-bold text-xl mb-2 text-yellow-500 ml-auto">
                         <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded" onClick={onSubmit}>
                           Chekout

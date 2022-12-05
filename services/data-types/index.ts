@@ -12,12 +12,20 @@ export interface TalentTypes {
   talent_picture: string;
   talent_name: string;
 }
+export interface QuantityTypes {
+  _id: string;
+  nama: string;
+  quantity: number;
+}
 
 export interface CategoryTypes {
   _id: string;
   key: string;
   category_name: string;
   price: number;
+  category_qty: number;
+  quantity: number;
+  // quantity: QuantityTypes;
 }
 
 export interface LoginTypes {
