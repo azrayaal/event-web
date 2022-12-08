@@ -1,5 +1,4 @@
 import jwtDecode from 'jwt-decode';
-import React from 'react';
 import RequestDetailCard from '../../components/cards/card-requestDetail';
 import Layouts from '../../components/layout';
 import { JWTPayloadsTypes, RequestHistoryTypes, UserTypes } from '../../services/data-types';

@@ -65,6 +65,7 @@ export interface RequestHistoryTypes {
   maps: string;
   agencyName: string;
   name: string;
+  email: string;
 }
 
 export interface JWTPayloadsTypes {
