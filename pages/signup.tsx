@@ -1,4 +1,4 @@
-import { Card, FileInput } from 'flowbite-react';
+import { Card } from 'flowbite-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -9,11 +9,11 @@ import { getSignUpApi } from '../services/auth';
 import styles from '../styles/Signup.module.css';
 
 export default function signup() {
+  const [image, setImage] = useState<any>('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [phoneNumber, setphoneNumber] = useState('');
-  const [image, setImage] = useState<any>('');
+  const [password, setPassword] = useState('');
   const [imagePreview, setImagePreview] = useState<any>(null);
 
   const route = useRouter();
@@ -28,25 +28,15 @@ export default function signup() {
     data.append('phoneNumber', phoneNumber);
     data.append('password', password);
 
-    // const dataSignUp = {
-    //   image,
-    //   name,
-    //   email,
-    //   phoneNumber,
-    //   password,
-    // };
-
     const result = await getSignUpApi(data);
     if (result.error) {
       toast.error(result.message, {
         theme: 'colored',
       });
     } else {
-      // localStorage.setItem('signup', JSON.stringify(dataSignUp));
       toast.success('Register Berhasil', {
         theme: 'colored',
       });
-      // console.log('result: ', result);
       route.push('/signin');
     }
   };

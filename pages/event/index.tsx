@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import CardsEvent from '../../components/cards/cards-event';
-import Carousels from '../../components/carousel';
 import Footers from '../../components/footer';
 import Navbars from '../../components/header';
 import { EventListTypes } from '../../services/data-types';

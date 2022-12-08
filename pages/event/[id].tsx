@@ -2,7 +2,6 @@ import { Card } from 'flowbite-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import CategoryCards from '../../components/cards/card-category';
 import PriceItem from '../../components/cards/card-category/priceItem';
 import Footers from '../../components/footer';
 import Navbars from '../../components/header';

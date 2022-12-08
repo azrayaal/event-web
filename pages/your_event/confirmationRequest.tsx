@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 export default function ConfirmationRequest() {
@@ -15,9 +16,9 @@ export default function ConfirmationRequest() {
           <p className="text-gray-600 my-2">Request Sedang dikonfirmasi oleh admin harap tunggu sebentar, kami akan menghubungi setelah terkonfirmasi</p>
           <p> Harap tunggu! </p>
           <div className="py-10 text-center">
-            <a href="/" className="px-12 bg-[#504CD8] hover:bg-slate-700 rounded-full text-white font-semibold py-3">
+            <Link href="/your_event" className="px-12 bg-[#504CD8] hover:bg-slate-700 rounded-full text-white font-semibold py-3">
               GO BACK
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -48,14 +48,14 @@ export default function Auth(props: AuthProps) {
             <Menu.Item>
               {({ active }) => (
                 <a href="/profile" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                  Your Profile
+                  My Profile
                 </a>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <a href="/request" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
-                  Request
+                <a href="/your_event" className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                  My Event
                 </a>
               )}
             </Menu.Item>

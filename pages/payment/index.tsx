@@ -60,7 +60,7 @@ export default function Payment() {
           <div className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9 text-center text-gray-800">Leisure Event</div>
         </Link>
         <h1 className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9  text-gray-800">Order #13432</h1>
-        <p className="text-base font-medium leading-6 text-gray-600">21st Mart 2021 at 10:34 PM</p>
+        {/* <p className="text-base font-medium leading-6 text-gray-600">21st Mart 2021 at 10:34 PM</p> */}
       </div>
       <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch  w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
         <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">

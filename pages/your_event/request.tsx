@@ -1,45 +1,66 @@
+import { format } from 'date-fns';
+import { Card, FileInput, Textarea } from 'flowbite-react';
+import jwtDecode from 'jwt-decode';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { Card, Textarea } from 'flowbite-react';
-import Layouts from '../../components/layout';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-// or
-
-interface RequestTypes {
-  event_name: string;
-  description: string;
-  date: string;
-  location: string;
-  maps: string;
-  agencyName: string;
-}
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { toast } from 'react-toastify';
+import Layouts from '../../components/layout';
+import { JWTPayloadsTypes, UserTypes } from '../../services/data-types';
+import { postRequest } from '../../services/pages';
 
 export default function Request() {
+  const [event_name, setEventName] = useState('');
   const [email, setEmail] = useState('');
-  //   const [date, setDate] = useState('');
   const [maps, setMaps] = useState('');
   const [location, setLocation] = useState('');
   const [agencyName, setAgencyName] = useState('');
   const [description, setDescription] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
+  const [image, setImage] = useState<any>('');
+  const [selected, setSelected] = React.useState<any>();
+
+  let footer = <p>Please pick a day.</p>;
+  if (selected) {
+    footer = <p>You picked {format(selected, 'PP')}.</p>;
+  }
+
+  const route = useRouter();
+
   const onSubmit = async () => {
     const data = new FormData();
-    // data.append('name', user.name);
-    // data.append('phoneNumber', user.phoneNumber);
-    // data.append('image', user.avatar);
+    data.append('event_name', event_name);
+    data.append('date', selected);
+    data.append('maps', maps);
+    data.append('location', location);
+    data.append('agencyName', agencyName);
+    data.append('description', description);
+    data.append('image', image);
 
-    // console.log('dataform', user);
+    console.log('data--->', data);
 
-    // const response = await putEditProfile(data, user.id);
+    const response = await postRequest(data);
+    if (response.error) {
+      toast.error(response.message, {
+        theme: 'colored',
+      });
+    } else {
+      toast.success('berhasil kirm request event', {
+        theme: 'colored',
+      });
+      console.log('data dari resp', response);
+      route.push('/your_event/confirmationRequest');
+    }
   };
   return (
     <Layouts pageTitle="Edit Profile">
-      <div className="sm:px-[4rem] px-[1rem] h-screen w-full py-10 bg-slate-100">
+      <div className="sm:px-[4rem] px-[1rem] h-full w-full py-10 bg-slate-100">
         <div className=" h-full place-content-center flex">
           <div className="sm:mx-5 sm:w-[50%] w-[100%]">
             <form>
               <Card>
-                <div className="inputan1 email">
+                <div className="inputan1 eventName">
                   <div className=" content-center">
                     <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Event Name</label>
                     <input
@@ -47,19 +68,43 @@ export default function Request() {
                       type=""
                       placeholder="event name"
                       id="event_name"
-                      value={email}
-                      onChange={(event) => setEmail(event.target.value)}
+                      value={event_name}
+                      onChange={(event) => setEventName(event.target.value)}
                     />
                   </div>
                 </div>
 
-                <Card>
-                  <div className="inputan1 date">
-                    <div className=" content-center">
-                      <div className="mb-2">
-                        <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide ">Date</label>
+                <div className="">
+                  <div className="mb-2">
+                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide ">Date</label>
+                  </div>
+                  <Card>
+                    <div className="inputan1 date ">
+                      <div className=" content-center">
+                        <div className="flex justify-center ">
+                          <DayPicker className="" mode="single" selected={selected} onSelect={setSelected} footer={footer} />
+                        </div>
                       </div>
-                      <DatePicker className="" selected={startDate} onChange={(date: Date) => setStartDate(date)} />
+                    </div>
+                  </Card>
+                </div>
+
+                <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide ">Banner</label>
+                <Card>
+                  <div className="inputan1 Banner">
+                    <div className=" content-center">
+                      {/* <FileInput id="file" helperText="A Banner picture is useful to confirm your request" value={banner} onChange={(event) => setBanner(event.target.file)} /> */}
+                      <FileInput
+                        id="file"
+                        helperText="A Banner picture is useful to confirm your request"
+                        accept="image/png, image/jpeg"
+                        onChange={(event) => {
+                          // console.log(event.target.files);
+                          const img = event.target.files![0];
+                          // setImagePreview(URL.createObjectURL(img));
+                          return setImage(img);
+                        }}
+                      />
                     </div>
                   </div>
                 </Card>
@@ -120,4 +165,35 @@ export default function Request() {
       </div>
     </Layouts>
   );
+}
+
+interface GetServerSideProps {
+  req: {
+    cookies: {
+      token: string;
+    };
+  };
+}
+
+export async function getServerSideProps({ req }: GetServerSideProps) {
+  const { token } = req.cookies;
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+  const jwtToken = Buffer.from(token, 'base64').toString('ascii');
+  const payload: JWTPayloadsTypes = jwtDecode(jwtToken);
+  const userFromPayload: UserTypes = payload.user;
+  const IMG = process.env.NEXT_PUBLIC_IMG;
+  userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;
+
+  return {
+    props: {
+      user: userFromPayload,
+    },
+  };
 }

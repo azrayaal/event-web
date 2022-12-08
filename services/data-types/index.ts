@@ -34,6 +34,15 @@ export interface LoginTypes {
   password: string;
 }
 
+export interface RequestTypes {
+  event_name: string;
+  email: string;
+  maps: string;
+  location: string;
+  agencyName: string;
+  description: string;
+}
+
 export interface UserTypes {
   email: string;
   name: string;
@@ -42,6 +51,20 @@ export interface UserTypes {
   id: string;
   phoneNumber: string;
   password: string;
+}
+
+export interface RequestHistoryTypes {
+  thumbnail: string;
+  date: string;
+  status: string;
+  event_name: any;
+  _id: string;
+  description: string;
+  location: string;
+  key: string;
+  maps: string;
+  agencyName: string;
+  name: string;
 }
 
 export interface JWTPayloadsTypes {
