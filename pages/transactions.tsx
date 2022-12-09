@@ -1,76 +1,96 @@
-import { Select } from 'flowbite-react';
 import jwtDecode from 'jwt-decode';
-import Image from 'next/image';
-import Link from 'next/link';
+import { useState } from 'react';
 import Layouts from '../components/layout';
+import ButtonFilterRequest from '../components/request_event/button_filter';
 import { JWTPayloadsTypes, UserTypes } from '../services/data-types';
 
 export default function transactions() {
+  const [tab, setTab] = useState('all');
+
+  const onTabClick = (value: any) => {
+    setTab(value);
+    //  getRequestList(value);
+  };
   return (
     <Layouts pageTitle="Transactions">
-      <div className=" sticky top-0 bg-[#172029] hidden sm:block py-8 drop-shadow shadow-blue-600">
-        <div className="grid grid-cols-3  ">
-          <div className="pl-16 text-slate-50 my-auto ">
-            <div className="NAMAEVENT font-extrabold text-3xl">Transactions History</div>
-          </div>
-          <div className=" justify-center flex  items-center ">
-            <div className="w-4/5">
-              <div className="input-group relative flex flex-wrap items-stretch w-full rounded">
-                <input
-                  type="search"
-                  className="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                  placeholder="Search Transactions"
-                  aria-label="Search"
-                  aria-describedby="button-addon2"
-                />
-                <span className="input-group-text flex items-center px-3  text-base font-normal text-gray-700 text-center whitespace-nowrap rounded" id="basic-addon2"></span>
-              </div>
+      <div className="overflow-x-auto">
+        <div className="min-w-screen min-h-screen flex justify-center bg-gray-100 font-sans overflow-hidden">
+          <div className="w-full lg:w-5/6">
+            <div className="text-center justify-center items-center py-5">
+              <ButtonFilterRequest onClick={() => onTabClick('all')} title="All Trx" active={tab === 'all'} />
+              <ButtonFilterRequest onClick={() => onTabClick('success')} title="success" active={tab === 'success'} />
+              <ButtonFilterRequest onClick={() => onTabClick('pending')} title="pending" active={tab === 'pending'} />
+              <ButtonFilterRequest onClick={() => onTabClick('failed')} title="failed" active={tab === 'failed'} />
+            </div>
+            <div className="bg-white shadow-md rounded my-6">
+              <table className="min-w-max w-full table-auto">
+                <thead>
+                  <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <th className="py-3 px-6 text-left">Event</th>
+                    <th className="py-3 px-6 text-left">Quantity</th>
+                    <th className="py-3 px-6 text-center">Users</th>
+                    <th className="py-3 px-6 text-center">Total</th>
+                    <th className="py-3 px-6 text-center">Status</th>
+                    <th className="py-3 px-6 text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-600 text-sm font-light">
+                  <tr className="border-b border-gray-200 hover:bg-gray-100">
+                    <td className="py-3 px-6 text-left whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="mr-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 48 48" style={{ fill: '#000000' }}>
+                            <path fill="#80deea" d="M24,34C11.1,34,1,29.6,1,24c0-5.6,10.1-10,23-10c12.9,0,23,4.4,23,10C47,29.6,36.9,34,24,34z M24,16	c-12.6,0-21,4.1-21,8c0,3.9,8.4,8,21,8s21-4.1,21-8C45,20.1,36.6,16,24,16z"></path>
+                            <path
+                              fill="#80deea"
+                              d="M15.1,44.6c-1,0-1.8-0.2-2.6-0.7C7.6,41.1,8.9,30.2,15.3,19l0,0c3-5.2,6.7-9.6,10.3-12.4c3.9-3,7.4-3.9,9.8-2.5	c2.5,1.4,3.4,4.9,2.8,9.8c-0.6,4.6-2.6,10-5.6,15.2c-3,5.2-6.7,9.6-10.3,12.4C19.7,43.5,17.2,44.6,15.1,44.6z M32.9,5.4	c-1.6,0-3.7,0.9-6,2.7c-3.4,2.7-6.9,6.9-9.8,11.9l0,0c-6.3,10.9-6.9,20.3-3.6,22.2c1.7,1,4.5,0.1,7.6-2.3c3.4-2.7,6.9-6.9,9.8-11.9	c2.9-5,4.8-10.1,5.4-14.4c0.5-4-0.1-6.8-1.8-7.8C34,5.6,33.5,5.4,32.9,5.4z"
+                            ></path>
+                            <path
+                              fill="#80deea"
+                              d="M33,44.6c-5,0-12.2-6.1-17.6-15.6C8.9,17.8,7.6,6.9,12.5,4.1l0,0C17.4,1.3,26.2,7.8,32.7,19	c3,5.2,5,10.6,5.6,15.2c0.7,4.9-0.3,8.3-2.8,9.8C34.7,44.4,33.9,44.6,33,44.6z M13.5,5.8c-3.3,1.9-2.7,11.3,3.6,22.2	c6.3,10.9,14.1,16.1,17.4,14.2c1.7-1,2.3-3.8,1.8-7.8c-0.6-4.3-2.5-9.4-5.4-14.4C24.6,9.1,16.8,3.9,13.5,5.8L13.5,5.8z"
+                            ></path>
+                            <circle cx="24" cy="24" r="4" fill="#80deea"></circle>
+                          </svg>
+                        </div>
+                        <span className="font-medium">React Project</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-6 text-left">
+                      <div className="flex items-center">
+                        <div className="mr-2">
+                          <img className="w-6 h-6 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" />
+                        </div>
+                        <span>Eshal Rosas</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-6 text-center">
+                      <div className="flex items-center justify-center">
+                        <img className="w-6 h-6 rounded-full border-gray-200 border transform hover:scale-125" src="https://randomuser.me/api/portraits/men/1.jpg" />
+                        <img className="w-6 h-6 rounded-full border-gray-200 border -m-1 transform hover:scale-125" src="https://randomuser.me/api/portraits/women/2.jpg" />
+                        <img className="w-6 h-6 rounded-full border-gray-200 border -m-1 transform hover:scale-125" src="https://randomuser.me/api/portraits/men/3.jpg" />
+                      </div>
+                    </td>
+                    <td className="py-3 px-6 text-center">
+                      <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">100</span>
+                    </td>
+                    <td className="py-3 px-6 text-center">
+                      <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">Active</span>
+                    </td>
+                    <td className="py-3 px-6 text-center">
+                      <div className="flex item-center justify-center">
+                        <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-          <div className=" justify-center flex  items-center ">
-            <div id="select" className="w-4/5">
-              <Select id="transactions" required={true}>
-                <option>All Transactions</option>
-                <option>Waiting Payment</option>
-                <option>Paid</option>
-                <option>Expired</option>
-              </Select>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="px-[4rem] h-[65vh] bg-slate-100">
-        {/* Mobile form input search */}
-        <div className="pt-10 sm:hidden block">
-          <div className="font-extrabold text-2xl pb-5">Transations.</div>
-          <div className="input-group relative flex flex-wrap items-stretch w-full rounded ">
-            <input
-              type="search"
-              className="form-control relative flex-auto min-w-0 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              placeholder="Search Transactions"
-              aria-label="Search"
-              aria-describedby="button-addon2"
-            />
-            <span className="input-group-text flex items-center px-3  text-base font-normal text-gray-700 text-center whitespace-nowrap rounded" id="basic-addon2"></span>
-          </div>
-          <div id="select" className="pt-5">
-            <Select id="Transactions" required={true}>
-              <option>All Transactions</option>
-              <option>Waiting Payment</option>
-              <option>Paid</option>
-              <option>Expired</option>
-            </Select>
-          </div>
-        </div>
-
-        <div className=" text-center justify-center items-center  h-4/5 py-10">
-          <Image src="/dompet.svg" width={150} height={150} alt="dompet" className=" flex mx-auto "></Image>
-          <div className="text-lg font-bold">Oops, no transaction history yet </div>
-          <div className="text-slate-700 my-5">Maybe you took the wrong route or address. Let’s go back before it gets dark!</div>
-          <Link href="/event">
-            <button className="bg-slate-500 hover:bg-slate-700  font-semibold text-white py-2 px-4 border  hover:border-transparent rounded">Discover More Events</button>
-          </Link>
         </div>
       </div>
     </Layouts>
