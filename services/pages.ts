@@ -67,3 +67,29 @@ export async function getRequest(valueParams: any) {
     token: true,
   });
 }
+
+export async function getTransactions(valueParams: any) {
+  let params = '';
+  if (valueParams === 'all') {
+    params = '';
+  } else {
+    params = `?status=${valueParams}`;
+  }
+  const url = `${ROOT_API}/${URL}/history${params}`;
+
+  return callAPI({
+    url,
+    method: 'GET',
+    token: true,
+  });
+}
+
+export async function getDetailTransactions(id: string, token: string) {
+  const url = `${ROOT_API}/${URL}/history/${id}/detail`;
+
+  return callAPI({
+    url,
+    method: 'GET',
+    serverToken: token,
+  });
+}
