@@ -1,8 +1,10 @@
 import jwtDecode from 'jwt-decode';
+import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Layouts from '../components/layout';
 import ButtonFilterRequest from '../components/request_event/button_filter';
+import TransactionList from '../components/transaction/transactionlist';
 import { JWTPayloadsTypes, TransactionHistoryTypes, UserTypes } from '../services/data-types';
 import { getTransactions } from '../services/pages';
 
@@ -56,48 +58,16 @@ export default function transactions() {
                   </tr>
                 </thead>
                 {transactionList.map((item: TransactionHistoryTypes) => {
-                  return (
-                    <tbody className="text-gray-600 text-sm font-light">
-                      <tr className="border-b border-gray-200 hover:bg-gray-100">
-                        <td className="py-3 px-6 text-left whitespace-nowrap">
-                          <div className="flex items-center">
-                            <span className="font-medium">{item.historyTicketCat.event_name}</span>
-                          </div>
-                        </td>
-                        <td className="py-3 px-6 text-center">
-                          <div className=" items-center ">
-                            <span className="font-medium">{item.historyTicketCat.quantity}</span>
-                          </div>
-                        </td>
-                        <td className="py-3 px-6 text-center">
-                          <div className=" items-center">
-                            <span className="font-medium">{item.name}</span>
-                          </div>
-                        </td>
-                        <td className="py-3 px-6 text-center">
-                          <span className="bg-purple-200 text-black py-1 px-3 rounded-full text-xs">{item.historyTicketCat.total}</span>
-                        </td>
-                        <td className="py-3 px-6 text-center">
-                          <span className="bg-purple-200 text-black py-1 px-3 rounded-full text-xs">{item.createdAt}</span>
-                        </td>
-                        <td className="py-3 px-6 text-center">
-                          <span className={`status-historyTransaction ${item.status} text-white py-1 px-3 rounded-full text-xs`}>{item.status}</span>
-                        </td>
-                        <td className="py-3 px-6 text-center">
-                          <div className="flex item-center justify-center">
-                            <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                              </svg>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  );
+                  return <TransactionList event_name={item.historyTicketCat.event_name} id={item._id} name={item.name} total={item.historyTicketCat.total} createdAt={item.createdAt} status={item.status} />;
                 })}
               </table>
+            </div>
+            <div className="text-center justify-center items-center">
+              <Link href="/">
+                <button className="inline-block px-6 py-2.5 bg-[#015E95] text-white font-medium text-xs leading-tight uppercase shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                  Back
+                </button>
+              </Link>
             </div>
           </div>
         </div>

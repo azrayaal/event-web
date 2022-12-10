@@ -11,6 +11,16 @@ export async function getFeaturedEvent() {
   return axiosResponse.data;
 }
 
+// export async function getFeaturedEvent() {
+//   // const url = `${ROOT_API}/${URL}/landingpage`;
+//   const url = `http://localhost:3000/leisure/landingpage`;
+
+//   return callAPI({
+//     url,
+//     method: 'GET',
+//   });
+// }
+
 export async function getDetailEvent(id: any) {
   const url = `${ROOT_API}/${URL}/detail/${id}`;
 

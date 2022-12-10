@@ -13,9 +13,9 @@ export default function Home() {
   const [eventList, setEventList] = useState([]);
 
   const getEventList = useCallback(async () => {
-    const data = await getFeaturedEvent();
-    setEventList(data);
-    // console.log(data);
+    const response = await getFeaturedEvent();
+    setEventList(response);
+    console.log(response);
   }, []);
 
   useEffect(() => {

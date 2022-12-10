@@ -66,14 +66,16 @@ export interface RequestHistoryTypes {
   agencyName: string;
   name: string;
   email: string;
+  createdAt: string;
 }
 
 export interface TransactionHistoryTypes {
-  thumbnail: string;
+  banner: string;
   date: string;
   status: string;
   event_name: any;
   _id: string;
+  id: string;
   description: string;
   location: string;
   key: string;
