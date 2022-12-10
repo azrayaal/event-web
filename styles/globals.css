@@ -93,3 +93,15 @@ color: #504CD8
 .status-requestcard.decline {
   background-color: #fe5761;
 }
+
+.status-historyTransaction.pending {
+  background-color: #febd57;
+}
+
+.status-historyTransaction.success {
+  background-color: #1abc9c;
+}
+
+.status-historyTransaction.failed {
+  background-color: #fe5761;
+}

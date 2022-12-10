@@ -68,6 +68,23 @@ export interface RequestHistoryTypes {
   email: string;
 }
 
+export interface TransactionHistoryTypes {
+  thumbnail: string;
+  date: string;
+  status: string;
+  event_name: any;
+  _id: string;
+  description: string;
+  location: string;
+  key: string;
+  maps: string;
+  agencyName: string;
+  name: string;
+  email: string;
+  historyTicketCat: any;
+  createdAt: string;
+}
+
 export interface JWTPayloadsTypes {
   user: UserTypes;
   iat: string;
