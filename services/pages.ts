@@ -5,27 +5,7 @@ import { RequestTypes } from './data-types';
 const URL = 'leisure';
 const ROOT_API = process.env.NEXT_PUBLIC_API;
 
-// export async function getFeaturedEvent() {
-//   const response = await axios.get(`${ROOT_API}/${URL}/landingpage`, {
-//     Authorization: `Bearer ${token}`,
-//   });
-//   const axiosResponse = response.data;
-//   return axiosResponse.data;
-// }
-// export async function getFeaturedEvent() {
-//   // const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1/comments');
-//   const response = await axios.get(`${ROOT_API}/${URL}/landingpage`, {
-//     auth: {
-//       username: 'username',
-//       password: 'password',
-//     },
-//   });
-//   const axiosResponse = response.data;
-//   return axiosResponse.data;
-// }
-
 export async function getFeaturedEvent() {
-  // const url = `https://jsonplaceholder.typicode.com/posts/1/comments`;
   const url = `${ROOT_API}/${URL}/landingpage`;
 
   return callAPI({
@@ -115,5 +95,16 @@ export async function getDetailTransactions(id: string, token: string) {
     url,
     method: 'GET',
     serverToken: token,
+  });
+}
+
+export async function setCheckout(data) {
+  const url = `${ROOT_API}/${URL}/checkout`;
+
+  return callAPI({
+    url,
+    method: 'POST',
+    data,
+    token: true,
   });
 }

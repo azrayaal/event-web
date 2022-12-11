@@ -1,6 +1,43 @@
+import { useRouter } from 'next/router';
 import React from 'react';
+import { toast } from 'react-toastify';
+import { setCheckout } from '../../services/pages';
 
 export default function PaymentSummary() {
+  const router = useRouter();
+
+  const onsubmit = async () => {
+    const dataItemFromLocal = localStorage.getItem('data-item');
+    const dataTotalFromLocal = localStorage.getItem('data-total');
+    const dataItem = JSON.parse(dataItemFromLocal!);
+    const dataTotal = JSON.parse(dataTotalFromLocal!);
+
+    const data = {
+      event: dataItem._id,
+      event_name: dataItem.event_name,
+      category: dataItem.category.category_name,
+      banner: dataItem.banner,
+
+      date: dataItem.date,
+      location: dataItem.location,
+      quantity: dataItem.category.quantity,
+      description: dataItem.description,
+      total: dataTotal.totalCartPrice,
+    };
+
+    const response = await setCheckout(data);
+    if (response.error) {
+      toast.error(response.message, {
+        theme: 'colored',
+      });
+    } else {
+      toast.success('Check-Out Berhasil!!', {
+        theme: 'colored',
+      });
+      console.log('data co', response);
+      router.push('/payment/confirmation');
+    }
+  };
   return (
     <div className="flex flex-col justify-center px-4 py-6 md:p-6 xl:p-8 w-full bg-gray-50 space-y-6   ">
       <h3 className="text-xl font-semibold leading-5 text-gray-800">Payment</h3>
@@ -25,8 +62,9 @@ export default function PaymentSummary() {
       </div>
       <div className="flex justify-between xl:h-full  items-stretch w-full flex-col mt-6 md:mt-0">
         <div className="flex w-full justify-center items-center md:justify-start md:items-start">
-          <button className="mt-6 md:mt-0 py-5 bg-[#504CD8] hover:bg-slate-700 rounded-full  font-medium w-96 2xl:w-full text-base leading-4 text-white">
-            <a href="/payment/confirmation">Confirmation</a>
+          <button className="mt-6 md:mt-0 py-5 bg-[#504CD8] hover:bg-slate-700 rounded-full  font-medium w-96 2xl:w-full text-base leading-4 text-white" onClick={onsubmit}>
+            {/* <a href="/payment/confirmation">Confirmation</a> */}
+            Confirmation
           </button>
         </div>
       </div>
