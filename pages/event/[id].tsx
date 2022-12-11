@@ -3,6 +3,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import PriceItem from '../../components/cards/card-category/priceItem';
+import EventCategoryCard from '../../components/event/eventCategory/EventCategoryCard';
+import EDetailMobile from '../../components/event/eventdetailmobile/EDetailMobile';
+import EventHeader from '../../components/event/eventHeader/EventHeader';
+import TalentCard from '../../components/event/talent/TalentCard';
 import Footers from '../../components/footer';
 import Navbars from '../../components/header';
 import { CategoryTypes, TalentTypes } from '../../services/data-types';
@@ -32,6 +36,8 @@ export default function EventDetails() {
     date: '',
     location: '',
     banner: '',
+    agencyName: '',
+    status: '',
   });
 
   const handleChange = (item, d) => {
@@ -73,33 +79,7 @@ export default function EventDetails() {
         {/* <NavbarsDetail /> */}
         <Navbars />
 
-        <nav className="sticky z-[1] top-0  bg-[#172029] hidden sm:block max-h-32 drop-shadow shadow-blue-600">
-          <div className="grid grid-cols-3  ">
-            <div className="pl-16 text-slate-50 my-3">
-              <div className="NAMAEVENT font-extrabold text-3xl">{dataItem.event_name}</div>
-              <ul className="pt-10">
-                <li className="inline-block text-sm text-slate-400">Created by:</li>
-                <li className="inline-block text-sm text-yellow-500 font-bold pl-2">Gema Smansagra Choir</li>
-                <li className="inline-block text-sm pl-6 text-slate-400">Status: </li>
-                <li className="inline-block text-sm pl-2">Publish</li>
-              </ul>
-            </div>
-            <div className="text-right">
-              <div className="absolute left-[67%] top-4 -ml-0.5 w-0.5 h-[6rem] bg-yellow-500"></div>
-            </div>
-            <div className="">
-              <ul className="pl-8 text-slate-50 my-3">
-                <li className="Time text-sm">{dataItem.date} | 17:00:00</li>
-                <li className="Place my-5 text-sm">{dataItem.location} </li>
-                <li className="Map text-sm font-bold">
-                  <a target="_blank" href="/" className="text-yellow-500">
-                    View in Maps
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <EventHeader event_name={dataItem.event_name} date={dataItem.date} location={dataItem.location} agencyName={dataItem.agencyName} status={dataItem.status} />
 
         <div className="h-full">
           <div className="flex mb-4 ">
@@ -109,8 +89,8 @@ export default function EventDetails() {
                   <img src={`${IMG}/${dataItem.banner}`} className="sm:rounded-md rounded-none" alt="" />
                 </div>
                 <div className="Description pt-10 sm:px-0 px-10">
-                  <h1 className="text-2xl font-bold">{dataItem.event_name}</h1>
-                  <p className="text-sm font-semibold pb-3 pt-5">Description:</p>
+                  <h1 className="text-3xl font-bold">{dataItem.event_name}</h1>
+                  <p className="text-2xl font-semibold pb-3 pt-5">About this event:</p>
                   <p className="text-sm pb-14 ">{dataItem.description}</p>
                   <p className="text-sm font-semibold pb-3">Terms And Conditions:</p>
                   <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem doloremque corrupti veniam laboriosam!</p>
@@ -120,18 +100,7 @@ export default function EventDetails() {
                   <div className="text-2xl font-bold pb-10 pl-10 sm:pl-0 ">Talent</div>
                   <div className=" grid-cols-1 grid md:grid-cols-3 sm:grid-cols-2 gap-2 pb-5 mx-6 ">
                     {talentItem.map((item: TalentTypes) => {
-                      return (
-                        <div key={item._id} className=" justify-center flex">
-                          <div className="max-w-sm">
-                            <Card>
-                              <div className="flex ">
-                                <img width={50} height={50} src={`${IMG}/${item.talent_picture}`} className="pr-2 rounded-full" alt="" />
-                                <h5 className="text-2xl font-bold tracking-tight px-auto mt-1 text-gray-900 dark:text-white">{item.talent_name} </h5>
-                              </div>
-                            </Card>
-                          </div>
-                        </div>
-                      );
+                      return <TalentCard id={item._id} key={item._id} talent_picture={item.talent_picture} talent_name={item.talent_name} />;
                     })}
                   </div>
                 </div>
@@ -146,10 +115,10 @@ export default function EventDetails() {
                   </div>
                   <div className="px-3 py-2 bg-slate-200 divide-x-2 " />
 
-                  {categoryItem.map((item: CategoryTypes, idx) => {
+                  {categoryItem.map((item: CategoryTypes) => {
                     totalCartPrice += item.price * item.quantity;
                     return (
-                      <div className="px-3 py-2 bg-slate-200 divide-x-2 " key={idx} id={item._id}>
+                      <div className="px-3 py-2 bg-slate-200 divide-x-2 " key={item._id} id={item._id}>
                         <div className=" text-xl mb-2 ">
                           <div className=" space-y-3 border-yellow-500 border-solid border-l-4 rounded-lg">
                             <div className="group flex items-center rounded-lg bg-white p-3 text-base font-bold text-gray-900  dark:bg-gray-600 dark:text-white ">
@@ -187,6 +156,8 @@ export default function EventDetails() {
                           </div>
                         </div>
                       </div>
+
+                      // <EventCategoryCard key={item._id} id={item._id} category_name={item.category_name} price={item.price} quantity={item.quantity} />
                     );
                   })}
 
@@ -221,48 +192,21 @@ export default function EventDetails() {
       </div>
 
       {/* ticket mobile */}
-      <div className={clicked || 'w-full h-full bg-white z-30 absolute top-0 hidden '}>
-        <div className="px-3  flex items-center h-[7%] ">
-          <div className="font-bold text-xl" onClick={handleClick}>
-            -Ticket Category
-          </div>
-        </div>
-        <div className="px-3 py-4 bg-slate-300 h-[84%]">
-          <div className=" text-xl ">
-            <ul className="my-4 space-y-3 border-yellow-500 border-solid border-l-4 rounded-lg">
-              <li>
-                <div className="group flex items-center rounded-lg  bg-white p-3 text-base font-bold text-gray-900  dark:bg-gray-600 dark:text-white ">
-                  <ul className=" flex-1">
-                    <li className="ml-3 text-xs whitespace-nowrap">Presale 1</li>
-                    <li className="ml-3 whitespace-nowrap">Rp. 100.000</li>
-                  </ul>
-                  <a href="/event">
-                    <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-3 border  hover:border-transparent rounded-lg">add</button>
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="px-3 h-[9%] ">
-          <div className="h-full ">
-            <div className="font-semibold text-md absolute pt-1">Total:</div>
-            <div className="grid-cols-2 grid  items-center h-full ">
-              <div className="font-bold text-xl mb-2 text-yellow-500 ">RP. 0</div>
-              <div className="font-bold text-xl mb-2 text-yellow-500 ml-auto">
-                <Link href="/event">
-                  <button className="bg-slate-500 hover:bg-slate-700 font-semibold text-white py-1 px-2 border  hover:border-transparent rounded">Chekout</button>
-                </Link>
-              </div>
-            </div>
-            {/* <div className="flex  bg-green-500 h-full">
-            <div className="flex float-left">Total</div>
-            <div className="flex float-left">RP. 0</div>
-            <div className="flex float-right">Chekout</div>
-          </div> */}
-          </div>
-        </div>
-      </div>
+      {categoryItem.map((item: CategoryTypes) => {
+        return (
+          <EDetailMobile
+            quantity={item.quantity}
+            category_name={item.category_name}
+            id={item._id}
+            onSubmit={onSubmit}
+            totalCartPrice={totalCartPrice}
+            clicked={clicked}
+            handleClick={handleClick}
+            price={item.price}
+            // handleChange={handleChange}
+          />
+        );
+      })}
     </div>
   );
 }

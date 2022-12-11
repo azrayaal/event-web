@@ -35,9 +35,11 @@ export default function Home(props) {
         <div className="absolute top-12 left-12">
           <h1 className="text-[50px] font-extrabold text-yellow-300">Do The New Year Right</h1>
           <h2 className="text-xl  mb-10 font-semibold text-white">We've curated the best events near you to get your 2023 started.</h2>
-          <button className="inline-block px-6 py-2.5 bg-[#015E95] text-white font-medium text-lg leading-tight uppercase shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-            Create Your Own Event
-          </button>
+          <Link href="/your_event/request">
+            <button className="inline-block px-6 py-2.5 bg-[#015E95] text-white font-medium text-lg leading-tight uppercase shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+              Create Your Own Event
+            </button>
+          </Link>
         </div>
       </div>
       <div className={styles.main}>
