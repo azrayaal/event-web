@@ -5,6 +5,9 @@ export interface EventListTypes {
   banner: string;
   date: string;
   time: string;
+  location: any;
+  agency_name: string;
+  status: string;
 }
 
 export interface TalentTypes {

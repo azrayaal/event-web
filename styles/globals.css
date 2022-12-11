@@ -93,6 +93,7 @@ color: #504CD8
 .status-requestcard.decline {
   background-color: #fe5761;
 }
+////////////////////
 
 .status-historyTransaction.pending {
   background-color: #febd57;
@@ -103,5 +104,17 @@ color: #504CD8
 }
 
 .status-historyTransaction.failed {
+  background-color: #fe5761;
+}
+
+.cardindex {
+  place-items: center;
+}
+
+.indexstat.Publish {
+  background-color: #1abc9c;
+}
+
+.indexstat.Expire {
   background-color: #fe5761;
 }

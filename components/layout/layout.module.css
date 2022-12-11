@@ -1,6 +1,9 @@
-/* .container {
+.main {
   padding: 0 2rem;
-} */
+  position: relative;
+  height: auto!;
+  background-color: #f1f5f9;
+}
 
 .title a {
   color: #0070f3;

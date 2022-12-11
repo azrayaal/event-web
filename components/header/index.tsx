@@ -63,14 +63,14 @@ export default function Navbars() {
   if (isLogin) {
     return (
       <>
-        <nav className=" shadow-lg  z-40">
+        <nav className=" shadow-lg  z-40 relative">
           {/* {({ open }) => ( */}
           <>
             <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8 ">
               <div className="relative flex  h-16 items-center justify-between">
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex flex-shrink-0 items-center mr-auto text-gray-300 ">
-                    <Link href="/" className="font-semibold whitespace-nowrap">
+                    <Link href="/" className="font-semibold whitespace-nowrap text-yellow-300">
                       Leisuere Event
                     </Link>
                   </div>

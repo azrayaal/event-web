@@ -4,14 +4,15 @@
 
 .main {
   min-height: 100vh;
-  padding: 0 4rem 4rem 4rem;
-  flex: 1;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   /* background-color: yellow; */
   /* justify-content: center; */
+
+  padding: 0 2rem;
+  height: auto;
+  background-color: #f1f5f9;
 }
 
 .title a {

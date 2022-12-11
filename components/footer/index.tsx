@@ -4,11 +4,11 @@ import Link from 'next/link';
 export default function Footers() {
   return (
     <>
-      <footer className="p-4 dark:bg-white sm:p-6 hidden sm:block bg-gray-800">
+      <footer className="p-4 dark:bg-white sm:p-6 hidden sm:block bg-gray-800 relative">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <a href="#" target="_blank" className="flex items-center">
-              <span className="self-center text-xl font-semibold whitespace-nowrap text-gray-200"> Leisure Event</span>
+              <span className="self-center text-xl font-semibold whitespace-nowrap text-yellow-300"> Leisure Event</span>
             </a>
           </div>
           <div className="grid grid-cols- gap-8 sm:gap-6 sm:grid-cols-3">

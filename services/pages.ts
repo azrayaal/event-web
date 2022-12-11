@@ -5,21 +5,35 @@ import { RequestTypes } from './data-types';
 const URL = 'leisure';
 const ROOT_API = process.env.NEXT_PUBLIC_API;
 
-export async function getFeaturedEvent() {
-  const response = await axios.get(`${ROOT_API}/${URL}/landingpage`);
-  const axiosResponse = response.data;
-  return axiosResponse.data;
-}
-
 // export async function getFeaturedEvent() {
-//   // const url = `${ROOT_API}/${URL}/landingpage`;
-//   const url = `http://localhost:3000/leisure/landingpage`;
-
-//   return callAPI({
-//     url,
-//     method: 'GET',
+//   const response = await axios.get(`${ROOT_API}/${URL}/landingpage`, {
+//     Authorization: `Bearer ${token}`,
 //   });
+//   const axiosResponse = response.data;
+//   return axiosResponse.data;
 // }
+// export async function getFeaturedEvent() {
+//   // const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1/comments');
+//   const response = await axios.get(`${ROOT_API}/${URL}/landingpage`, {
+//     auth: {
+//       username: 'username',
+//       password: 'password',
+//     },
+//   });
+//   const axiosResponse = response.data;
+//   return axiosResponse.data;
+// }
+
+export async function getFeaturedEvent() {
+  // const url = `https://jsonplaceholder.typicode.com/posts/1/comments`;
+  const url = `${ROOT_API}/${URL}/landingpage`;
+
+  return callAPI({
+    url,
+    method: 'GET',
+    // token: true,
+  });
+}
 
 export async function getDetailEvent(id: any) {
   const url = `${ROOT_API}/${URL}/detail/${id}`;

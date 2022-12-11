@@ -2,24 +2,38 @@ import Link from 'next/link';
 
 interface CardEventProps {
   event_name: string;
-  description: string;
+  // description: string;
   id: string;
   banner: string;
+  date: string;
+  location: any;
+  agency_name: string;
+  status: string;
 }
 
 export default function CardsEvent(props: CardEventProps) {
   const IMG = process.env.NEXT_PUBLIC_IMG;
 
-  const { event_name, description, id, banner } = props;
+  const { event_name, id, banner, date, agency_name, location, status } = props;
   return (
     <Link href={`/event/${id}`}>
-      <div className="max-w-sm  rounded-2xl overflow-hidden  border-slate-400 border border-solid bg-slate-300  hover:drop-shadow-xl" key={id}>
-        <div className="px-3 py-4 ">
-          <img className="w-full rounded-2xl min-h-[250px] max-h-[250px]" src={`${IMG}/${banner}`} alt="Sunset in the mountains" />
-          <div className="font-bold text-xl mb-2 pt-4">{event_name}</div>
+      <div key={id} id={id}>
+        {/* img  940x470 */}
+        <img src={`${IMG}/${banner}`} alt=" random image" className="image-center object-cover object-center hover:shadow-xl shadow-md" />
 
-          <div className="max-h-24 min-h-24  h-[100px]">
-            <p className="text-gray-700  text-base  text-justify sm:text-left">{description}</p>
+        <div className="relative px-4 -mt-10 ">
+          <div className="bg-white p-6 shadow-lg hover:shadow-xl min-h-[250px] max-h-[250px] min-w-[320px] max-w-[320px]">
+            <p className="mt-1 text-xl font-semibold uppercase leading-tight truncate">{event_name}</p>
+
+            <div className="mt-1 text-red-600 font-semibold">{date}</div>
+
+            <div className="mt-2">
+              <span className="text-sm text-gray-600 font-semibold">{location}</span>
+            </div>
+            <div className="flex ">
+              <div className="mt-1 text-black font-semibold">{agency_name}</div>
+            </div>
+            {/* <div className={`absolute bottom-3 right-7 px-5 py-2 bg-red-500 text-white font-semibold indexstat ${status}`}>{status}</div> */}
           </div>
         </div>
       </div>
