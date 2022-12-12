@@ -15,15 +15,13 @@ export default function TransactionList(props: TransactionListProps) {
   return (
     <tbody className="text-gray-600 text-sm font-light">
       <tr className="border-b border-gray-200 hover:bg-gray-100">
-        <td className="py-3 px-6 text-left whitespace-nowrap">
+        <td className="py-3 px-6 text-left whitespace-nowrap cell-breakWord">
           <div className="flex items-center">
             <span className="font-medium">{event_name}</span>
           </div>
         </td>
-        <td className="py-3 px-6 text-center">
-          <div className=" items-center ">
-            <span className="font-medium">{event_name}</span>
-          </div>
+        <td className="py-3 px-6 text-center cell-breakWord">
+          <div className=" items-center ">{/* <span className="font-medium">{event_name}</span> */}</div>
         </td>
         <td className="py-3 px-6 text-center">
           <div className=" items-center">

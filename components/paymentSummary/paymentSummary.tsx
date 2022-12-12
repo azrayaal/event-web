@@ -20,9 +20,10 @@ export default function PaymentSummary() {
 
       date: dataItem.date,
       location: dataItem.location,
+      maps: dataItem.maps,
       quantity: dataItem.category.quantity,
       description: dataItem.description,
-      total: dataTotal.totalCartPrice,
+      // total: dataTotal.totalCartPrice,
     };
 
     const response = await setCheckout(data);
@@ -62,9 +63,12 @@ export default function PaymentSummary() {
       </div>
       <div className="flex justify-between xl:h-full  items-stretch w-full flex-col mt-6 md:mt-0">
         <div className="flex w-full justify-center items-center md:justify-start md:items-start">
-          <button className="mt-6 md:mt-0 py-5 bg-[#504CD8] hover:bg-slate-700 rounded-full  font-medium w-96 2xl:w-full text-base leading-4 text-white" onClick={onsubmit}>
+          <button
+            className="inline-block w-full  py-2.5 bg-blue-600 text-white font-medium text-sm leading-tight uppercase shadow-md hover:bg-blue-800 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#015E95] active:shadow-lg transition duration-150 ease-in-out"
+            onClick={onsubmit}
+          >
             {/* <a href="/payment/confirmation">Confirmation</a> */}
-            Confirmation
+            Confirm
           </button>
         </div>
       </div>

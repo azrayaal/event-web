@@ -14,6 +14,8 @@ export default function Payment() {
     location: '',
     time: '',
     date: '',
+    _id: '',
+    createdAt: '',
   });
   const [totalItem, setTotalItem] = useState({
     totalCartPrice: 0,
@@ -57,16 +59,19 @@ export default function Payment() {
     <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto bg-slate-100">
       <div className="flex justify-start item-start space-y-2 flex-col ">
         <Link href="/">
-          <div className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9 text-center text-gray-800">Leisure Event</div>
+          <div className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9 text-center text-yellow-400 my-5">Leisure Event</div>
         </Link>
-        <h1 className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9  text-gray-800">Order #13432</h1>
-        {/* <p className="text-base font-medium leading-6 text-gray-600">21st Mart 2021 at 10:34 PM</p> */}
+        <h1 className="text-2xl lg:text-2xl font-semibold leading-7 lg:leading-9  text-gray-800">
+          Order
+          <span> {dataItem._id}</span>
+        </h1>
+        <p className="text-base font-medium leading-6 text-gray-600">{dataItem.createdAt}</p>
       </div>
       <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch  w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
         <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
           <CouponSummary banner={bannerImg.banner} event_name={dataItem.event_name} location={dataItem.location} time={dataItem.time} date={dataItem.date} />
           <div className="flex justify-center md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
-            <TotalSummary totalCartPrice={totalItem.totalCartPrice} />
+            <TotalSummary />
 
             <PaymentSummary />
           </div>

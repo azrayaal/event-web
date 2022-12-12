@@ -15,7 +15,10 @@ export default function Confirmation() {
           <p className="text-gray-600 my-2">Pembayaran Sedang dikonfirmasi oleh admin harap tunggu sebentar</p>
           <p> Have a great day! </p>
           <div className="py-10 text-center">
-            <a href="/" className="px-12 bg-[#504CD8] hover:bg-slate-700 rounded-full text-white font-semibold py-3">
+            <a
+              href="/"
+              className="px-12 inline-block  py-2.5 bg-blue-600 text-white font-medium text-sm leading-tight uppercase shadow-md hover:bg-blue-800 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#015E95] active:shadow-lg transition duration-150 ease-in-out3"
+            >
               GO BACK
             </a>
           </div>

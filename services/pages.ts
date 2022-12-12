@@ -1,6 +1,5 @@
 import axios from 'axios';
 import callAPI from '../config/api';
-import { RequestTypes } from './data-types';
 
 const URL = 'leisure';
 const ROOT_API = process.env.NEXT_PUBLIC_API;
@@ -15,13 +14,17 @@ export async function getFeaturedEvent() {
   });
 }
 
-export async function getDetailEvent(id: any) {
-  const url = `${ROOT_API}/${URL}/detail/${id}`;
+export async function getDetailEvent(id: string) {
+  // const url = `${ROOT_API}/${URL}/detail/${id}`;
 
-  return callAPI({
-    url,
-    method: 'GET',
-  });
+  // return callAPI({
+  //   url,
+  //   method: 'GET',
+  // });
+  const URLA = `detail/${id}`;
+  const response = await axios.get(`${ROOT_API}/${URL}/${URLA}`);
+  const axiosResponse = response.data;
+  return axiosResponse.data;
 }
 
 export async function putEditProfile(data: FormData, id: any) {

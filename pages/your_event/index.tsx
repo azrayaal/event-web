@@ -51,10 +51,10 @@ export default function Tickets() {
             return <RequestCard thumbnail={`${IMG}/${item.thumbnail}`} date={item.date} status={item.status} event_name={item.event_name} description={item.description} key={item._id} id={item._id} />;
           })}
         </div>
-        <div className="text-center justify-center items-center mt-10">
+        <div className="text-center justify-center items-center mt-10 pb-5">
           <Link href="/your_event/request">
             <button className="inline-block px-6 py-2.5 bg-[#015E95] text-white font-medium text-xs leading-tight uppercase shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-              Discover More Event
+              Create Your Event
             </button>
           </Link>
         </div>

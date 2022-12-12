@@ -6,14 +6,16 @@ export interface EventListTypes {
   date: string;
   time: string;
   location: any;
-  agency_name: string;
+  agencyName: string;
   status: string;
+  category: CategoryTypes;
 }
 
 export interface TalentTypes {
   _id: string;
   talent_picture: string;
   talent_name: string;
+  map: any;
 }
 export interface QuantityTypes {
   _id: string;
@@ -29,6 +31,9 @@ export interface CategoryTypes {
   price: number;
   category_qty: number;
   quantity: number;
+  map: any;
+  indexOf: any;
+  arr: any;
   // quantity: QuantityTypes;
 }
 

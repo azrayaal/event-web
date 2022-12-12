@@ -118,3 +118,13 @@ color: #504CD8
 .indexstat.Expire {
   background-color: #fe5761;
 }
+
+.cell-breakWord {
+  word-wrap: break-word;
+  max-width: 6px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}

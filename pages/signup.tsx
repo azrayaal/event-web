@@ -117,7 +117,7 @@ export default function signup() {
               </div>
             </div>
 
-            <button onClick={onSubmit} className="bg-slate-800 w-full hover:bg-slate-700 font-semibold text-white py-2 px-2 border  hover:border-transparent rounded-3xl">
+            <button onClick={onSubmit} className="bg-[#015E95] w-full hover:bg-slate-700 font-semibold text-white py-2 px-2 border  hover:border-transparent ">
               Create my account
             </button>
           </Card>

@@ -24,16 +24,16 @@ export default function CouponSummary(props: CouponProps) {
             <h3 className="text-xl xl:text-2xl font-semibold leading-6 text-gray-800">{event_name}</h3>
             <div className="flex justify-start items-start flex-col space-y-2">
               <p className="text-sm leading-none text-gray-800">
-                <span className="text-gray-300">Locaton: </span>
+                <span className="text-gray-500">Locaton: </span>
                 <br />
                 <div className="mt-1">{location}</div>
               </p>
+              {/* <p className="text-sm leading-none text-gray-800">
+                <span className="text-gray-500">Time: </span> <br />
+                <div className="mt-1">{date}</div>
+              </p> */}
               <p className="text-sm leading-none text-gray-800">
-                <span className="text-gray-300">Time: </span> <br />
-                <div className="mt-1">{time}</div>
-              </p>
-              <p className="text-sm leading-none text-gray-800">
-                <span className="text-gray-300">Date: </span> <br />
+                <span className="text-gray-500">Date: </span> <br />
                 <div className="mt-1">{date}</div>
               </p>
             </div>

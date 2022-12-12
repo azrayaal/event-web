@@ -35,7 +35,7 @@ export default function transactions() {
   };
   return (
     <Layouts pageTitle="Transactions">
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto h-full">
         <div className="min-w-screen min-h-screen flex justify-center bg-gray-100 font-sans overflow-hidden">
           <div className="w-full lg:w-5/6">
             <div className="text-center justify-center items-center py-5">
@@ -62,7 +62,7 @@ export default function transactions() {
                 })}
               </table>
             </div>
-            <div className="text-center justify-center items-center">
+            <div className="text-center justify-center items-center my-4">
               <Link href="/">
                 <button className="inline-block px-6 py-2.5 bg-[#015E95] text-white font-medium text-xs leading-tight uppercase shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                   Back
