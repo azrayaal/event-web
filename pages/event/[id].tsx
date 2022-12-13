@@ -17,11 +17,19 @@ interface dataItemProps {
 
 export default function DetailPage({ dataItem, talentItem, categoryItem }: dataItemProps) {
   const [verifyID, setVerifyID] = useState('');
+  const [ticket, setTicket] = useState({});
   const router = useRouter();
+
+  const ticketItemChange = (data: CategoryTypes) => {
+    // con sole.log('data nominal=>>', data);
+    setTicket(data);
+  };
+
   const onSubmit = () => {
     // alert('ahahah');
     const data = {
       verifyID,
+      ticket,
     };
     // localStorage.setItem('data-item', JSON.stringify(dataItem));
     // localStorage.setItem('data-total', JSON.stringify(dataTotal));
@@ -65,9 +73,9 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
           <div className="w-[30%] h-full sticky top-36 z-[-0] hidden sm:block">
             <div className="py-10 pr-16 pl-7">
               <div className="max-w-sm  rounded-md overflow-hidden bg-white border-slate-400 border border-solid   hover:drop-shadow-xl">
-                <div className="text-center justify-center items-center pt-4 ">
+                <div className="text-center justify-center items-center ">
                   {/* input nama */}
-                  <div className="relative mx-4">
+                  <div className="relative mx-4 my-4">
                     <input
                       type="text"
                       id="floating_outlined"
@@ -82,11 +90,16 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
                       Name
                     </label>
                   </div>
-                  {/* {categoryItem.map((item) => {
-                    return <div className="font-bold text-xl mb-2 pb-1 ">Rp. {item.price}</div>;
-                  })} */}
 
-                  <TikectCategoryItem />
+                  <div className="relative h-[100%] py-10 flex items-center justify-center bg-slate-200">
+                    <div className="mx-auto max-w-6xl px-12">
+                      <div className="flex flex-wrap gap-3">
+                        {categoryItem.map((item: CategoryTypes) => {
+                          return <TikectCategoryItem category_name={item.category_name} key={item._id} _id={item._id} price={item.price} onChange={() => ticketItemChange(categoryItem)} />;
+                        })}
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="py-4 ">
                   <div className="text-center justify-center items-center">
