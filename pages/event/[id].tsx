@@ -43,7 +43,7 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
       <Navbars />
       <EventHeader event_name={dataItem.event_name} date={dataItem.date} location={dataItem.location} agencyName={dataItem.agencyName} status={dataItem.status} />
 
-      <div className="h-full">
+      <div className="h-auto relative mb-24">
         <div className="flex mb-4 ">
           <div className=" w-full sm:w-[70%] h-full  ">
             <div className=" pt-0 sm:pt-10 sm:px-16 px-0 ">
@@ -59,7 +59,8 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
               </div>
 
               <div className="py-[1px] my-16 bg-slate-400 rounded sm:mx-0 mx-10" />
-              <div className="TALENT">
+
+              <div className="TALENT mb-4">
                 <div className="text-2xl font-bold pb-10 pl-10 sm:pl-0 ">Talent</div>
                 <div className=" grid-cols-1 grid md:grid-cols-3 sm:grid-cols-2 gap-2 pb-5 mx-6 ">
                   {talentItem.map((item: TalentTypes) => {
@@ -116,6 +117,14 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
               </div>
             </div>
           </div>
+        </div>
+        <div className=" mx-6">
+          <button
+            className="w-full sm:hidden block py-5 bg-blue-600 text-white font-medium text-sm leading-tight uppercase shadow-md hover:bg-blue-800 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#015E95] active:shadow-lg transition duration-150 ease-in-out"
+            onClick={onSubmit}
+          >
+            Get Tickets
+          </button>
         </div>
       </div>
 
