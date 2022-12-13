@@ -1,4 +1,5 @@
 import { getDetailEvent, getFeaturedEvent } from '../../services/pages';
+import { useState } from 'react';
 
 import { useRouter } from 'next/router';
 import EventHeader from '../../components/event/eventHeader/EventHeader';
@@ -6,6 +7,7 @@ import TalentCard from '../../components/event/talent/TalentCard';
 import Footers from '../../components/footer';
 import Navbars from '../../components/header';
 import { CategoryTypes, EventListTypes, TalentTypes } from '../../services/data-types';
+import TikectCategoryItem from '../../components/cards/card-category/categoryItem';
 
 interface dataItemProps {
   dataItem: EventListTypes;
@@ -14,14 +16,17 @@ interface dataItemProps {
 }
 
 export default function DetailPage({ dataItem, talentItem, categoryItem }: dataItemProps) {
+  const [verifyID, setVerifyID] = useState('');
   const router = useRouter();
   const onSubmit = () => {
     // alert('ahahah');
-    // console.log('haha');
-    localStorage.setItem('data-item', JSON.stringify(dataItem));
+    const data = {
+      verifyID,
+    };
+    // localStorage.setItem('data-item', JSON.stringify(dataItem));
     // localStorage.setItem('data-total', JSON.stringify(dataTotal));
-    // console.log('data', dataTotal);
-    router.push('/payment');
+    console.log('data', data);
+    // router.push('/payment');
   };
 
   const IMG = process.env.NEXT_PUBLIC_IMG;
@@ -57,13 +62,31 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
             </div>
           </div>
 
-          <div className="w-[30%] h-full sticky top-36 z-[-0]   hidden sm:block">
+          <div className="w-[30%] h-full sticky top-36 z-[-0] hidden sm:block">
             <div className="py-10 pr-16 pl-7">
               <div className="max-w-sm  rounded-md overflow-hidden bg-white border-slate-400 border border-solid   hover:drop-shadow-xl">
                 <div className="text-center justify-center items-center pt-4 ">
-                  {categoryItem.map((item) => {
+                  {/* input nama */}
+                  <div className="relative mx-4">
+                    <input
+                      type="text"
+                      id="floating_outlined"
+                      className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                      placeholder=" "
+                      onChange={(event) => setVerifyID(event.target.value)}
+                    />
+                    <label
+                      htmlFor="floating_outlined"
+                      className=" absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+                    >
+                      Name
+                    </label>
+                  </div>
+                  {/* {categoryItem.map((item) => {
                     return <div className="font-bold text-xl mb-2 pb-1 ">Rp. {item.price}</div>;
-                  })}
+                  })} */}
+
+                  <TikectCategoryItem />
                 </div>
                 <div className="py-4 ">
                   <div className="text-center justify-center items-center">
