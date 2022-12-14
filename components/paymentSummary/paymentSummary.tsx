@@ -8,14 +8,14 @@ export default function PaymentSummary() {
 
   const onsubmit = async () => {
     const dataItemFromLocal = localStorage.getItem('data-item');
-    const dataTotalFromLocal = localStorage.getItem('data-total');
+    const dataCheckOutFromLocal = localStorage.getItem('checkout-item');
     const dataItem = JSON.parse(dataItemFromLocal!);
-    const dataTotal = JSON.parse(dataTotalFromLocal!);
+    const datacheckout = JSON.parse(dataCheckOutFromLocal!);
 
     const data = {
       event: dataItem._id,
       event_name: dataItem.event_name,
-      category: dataItem.category.category_name,
+      category: datacheckout.ticketCat.category_name,
       banner: dataItem.banner,
 
       date: dataItem.date,
@@ -23,7 +23,7 @@ export default function PaymentSummary() {
       maps: dataItem.maps,
       quantity: dataItem.category.quantity,
       description: dataItem.description,
-      // total: dataTotal.totalCartPrice,
+      total: datacheckout.ticketCat.price,
     };
 
     const response = await setCheckout(data);

@@ -8,6 +8,7 @@ import Footers from '../../components/footer';
 import Navbars from '../../components/header';
 import { CategoryTypes, EventListTypes, TalentTypes } from '../../services/data-types';
 import TikectCategoryItem from '../../components/cards/card-category/categoryItem';
+import { toast } from 'react-toastify';
 
 interface dataItemProps {
   dataItem: EventListTypes;
@@ -17,24 +18,27 @@ interface dataItemProps {
 
 export default function DetailPage({ dataItem, talentItem, categoryItem }: dataItemProps) {
   const [verifyID, setVerifyID] = useState('');
-  const [ticket, setTicket] = useState({});
+  const [ticketCat, setTicketCat] = useState({});
   const router = useRouter();
 
   const ticketItemChange = (data: CategoryTypes) => {
     // con sole.log('data nominal=>>', data);
-    setTicket(data);
+    setTicketCat(data);
   };
 
   const onSubmit = () => {
     // alert('ahahah');
     const data = {
       verifyID,
-      ticket,
+      ticketCat,
     };
-    // localStorage.setItem('data-item', JSON.stringify(dataItem));
-    // localStorage.setItem('data-total', JSON.stringify(dataTotal));
-    console.log('data', data);
-    // router.push('/payment');
+    if (verifyID === '') {
+      toast.error('Nama ticket tidak boleh kosong', { theme: 'colored' });
+    }
+    localStorage.setItem('checkout-item', JSON.stringify(data));
+    localStorage.setItem('data-item', JSON.stringify(dataItem));
+    // console.log('data', data);
+    router.push('/payment');
   };
 
   const IMG = process.env.NEXT_PUBLIC_IMG;
@@ -95,9 +99,9 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
                   <div className="relative h-[100%] py-10 flex items-center justify-center bg-slate-200">
                     <div className="mx-auto max-w-6xl px-12">
                       <div className="flex flex-wrap gap-3">
-                        {categoryItem.map((item: CategoryTypes) => {
-                          return <TikectCategoryItem category_name={item.category_name} key={item._id} _id={item._id} price={item.price} onChange={() => ticketItemChange(categoryItem)} />;
-                        })}
+                        {categoryItem.map((category: CategoryTypes) => (
+                          <TikectCategoryItem category_name={category.category_name} key={category._id} _id={category._id} price={category.price} onChange={() => ticketItemChange(category)} />
+                        ))}
                       </div>
                     </div>
                   </div>

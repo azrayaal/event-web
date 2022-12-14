@@ -17,8 +17,11 @@ export default function Payment() {
     _id: '',
     createdAt: '',
   });
-  const [totalItem, setTotalItem] = useState({
-    totalCartPrice: 0,
+  const [checkOutItem, setCheckOutItem] = useState({
+    ticketCat: {
+      category_name: '',
+      price: 0,
+    },
   });
   const [user, setUser] = useState({
     name: '',
@@ -44,14 +47,14 @@ export default function Payment() {
       setUser(userFromPayload);
 
       const dataFromLocal = localStorage.getItem('data-item');
-      const totalFromLocal = localStorage.getItem('data-total');
+      const checkoutFromLocal = localStorage.getItem('checkout-item');
       const dataItemLocals = JSON.parse(dataFromLocal!);
-      const totalItemLocals = JSON.parse(totalFromLocal!);
+      const checkoutLocals = JSON.parse(checkoutFromLocal!);
       bannerImg.banner = `${IMG}/${dataItemLocals.banner}`;
       setDataItem(dataItemLocals);
       setBannerImg(bannerImg);
-      setTotalItem(totalItemLocals);
-      console.log('data dataItem=>', dataItemLocals);
+      setCheckOutItem(checkoutLocals);
+      console.log('data dataItem=>', checkoutLocals);
     }
   }, []);
 
@@ -69,9 +72,9 @@ export default function Payment() {
       </div>
       <div className="mt-10 flex flex-col xl:flex-row jusitfy-center items-stretch  w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
         <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
-          <CouponSummary banner={bannerImg.banner} event_name={dataItem.event_name} location={dataItem.location} time={dataItem.time} date={dataItem.date} />
+          <CouponSummary category_name={checkOutItem.ticketCat.category_name} banner={bannerImg.banner} event_name={dataItem.event_name} location={dataItem.location} time={dataItem.time} date={dataItem.date} />
           <div className="flex justify-center md:flex-row flex-col items-stretch w-full space-y-4 md:space-y-0 md:space-x-6 xl:space-x-8">
-            <TotalSummary />
+            <TotalSummary price={checkOutItem.ticketCat.price} />
 
             <PaymentSummary />
           </div>
