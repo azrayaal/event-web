@@ -1,55 +1,42 @@
 import Link from 'next/link';
 import React from 'react';
-
+import { NumericFormat } from 'react-number-format';
 interface TransactionListProps {
-  event_name: String;
-  id: String;
-  name: String;
-  total: String;
-  createdAt: String;
-  status: String;
+  event_name: string;
+  id: string;
+  name: string;
+  total: string;
+  createdAt: string;
+  status: string;
+  banner: string;
 }
 
 export default function TransactionList(props: TransactionListProps) {
-  const { event_name, id, name, total, createdAt, status } = props;
+  const { event_name, id, name, total, createdAt, status, banner } = props;
   return (
-    <tbody className="text-gray-600 text-sm font-light">
-      <tr className="border-b border-gray-200 hover:bg-gray-100">
-        <td className="py-3 px-6 text-left whitespace-nowrap cell-breakWord">
-          <div className="flex items-center">
-            <span className="font-medium">{event_name}</span>
+    <>
+      <div className="bg-white shadow-md rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700 hover:shadow-2xl">
+        <img className="rounded-t-lg " src={banner} alt="product image" />
+        <div className="px-5 pb-5">
+          <h3 className="text-gray-900 font-semibold text-xl tracking-tight dark:text-white">{event_name}</h3>
+          <div className="flex items-center mt-2.5 mb-5">
+            {status}
+            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3"> OrderID: {id}</span>
           </div>
-        </td>
-        <td className="py-3 px-6 text-center cell-breakWord">
-          <div className=" items-center ">{/* <span className="font-medium">{event_name}</span> */}</div>
-        </td>
-        <td className="py-3 px-6 text-center">
-          <div className=" items-center">
-            <span className="font-medium">{name}</span>
+
+          <div className="flex items-center justify-between">
+            <span className="text-3xl font-bold text-gray-900 dark:text-white">
+              <NumericFormat value={total} prefix="Rp. " displayType="text" thousandSeparator="." decimalSeparator="," />
+            </span>
+            <a
+              href={`/transaction_history/${id}`}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Detail
+            </a>
           </div>
-        </td>
-        <td className="py-3 px-6 text-center">
-          <span className="bg-purple-200 text-black py-1 px-3 rounded-full text-xs">{total}</span>
-        </td>
-        <td className="py-3 px-6 text-center">
-          <span className="bg-purple-200 text-black py-1 px-3 rounded-full text-xs">{createdAt}</span>
-        </td>
-        <td className="py-3 px-6 text-center">
-          <span className={`status-historyTransaction ${status} text-white py-1 px-3 rounded-full text-xs`}>{status}</span>
-        </td>
-        <td className="py-3 px-6 text-center">
-          <div className="flex item-center justify-center">
-            <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-              <Link href={`/transaction_history/${id}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </tbody>
+        </div>
+      </div>
+    </>
   );
 }

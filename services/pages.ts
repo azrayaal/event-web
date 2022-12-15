@@ -111,3 +111,19 @@ export async function setCheckout(data) {
     token: true,
   });
 }
+
+export async function getTicket() {
+  // let params = '';
+  // if (valueParams === 'all') {
+  //   params = '';
+  // } else {
+  //   params = `?status=${valueParams}`;
+  // }
+  const url = `${ROOT_API}/${URL}/tickets`;
+
+  return callAPI({
+    url,
+    method: 'GET',
+    token: true,
+  });
+}
