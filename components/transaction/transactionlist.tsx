@@ -19,7 +19,7 @@ export default function TransactionList(props: TransactionListProps) {
         <img className="rounded-t-lg " src={banner} alt="product image" />
         <div className="px-5 pb-5">
           <h3 className="text-gray-900 font-semibold text-xl tracking-tight dark:text-white">{event_name}</h3>
-          <div className="flex items-center mt-2.5 mb-5">
+          <div className={`flex items-center mt-2.5 mb-5 font-bold text-xl status-historyTransaction ${status}`}>
             {status}
             <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3"> OrderID: {id}</span>
           </div>

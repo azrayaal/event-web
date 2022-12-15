@@ -48,7 +48,7 @@ export default function Tickets() {
         {/* filter */}
         <div className="md:grid-cols-3 sm:grid-cols-2 gap-8 py-10 grid">
           {requestList.map((item: RequestHistoryTypes) => {
-            return <RequestCard thumbnail={`${IMG}/${item.thumbnail}`} date={item.date} status={item.status} event_name={item.event_name} description={item.description} key={item._id} id={item._id} />;
+            return <RequestCard agencyName={item.agencyName} thumbnail={`${IMG}/${item.thumbnail}`} date={item.date} status={item.status} event_name={item.event_name} description={item.description} key={item._id} id={item._id} />;
           })}
         </div>
         <div className="text-center justify-center items-center mt-10 pb-5">
