@@ -8,11 +8,11 @@ interface RequestCardProps {
   status: string;
   date: string;
   thumbnail: string;
-  agencyName: string;
+  agency_name: string;
 }
 
 export default function RequestCard(props: RequestCardProps) {
-  const { event_name, description, id, status, date, thumbnail, agencyName } = props;
+  const { event_name, description, id, status, date, thumbnail, agency_name } = props;
   return (
     <Link href={`/your_event/${id}`} className="px-5">
       <div className="bg-white shadow-md rounded-lg max-w-sm dark:bg-gray-800 dark:border-gray-700 hover:shadow-2xl">
@@ -26,7 +26,7 @@ export default function RequestCard(props: RequestCardProps) {
 
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-gray-900 dark:text-white">
-              {agencyName}
+              {agency_name}
               {/* <NumericFormat value={total} prefix="Rp. " displayType="text" thousandSeparator="." decimalSeparator="," /> */}
             </span>
             {/* <h5 className={`text-white float-right font-bold px-5 py-3  status-requestcard ${status}`}>{status}</h5> */}

@@ -6,7 +6,7 @@ export interface EventListTypes {
   date: string;
   time: string;
   location: any;
-  agencyName: string;
+  agency_name: string;
   status: string;
   category: CategoryTypes;
 }
@@ -71,7 +71,7 @@ export interface RequestHistoryTypes {
   location: string;
   key: string;
   maps: string;
-  agencyName: string;
+  agency_name: string;
   name: string;
   email: string;
   createdAt: string;

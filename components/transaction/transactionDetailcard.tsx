@@ -72,7 +72,7 @@ export default function TransactionDetailcard(props: GetDetailTransactionProps) 
         </div>
         <div className="py-4 border-b border-gray-200 ">
           {/* <p className="xl:pr-48 text-base lg:leading-tight leading-normal text-gray-600 mt-2">{transactionDetail.historyTicketCat.description}</p> */}
-          <div className="text-base leading-4 mt-7 text-gray-600">Agency Name: 8BN321AF2IF0NYA</div>
+          <div className="text-base leading-4 mt-7 text-gray-600">Agency Name: {transactionDetail.historyTicketCat.agency_name}</div>
         </div>
 
         <div className="py-4 border-b border-gray-200 flex items-center justify-between">

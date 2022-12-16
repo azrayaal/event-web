@@ -45,7 +45,7 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
   return (
     <>
       <Navbars />
-      <EventHeader event_name={dataItem.event_name} date={dataItem.date} location={dataItem.location} agencyName={dataItem.agencyName} status={dataItem.status} />
+      <EventHeader event_name={dataItem.event_name} date={dataItem.date} location={dataItem.location} agency_name={dataItem.agency_name} status={dataItem.status} />
 
       <div className="h-auto relative mb-24">
         <div className="flex mb-4 ">

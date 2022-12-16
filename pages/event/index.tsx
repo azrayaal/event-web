@@ -48,7 +48,7 @@ export default function Home(props) {
             mx-2"
             >
               {eventList.map((item: EventListTypes) => {
-                return <CardsEvent agency_name={item.agencyName} date={item.date} key={item._id} id={item._id} event_name={item.event_name} banner={item.banner} location={item.location} status={item.status} />;
+                return <CardsEvent agency_name={item.agency_name} date={item.date} key={item._id} id={item._id} event_name={item.event_name} banner={item.banner} location={item.location} status={item.status} />;
               })}
             </div>
             <div className="text-center justify-center items-center mt-10">

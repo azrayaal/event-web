@@ -59,7 +59,7 @@ export default function RequestDetailCard(props: GetDetailRequestProps) {
             <div className="py-4 border-b border-gray-200 ">
               <div className="xl:pr-48 text-base lg:leading-tight leading-normal text-gray-600 mt-2">{requestDetail.description}</div>
               <div className="text-base leading-4 mt-7 text-gray-600">
-                Agency Name: <p className="font-semibold mt-2">{requestDetail.agencyName}</p>
+                Agency Name: <p className="font-semibold mt-2">{requestDetail.agency_name}</p>
               </div>
             </div>
           </div>

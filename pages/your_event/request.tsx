@@ -16,7 +16,7 @@ export default function Request() {
   const [email, setEmail] = useState('');
   const [maps, setMaps] = useState('');
   const [location, setLocation] = useState('');
-  const [agencyName, setAgencyName] = useState('');
+  const [agency_name, setAgencyName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState<any>('');
   const [selected, setSelected] = React.useState<any>();
@@ -34,7 +34,7 @@ export default function Request() {
     data.append('date', selected);
     data.append('maps', maps);
     data.append('location', location);
-    data.append('agencyName', agencyName);
+    data.append('agency_name', agency_name);
     data.append('description', description);
     data.append('image', image);
 
@@ -143,7 +143,7 @@ export default function Request() {
                       type=""
                       placeholder="Agency Name"
                       id="agencyName"
-                      value={agencyName}
+                      value={agency_name}
                       onChange={(event) => setAgencyName(event.target.value)}
                     />
                   </div>
