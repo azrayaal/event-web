@@ -4,13 +4,13 @@ export default function Pagination({ totalPosts, postsPerPage, setCurrentPage, c
   // export default function Pagination(props) {
   //   const { totalPost, postPerpage } = props;
 
-  let pages = [];
+  let pages: number[] = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pages.push(i);
   }
   return (
-    <div className=" text-center justify-center items-center pt-24 pb-16">
+    <div className=" text-center justify-center items-center sm:pt-24 pt-0 sm:pb-16 pb-6">
       <div aria-label="Page navigation">
         <ul className="inline-flex -space-x-px">
           <li>
