@@ -140,7 +140,7 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
 }
 
 export async function getStaticPaths() {
-  const data = await getFeaturedEvent();
+  const data = await getFeaturedEvent(null);
   const paths = data.data.map((item: EventListTypes) => ({
     params: {
       id: item._id,

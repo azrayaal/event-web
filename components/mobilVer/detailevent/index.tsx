@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 
 const [clicked, setClicked] = useState('');
+const [clicked2, setClicked2] = useState('');
 const handleClick = () => {
   clicked ? setClicked('') : setClicked(' buttonbeliticketmobile w-full h-full bg-white z-30 absolute top-0 ');
   clicked2 ? setClicked2('') : setClicked2(' hidden ');

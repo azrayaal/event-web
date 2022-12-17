@@ -14,14 +14,14 @@ export default function Home(props) {
   //   const { eventList } = props;
   const [eventList, setEventList] = useState([]);
 
-  const getEventList = useCallback(async () => {
-    const response = await getFeaturedEvent();
+  const getEventList = useCallback(async (value: any) => {
+    const response = await getFeaturedEvent(value);
     setEventList(response.data);
     console.log(response.data);
   }, []);
 
   useEffect(() => {
-    getEventList();
+    getEventList('');
   }, []);
 
   return (
