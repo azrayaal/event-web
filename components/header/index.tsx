@@ -98,7 +98,7 @@ export default function Navbars() {
                         <a
                           key={item.name}
                           href={item.href}
-                          className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-[#004b77] hover:text-white', 'px-3  rounded-md text-sm font-medium ')}
+                          className={classNames(item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-[#004b77] hover:text-white', 'px-3 py-5 rounded-md text-sm font-medium ')}
                           aria-current={item.current ? 'page' : undefined}
                         >
                           <div className=" h-full w-26 flex  items-center ">
