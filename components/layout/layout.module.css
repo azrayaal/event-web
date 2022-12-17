@@ -1,7 +1,7 @@
 .main {
   padding: 0 2rem;
-  position: relative;
-  height: auto!;
+  position: relative !important;
+  height: auto !important;
   background-color: #f1f5f9;
 }
 

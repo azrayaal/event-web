@@ -22,7 +22,7 @@ export default function CardsEvent(props: CardEventProps) {
         <img src={`${IMG}/${banner}`} alt=" random image" className="image-center object-cover object-center hover:shadow-xl shadow-md" />
 
         <div className="relative px-4 -mt-10 ">
-          <div className="bg-white p-6 shadow-lg hover:shadow-xl min-h-[250px] max-h-[250px] min-w-[350px] max-w-[350px]">
+          <div className="bg-white p-6 shadow-lg hover:shadow-xl min-h-[190px] max-h-[190px] min-w-[350px] max-w-[350px]">
             <p className="mt-1 text-xl font-semibold uppercase leading-tight truncate">{event_name}</p>
 
             <div className="mt-1 text-red-600 font-semibold">{date}</div>

@@ -91,7 +91,7 @@ export default function Footers() {
         </div>
       </footer>
 
-      <div className="w-full ">
+      <div className="w-full relative ">
         <section id="bottom-navigation" className="md:hidden block fixed inset-x-0 bottom-0 z-10  bg-white shadow">
           <nav className="bg-gray-300 border-gray-200 sm:px-4 dark:bg-gray-900">
             <div className="h-full ">

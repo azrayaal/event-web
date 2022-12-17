@@ -1,27 +1,28 @@
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import CardsEvent from '../components/cards/cards-event';
-import Carousels from '../components/carousel';
 import Footers from '../components/footer';
 import Navbars from '../components/header';
-import Layouts from '../components/layout';
 import { EventListTypes } from '../services/data-types';
-import { getFeaturedEvent } from '../services/pages';
+import { getFeaturedEvent, searchEvent } from '../services/pages';
 import styles from '../styles/Home.module.css';
 
 export default function Home(props) {
   // export default function Home(props) {
   //   const { eventList } = props;
+  const [loading, setLoading] = useState(false);
   const [eventList, setEventList] = useState([]);
+  const [search, setSearch] = useState('');
 
-  const getEventList = useCallback(async () => {
-    const response = await getFeaturedEvent();
+  const getEventList = useCallback(async (value: any) => {
+    const response = await getFeaturedEvent(value);
+    setLoading(true);
     setEventList(response.data);
-    console.log(response.data);
+    // console.log(response.data);
   }, []);
 
   useEffect(() => {
-    getEventList();
+    getEventList('');
   }, []);
 
   return (
@@ -42,12 +43,44 @@ export default function Home(props) {
           </Link>
         </div>
       </div>
+
       <div className={styles.main}>
         {/* <Carousels /> */}
         <div className=" pb-6 ">
-          <div className="ml-8 sm:pt-12 sm:pb-8 ">
-            <p className=" font-bold text-4xl pb-3">Popular Event</p>
-            <p>Find your favorite events, and let's have fun</p>
+          <div className="sm:ml-8 mx-4 sm:pt-12 sm:pb-8 ">
+            <div className="sm:w-[50%] w-full sm:float-right float-none sm:pb-0 pb-2">
+              <form>
+                <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
+                  Search
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                  </div>
+                  <input
+                    type="search"
+                    id="default-search"
+                    className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Search Mockups, Logos..."
+                    required
+                    // value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                  <button
+                    type="submit"
+                    className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Search
+                  </button>
+                </div>
+              </form>
+            </div>
+            <div>
+              <p className=" font-bold text-4xl pb-3">Popular Event</p>
+              <p>Find your favorite events, and let's have fun</p>
+            </div>
           </div>
           <div className={styles.main}>
             <div
@@ -61,9 +94,21 @@ export default function Home(props) {
             md:mx-0
             mx-2"
             >
-              {eventList.map((item: EventListTypes) => {
+              {eventList &&
+                eventList
+                  .filter((eventList) => {
+                    if (search === '') {
+                      return eventList;
+                    } else if (eventList.event_name.toLowerCase().includes(search.toLocaleLowerCase())) {
+                      return eventList;
+                    }
+                  })
+                  .map((item: EventListTypes) => {
+                    return <CardsEvent agency_name={item.agency_name} date={item.date} key={item._id} id={item._id} event_name={item.event_name} banner={item.banner} location={item.location} status={item.status} />;
+                  })}
+              {/* {eventList.map((item: EventListTypes) => {
                 return <CardsEvent agency_name={item.agency_name} date={item.date} key={item._id} id={item._id} event_name={item.event_name} banner={item.banner} location={item.location} status={item.status} />;
-              })}
+              })} */}
             </div>
             <div className="text-center justify-center items-center mt-10">
               <Link href="/event">

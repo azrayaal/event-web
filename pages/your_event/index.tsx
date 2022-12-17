@@ -7,6 +7,7 @@ import ButtonFilterRequest from '../../components/request_event/button_filter';
 import { JWTPayloadsTypes, RequestHistoryTypes, UserTypes } from '../../services/data-types';
 import { getRequest } from '../../services/pages';
 import RequestCard from './requestcard';
+import styles from '../../styles/Home.module.css';
 
 export default function Tickets() {
   const [requestList, setRequestList] = useState([]);
@@ -19,7 +20,7 @@ export default function Tickets() {
         theme: 'colored',
       });
     } else {
-      console.log('data>>', response);
+      // console.log('data>>', response);
       setRequestList(response.data);
     }
   }, []);
@@ -36,8 +37,9 @@ export default function Tickets() {
   const IMG = process.env.NEXT_PUBLIC_IMG;
 
   return (
-    <Layouts pageTitle="Transactions z-30 ">
-      <div className="sm:px-[4rem] px-[1.5rem] h-full w-full bg-slate-100">
+    <Layouts pageTitle="Transactions">
+      {/* <div className={styles.main}> */}
+      <div className="sm:px-[4rem] h-full w-full bg-slate-100 relative  pb-24">
         {/* filter */}
         <div className="text-center justify-center items-center py-5">
           <ButtonFilterRequest onClick={() => onTabClick('all')} title="All Rq" active={tab === 'all'} />
@@ -51,7 +53,7 @@ export default function Tickets() {
             return <RequestCard agency_name={item.agency_name} thumbnail={`${IMG}/${item.thumbnail}`} date={item.date} status={item.status} event_name={item.event_name} description={item.description} key={item._id} id={item._id} />;
           })}
         </div>
-        <div className="text-center justify-center items-center mt-10 pb-5">
+        <div className="text-center justify-center items-center mt-10">
           <Link href="/your_event/request">
             <button className="inline-block px-6 py-2.5 bg-[#015E95] text-white font-medium text-xs leading-tight uppercase shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
               Create Your Event
@@ -59,6 +61,7 @@ export default function Tickets() {
           </Link>
         </div>
       </div>
+      {/* </div> */}
     </Layouts>
   );
 }

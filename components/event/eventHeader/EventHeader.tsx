@@ -6,10 +6,11 @@ interface EventHeaderProps {
   location: string;
   agency_name: string;
   status: string;
+  maps: string;
 }
 
 export default function EventHeader(props: EventHeaderProps) {
-  const { event_name, date, location, agency_name, status } = props;
+  const { event_name, date, location, agency_name, status, maps } = props;
   return (
     <nav className="sticky z-[1] top-0  bg-[#172029] hidden sm:block h-auto drop-shadow shadow-blue-600">
       <div className="grid grid-cols-3  ">
@@ -28,7 +29,7 @@ export default function EventHeader(props: EventHeaderProps) {
             <li className="Time text-sm">{date} | 17:00:00</li>
             <li className="Place my-5 text-sm">{location} </li>
             <li className="Map text-sm font-bold">
-              <a target="_blank" href="/" className="text-yellow-300">
+              <a target="_blank" href={maps} className="text-yellow-300">
                 View in Maps
               </a>
             </li>

@@ -4,23 +4,39 @@ import callAPI from '../config/api';
 const URL = 'leisure';
 const ROOT_API = process.env.NEXT_PUBLIC_API;
 
-export async function getFeaturedEvent() {
-  const url = `${ROOT_API}/${URL}/landingpage`;
+export async function getFeaturedEvent(valueParams: any) {
+  let params = '';
+  if (valueParams === '') {
+    params = '';
+  } else {
+    params = `?event_name=${valueParams}`;
+  }
+  const url = `${ROOT_API}/${URL}/landingpage${params}`;
 
   return callAPI({
     url,
     method: 'GET',
-    // token: true,
+  });
+}
+// export async function getFeaturedEvent() {
+//   const url = `${ROOT_API}/${URL}/landingpage`;
+
+//   return callAPI({
+//     url,
+//     method: 'GET',
+//   });
+// }
+
+export async function searchEvent(params: any) {
+  const url = `${ROOT_API}/${URL}/historyrequest${params}`;
+
+  return callAPI({
+    url,
+    method: 'GET',
   });
 }
 
 export async function getDetailEvent(id: string) {
-  // const url = `${ROOT_API}/${URL}/detail/${id}`;
-
-  // return callAPI({
-  //   url,
-  //   method: 'GET',
-  // });
   const URLA = `detail/${id}`;
   const response = await axios.get(`${ROOT_API}/${URL}/${URLA}`);
   const axiosResponse = response.data;

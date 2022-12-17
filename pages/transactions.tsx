@@ -8,6 +8,7 @@ import TransactionList from '../components/transaction/transactionlist';
 import TransactionNoExist from '../components/transaction/transactionNoExist';
 import { JWTPayloadsTypes, TransactionHistoryTypes, UserTypes } from '../services/data-types';
 import { getTransactions } from '../services/pages';
+import styles from '../styles/Home.module.css';
 
 export default function transactions() {
   const [tab, setTab] = useState('all');
@@ -23,7 +24,7 @@ export default function transactions() {
           theme: 'colored',
         };
     } else {
-      console.log('data transaction', response.data);
+      // console.log('data transaction', response.data);
       setTransactionList(response.data);
     }
   }, []);
@@ -41,7 +42,7 @@ export default function transactions() {
   if (trxisExist) {
     return (
       <Layouts pageTitle="Transactions">
-        <div className="overflow-x-auto h-full">
+        <div className={styles.main}>
           <div className="min-w-screen min-h-screen flex justify-center bg-gray-100 font-sans overflow-hidden">
             <div className="w-full lg:w-5/6">
               <div className="text-center justify-center items-center py-5">
@@ -65,7 +66,7 @@ export default function transactions() {
                   );
                 })}
               </div>
-              <div className="text-center justify-center items-center ">
+              <div className="text-center justify-center items-center sm:pb-0 pb-6">
                 <Link href="/">
                   <button className="inline-block px-6 py-2.5 bg-[#015E95] text-white font-medium text-xs leading-tight uppercase shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                     Back

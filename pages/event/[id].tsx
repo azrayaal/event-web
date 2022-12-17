@@ -1,5 +1,5 @@
 import { getDetailEvent, getFeaturedEvent } from '../../services/pages';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { useRouter } from 'next/router';
 import EventHeader from '../../components/event/eventHeader/EventHeader';
@@ -40,12 +40,12 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
     // console.log('data', data);
     router.push('/payment');
   };
-
+  const renderHTML = (rawHTML: string) => React.createElement('div', { dangerouslySetInnerHTML: { __html: rawHTML } });
   const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <>
       <Navbars />
-      <EventHeader event_name={dataItem.event_name} date={dataItem.date} location={dataItem.location} agency_name={dataItem.agency_name} status={dataItem.status} />
+      <EventHeader event_name={dataItem.event_name} date={dataItem.date} location={dataItem.location} agency_name={dataItem.agency_name} status={dataItem.status} maps={dataItem.maps} />
 
       <div className="h-auto relative mb-24">
         <div className="flex mb-4 ">
@@ -57,7 +57,9 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
               <div className="Description pt-10 sm:px-0 px-10">
                 <h1 className="text-3xl font-bold">{dataItem.event_name}</h1>
                 <p className="text-2xl font-semibold pb-3 pt-5">About this event:</p>
-                <p className="text-sm pb-14 ">{dataItem.description}</p>
+                <div className="text-sm pb-14 text-justify">
+                  <div>{renderHTML(dataItem.description)}</div>
+                </div>
                 <p className="text-sm font-semibold pb-3">Terms And Conditions:</p>
                 <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem doloremque corrupti veniam laboriosam!</p>
               </div>
@@ -160,7 +162,7 @@ interface GetStaticProps {
 export async function getStaticProps({ params }: GetStaticProps) {
   const { id } = params;
   const data = await getDetailEvent(id);
-  console.log('data dari getstprops=>>', data);
+  // console.log('data dari getstprops=>>', data);
   return {
     props: {
       dataItem: data,

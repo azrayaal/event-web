@@ -5,6 +5,7 @@ export interface EventListTypes {
   banner: string;
   date: string;
   time: string;
+  maps: string;
   location: any;
   agency_name: string;
   status: string;
