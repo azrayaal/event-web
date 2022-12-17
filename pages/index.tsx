@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import CardsEvent from '../components/cards/cards-event';
 import Footers from '../components/footer';
 import Navbars from '../components/header';
+import Pagination from '../components/pagination';
 import { EventListTypes } from '../services/data-types';
 import { getFeaturedEvent } from '../services/pages';
 import styles from '../styles/Home.module.css';
@@ -10,6 +11,8 @@ import styles from '../styles/Home.module.css';
 export default function Home() {
   // export default function Home(props) {
   //   const { eventList } = props;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostPerPage] = useState(9);
   const [eventList, setEventList] = useState([]);
   const [search, setSearch] = useState('');
 
@@ -22,6 +25,10 @@ export default function Home() {
   useEffect(() => {
     getEventList('');
   }, []);
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPost = eventList.slice(firstPostIndex, lastPostIndex);
 
   return (
     <>
@@ -92,13 +99,13 @@ export default function Home() {
             md:mx-0
             mx-2"
             >
-              {eventList &&
-                eventList
-                  .filter((eventList: EventListTypes) => {
+              {currentPost &&
+                currentPost
+                  .filter((currentPost: EventListTypes) => {
                     if (search === '') {
-                      return eventList;
-                    } else if (eventList.event_name.toLowerCase().includes(search.toLocaleLowerCase())) {
-                      return eventList;
+                      return currentPost;
+                    } else if (currentPost.event_name.toLowerCase().includes(search.toLocaleLowerCase())) {
+                      return currentPost;
                     }
                   })
                   .map((item: EventListTypes) => {
@@ -117,7 +124,9 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <Pagination totalPosts={eventList.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
       </div>
+
       <Footers />
       {/* </Layouts> */}
     </>
