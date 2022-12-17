@@ -4,19 +4,17 @@ import CardsEvent from '../components/cards/cards-event';
 import Footers from '../components/footer';
 import Navbars from '../components/header';
 import { EventListTypes } from '../services/data-types';
-import { getFeaturedEvent, searchEvent } from '../services/pages';
+import { getFeaturedEvent } from '../services/pages';
 import styles from '../styles/Home.module.css';
 
-export default function Home(props) {
+export default function Home() {
   // export default function Home(props) {
   //   const { eventList } = props;
-  const [loading, setLoading] = useState(false);
   const [eventList, setEventList] = useState([]);
   const [search, setSearch] = useState('');
 
   const getEventList = useCallback(async (value: any) => {
     const response = await getFeaturedEvent(value);
-    setLoading(true);
     setEventList(response.data);
     // console.log(response.data);
   }, []);
@@ -96,7 +94,7 @@ export default function Home(props) {
             >
               {eventList &&
                 eventList
-                  .filter((eventList) => {
+                  .filter((eventList: EventListTypes) => {
                     if (search === '') {
                       return eventList;
                     } else if (eventList.event_name.toLowerCase().includes(search.toLocaleLowerCase())) {

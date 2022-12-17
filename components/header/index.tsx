@@ -76,7 +76,7 @@ export default function Navbars() {
                   </div>
 
                   {/* search box */}
-                  <div className=" justify-center hidden sm:ml-6 sm:block">
+                  {/* <div className=" justify-center hidden sm:ml-6 sm:block">
                     <div className="mt-7 xl:w-96">
                       <div className="input-group relative flex flex-wrap items-stretch w-full mb-4 rounded">
                         <input
@@ -89,11 +89,11 @@ export default function Navbars() {
                         <span className="input-group-text flex items-center px-3 py-1.5 text-base font-normal text-gray-700 text-center whitespace-nowrap rounded" id="basic-addon2"></span>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Nav item */}
                   <div className="hidden sm:ml-6 sm:block">
-                    <div className="flex mt-4 space-x-4  h-[67%]">
+                    <div className="flex space-x-4">
                       {navigation.map((item) => (
                         <a
                           key={item.name}
