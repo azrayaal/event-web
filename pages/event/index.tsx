@@ -8,6 +8,7 @@ import Layouts from '../../components/layout';
 import { EventListTypes } from '../../services/data-types';
 import { getFeaturedEvent } from '../../services/pages';
 import styles from '../../styles/Home.module.css';
+import Head from 'next/head';
 
 export default function Home(props) {
   // export default function Home(props) {
@@ -28,6 +29,18 @@ export default function Home(props) {
     <>
       {/* <Layouts pageTitle="Home"> */}
       <Navbars />
+      <Head>
+        <title>Leisure Event</title>
+        <meta name="description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
+        <meta property="og:title" content="Leisure Event - Get a new Experience at Event" />
+        <meta property="og:keywords" content="HTML, CSS, JavaScript" />
+        <meta property="og:description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
+        <meta property="og:author" content="azrayaal" />
+        <meta property="og:viewport" content="width=device-width, initial-scale=1.0" />
+        {/* <meta property="og:img" content="/icon/favicon.ico" /> */}
+        <meta property="og:url" content="https://vercel.com/azrayal/leisure-event" />
+        <link rel="icon" href="/pngegg-removebg-preview (1).png" />
+      </Head>
       {/* <div className=" bg-slate-100 h-[2000px]"> */}
       <div className={styles.main}>
         <div className=" pb-6 ">
