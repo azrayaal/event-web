@@ -18,14 +18,15 @@ export async function getFeaturedEvent(valueParams: any) {
     method: 'GET',
   });
 }
-// export async function getFeaturedEvent() {
-//   const url = `${ROOT_API}/${URL}/landingpage`;
 
-//   return callAPI({
-//     url,
-//     method: 'GET',
-//   });
-// }
+export async function getFeaturedEventdetail() {
+  const url = `${ROOT_API}/${URL}/landingpage`;
+
+  return callAPI({
+    url,
+    method: 'GET',
+  });
+}
 
 export async function searchEvent(params: any) {
   const url = `${ROOT_API}/${URL}/historyrequest${params}`;

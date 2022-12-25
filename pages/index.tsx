@@ -33,7 +33,6 @@ export default function Home() {
 
   return (
     <>
-      {/* <Layouts pageTitle="Home"> */}
       <Navbars />
       <Head>
         <title>Leisure Event</title>
@@ -43,11 +42,9 @@ export default function Home() {
         <meta property="og:description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
         <meta property="og:author" content="azrayaal" />
         <meta property="og:viewport" content="width=device-width, initial-scale=1.0" />
-        {/* <meta property="og:img" content="/icon/favicon.ico" /> */}
         <meta property="og:url" content="https://vercel.com/azrayal/leisure-event" />
         <link rel="icon" href="/pngegg-removebg-preview (1).png" />
       </Head>
-      {/* <div className=" bg-slate-100 h-[2000px]"> */}
       <div className="carousel-ceritanya sm:block hidden relative">
         <img src="https://cdn.evbstatic.com/s3-build/fe/build/images/126d82b6f3fe6bb844e5afb23d51c720-8_tablet_1067x470.jpg" alt="" />
 
@@ -124,9 +121,6 @@ export default function Home() {
                   .map((item: EventListTypes) => {
                     return <CardsEvent agency_name={item.agency_name} date={item.date} key={item._id} id={item._id} event_name={item.event_name} banner={item.banner} location={item.location} status={item.status} />;
                   })}
-              {/* {eventList.map((item: EventListTypes) => {
-                return <CardsEvent agency_name={item.agency_name} date={item.date} key={item._id} id={item._id} event_name={item.event_name} banner={item.banner} location={item.location} status={item.status} />;
-              })} */}
             </div>
             <div className="text-center justify-center items-center mt-10">
               <Link href="/event">
@@ -141,7 +135,6 @@ export default function Home() {
       </div>
 
       <Footers />
-      {/* </Layouts> */}
     </>
   );
 }

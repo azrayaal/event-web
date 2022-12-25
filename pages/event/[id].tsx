@@ -1,5 +1,5 @@
-import { getDetailEvent, getFeaturedEvent } from '../../services/pages';
-import React, { useState } from 'react';
+import { getDetailEvent, getFeaturedEvent, getFeaturedEventdetail } from '../../services/pages';
+import React, { useCallback, useState } from 'react';
 
 import { useRouter } from 'next/router';
 import EventHeader from '../../components/event/eventHeader/EventHeader';
@@ -9,6 +9,7 @@ import Navbars from '../../components/header';
 import { CategoryTypes, EventListTypes, TalentTypes } from '../../services/data-types';
 import TikectCategoryItem from '../../components/cards/card-category/categoryItem';
 import { toast } from 'react-toastify';
+import Head from 'next/head';
 
 interface dataItemProps {
   dataItem: EventListTypes;
@@ -21,8 +22,19 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
   const [ticketCat, setTicketCat] = useState({});
   const router = useRouter();
 
+  // const getDetailApi = useCallback(async (id: any))=>{
+  //   const data = await getDetailEvent(id);
+  //   const dataDetail = data.data;
+  //   console.log('data dataDetail', dataDetail);
+  //   // setCart(dataCategory);
+  // }, []);
+
+  // useEffect(() => {
+  //   detailCategoryAPI(query.id);
+  // }, [isReady]);
+
   const ticketItemChange = (data: CategoryTypes) => {
-    // con sole.log('data nominal=>>', data);
+    console.log('data nominal=>>', data);
     setTicketCat(data);
   };
 
@@ -44,6 +56,18 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
   const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <>
+      <Head>
+        <title>Leisure Event</title>
+        <meta name="description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
+        <meta property="og:title" content="Leisure Event - Get a new Experience at Event" />
+        <meta property="og:keywords" content="HTML, CSS, JavaScript" />
+        <meta property="og:description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
+        <meta property="og:author" content="azrayaal" />
+        <meta property="og:viewport" content="width=device-width, initial-scale=1.0" />
+        {/* <meta property="og:img" content="/icon/favicon.ico" /> */}
+        <meta property="og:url" content="https://vercel.com/azrayal/leisure-event" />
+        <link rel="icon" href="/pngegg-removebg-preview (1).png" />
+      </Head>
       <Navbars />
       <EventHeader event_name={dataItem.event_name} date={dataItem.date} location={dataItem.location} agency_name={dataItem.agency_name} status={dataItem.status} maps={dataItem.maps} />
 
@@ -140,13 +164,13 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
 }
 
 export async function getStaticPaths() {
-  const data = await getFeaturedEvent(null);
+  const data = await getFeaturedEventdetail();
   const paths = data.data.map((item: EventListTypes) => ({
     params: {
       id: item._id,
     },
   }));
-  // console.log('isi paths=>>', paths);
+  console.log('isi paths=>>', paths);
   return {
     paths,
     fallback: false,
@@ -162,7 +186,7 @@ interface GetStaticProps {
 export async function getStaticProps({ params }: GetStaticProps) {
   const { id } = params;
   const data = await getDetailEvent(id);
-  // console.log('data dari getstprops=>>', data);
+  console.log('data dari getstprops=>>', data);
   return {
     props: {
       dataItem: data,
