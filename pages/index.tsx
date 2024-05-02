@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
-import CardsEvent from '../components/cards/cards-event';
-import Footers from '../components/footer';
-import Navbars from '../components/header';
-import Pagination from '../components/pagination';
-import { EventListTypes } from '../services/data-types';
-import { getFeaturedEvent } from '../services/pages';
-import styles from '../styles/Home.module.css';
-import Head from 'next/head';
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import CardsEvent from "../components/cards/cards-event";
+import Footers from "../components/footer";
+import Navbars from "../components/header";
+import Pagination from "../components/pagination";
+import { EventListTypes } from "../services/data-types";
+import { getFeaturedEvent } from "../services/pages";
+import styles from "../styles/Home.module.css";
+import Head from "next/head";
 
 export default function Home() {
   // export default function Home(props) {
@@ -15,16 +15,16 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostPerPage] = useState(9);
   const [eventList, setEventList] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   const getEventList = useCallback(async (value: any) => {
     const response = await getFeaturedEvent(value);
     setEventList(response.data);
-    // console.log(response.data);
+    // console.log("response.data", response);
   }, []);
 
   useEffect(() => {
-    getEventList('');
+    getEventList("");
   }, []);
 
   const lastPostIndex = currentPage * postsPerPage;
@@ -36,21 +36,44 @@ export default function Home() {
       <Navbars />
       <Head>
         <title>Leisure Event</title>
-        <meta name="description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
-        <meta property="og:title" content="Leisure Event - Get a new Experience at Event" />
+        <meta
+          name="description"
+          content="Kami menyediakan ticket game yang tidak dijual di manapun"
+        />
+        <meta
+          property="og:title"
+          content="Leisure Event - Get a new Experience at Event"
+        />
         <meta property="og:keywords" content="HTML, CSS, JavaScript" />
-        <meta property="og:description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
+        <meta
+          property="og:description"
+          content="Kami menyediakan ticket game yang tidak dijual di manapun"
+        />
         <meta property="og:author" content="azrayaal" />
-        <meta property="og:viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:url" content="https://vercel.com/azrayal/leisure-event" />
+        <meta
+          property="og:viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
+        <meta
+          property="og:url"
+          content="https://vercel.com/azrayal/leisure-event"
+        />
         <link rel="icon" href="/pngegg-removebg-preview (1).png" />
       </Head>
       <div className="carousel-ceritanya sm:block hidden relative">
-        <img src="https://cdn.evbstatic.com/s3-build/fe/build/images/126d82b6f3fe6bb844e5afb23d51c720-8_tablet_1067x470.jpg" alt="" />
+        <img
+          className={"w-full"}
+          src="https://cdn.evbstatic.com/s3-build/fe/build/images/126d82b6f3fe6bb844e5afb23d51c720-8_tablet_1067x470.jpg"
+          alt=""
+        />
 
         <div className="absolute top-12 left-12">
-          <h1 className="text-[50px] font-extrabold text-yellow-300">Do The New Year Right</h1>
-          <h2 className="text-xl  mb-10 font-semibold text-white">We've curated the best events near you to get your 2023 started.</h2>
+          <h1 className="text-[50px] font-extrabold text-yellow-300">
+            Do The New Year Right
+          </h1>
+          <h2 className="text-xl  mb-10 font-semibold text-white">
+            We've curated the best events near you to get your 2023 started.
+          </h2>
           <Link href="/your_event/request">
             <button className="inline-block px-6 py-2.5 bg-[#015E95] text-white font-medium text-lg leading-tight uppercase shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
               Create Your Own Event
@@ -65,13 +88,28 @@ export default function Home() {
           <div className="sm:ml-8 mx-4 sm:pt-12 sm:pb-8 ">
             <div className="sm:w-[50%] w-full sm:float-right float-none sm:pb-0 pb-2">
               <form>
-                <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
+                <label
+                  htmlFor="default-search"
+                  className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                >
                   Search
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    <svg
+                      aria-hidden="true"
+                      className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      ></path>
                     </svg>
                   </div>
                   <input
@@ -112,14 +150,29 @@ export default function Home() {
               {currentPost &&
                 currentPost
                   .filter((currentPost: EventListTypes) => {
-                    if (search === '') {
+                    if (search === "") {
                       return currentPost;
-                    } else if (currentPost.event_name.toLowerCase().includes(search.toLocaleLowerCase())) {
+                    } else if (
+                      currentPost.event_name
+                        .toLowerCase()
+                        .includes(search.toLocaleLowerCase())
+                    ) {
                       return currentPost;
                     }
                   })
                   .map((item: EventListTypes) => {
-                    return <CardsEvent agency_name={item.agency_name} date={item.date} key={item._id} id={item._id} event_name={item.event_name} banner={item.banner} location={item.location} status={item.status} />;
+                    return (
+                      <CardsEvent
+                        agency_name={item.agency_name}
+                        date={item.date}
+                        key={item._id}
+                        id={item._id}
+                        event_name={item.event_name}
+                        banner={item.banner}
+                        location={item.location}
+                        status={item.status}
+                      />
+                    );
                   })}
             </div>
             <div className="text-center justify-center items-center mt-10">
@@ -131,7 +184,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Pagination totalPosts={eventList.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+        <Pagination
+          totalPosts={eventList.length}
+          postsPerPage={postsPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
       </div>
 
       <Footers />

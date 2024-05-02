@@ -1,129 +1,129 @@
-import axios from 'axios';
-import callAPI from '../config/api';
+import axios from "axios";
+import callAPI from "../config/api";
 
-const URL = 'leisure';
+const URL = "leisure";
 const ROOT_API = process.env.NEXT_PUBLIC_API;
 
 export async function getFeaturedEvent(valueParams: any) {
-  let params = '';
-  if (valueParams === '') {
-    params = '';
+  let params = "";
+  if (valueParams === "") {
+    params = "";
   } else {
     params = `?event_name=${valueParams}`;
   }
-  const url = `${ROOT_API}/${URL}/landingpage${params}`;
+  const url = `${ROOT_API}${URL}/landingpage${params}`;
 
   return callAPI({
     url,
-    method: 'GET',
+    method: "GET",
   });
 }
 
 export async function getFeaturedEventdetail() {
-  const url = `${ROOT_API}/${URL}/landingpage`;
+  const url = `${ROOT_API}${URL}/landingpage`;
 
   return callAPI({
     url,
-    method: 'GET',
+    method: "GET",
   });
 }
 
 export async function searchEvent(params: any) {
-  const url = `${ROOT_API}/${URL}/historyrequest${params}`;
+  const url = `${ROOT_API}${URL}/historyrequest${params}`;
 
   return callAPI({
     url,
-    method: 'GET',
+    method: "GET",
   });
 }
 
 export async function getDetailEvent(id: string) {
   const URLA = `detail/${id}`;
-  const response = await axios.get(`${ROOT_API}/${URL}/${URLA}`);
+  const response = await axios.get(`${ROOT_API}${URL}/${URLA}`);
   const axiosResponse = response.data;
   return axiosResponse.data;
 }
 
 export async function putEditProfile(data: FormData, id: any) {
-  const url = `${ROOT_API}/${URL}/editprofile/${id}`;
+  const url = `${ROOT_API}${URL}/editprofile/${id}`;
 
   return callAPI({
     url,
     data,
-    method: 'PUT',
+    method: "PUT",
     token: true,
   });
 }
 
 export async function postRequest(data: FormData) {
-  const url = `${ROOT_API}/${URL}/request`;
+  const url = `${ROOT_API}${URL}/request`;
 
   return callAPI({
     url,
     data,
-    method: 'POST',
+    method: "POST",
     token: true,
   });
 }
 
 export async function getDetailRequest(id: string, token: string) {
-  const url = `${ROOT_API}/${URL}/historyrequest/${id}/detail`;
+  const url = `${ROOT_API}${URL}/historyrequest/${id}/detail`;
 
   return callAPI({
     url,
-    method: 'GET',
+    method: "GET",
     serverToken: token,
   });
 }
 
 export async function getRequest(valueParams: any) {
-  let params = '';
-  if (valueParams === 'all') {
-    params = '';
+  let params = "";
+  if (valueParams === "all") {
+    params = "";
   } else {
     params = `?status=${valueParams}`;
   }
-  const url = `${ROOT_API}/${URL}/historyrequest${params}`;
+  const url = `${ROOT_API}${URL}/historyrequest${params}`;
 
   return callAPI({
     url,
-    method: 'GET',
+    method: "GET",
     token: true,
   });
 }
 
 export async function getTransactions(valueParams: any) {
-  let params = '';
-  if (valueParams === 'all') {
-    params = '';
+  let params = "";
+  if (valueParams === "all") {
+    params = "";
   } else {
     params = `?status=${valueParams}`;
   }
-  const url = `${ROOT_API}/${URL}/history${params}`;
+  const url = `${ROOT_API}${URL}/history${params}`;
 
   return callAPI({
     url,
-    method: 'GET',
+    method: "GET",
     token: true,
   });
 }
 
 export async function getDetailTransactions(id: string, token: string) {
-  const url = `${ROOT_API}/${URL}/history/${id}/detail`;
+  const url = `${ROOT_API}${URL}/history/${id}/detail`;
 
   return callAPI({
     url,
-    method: 'GET',
+    method: "GET",
     serverToken: token,
   });
 }
 
 export async function setCheckout(data) {
-  const url = `${ROOT_API}/${URL}/checkout`;
+  const url = `${ROOT_API}${URL}/checkout`;
 
   return callAPI({
     url,
-    method: 'POST',
+    method: "POST",
     data,
     token: true,
   });
@@ -136,11 +136,11 @@ export async function getTicket() {
   // } else {
   //   params = `?status=${valueParams}`;
   // }
-  const url = `${ROOT_API}/${URL}/tickets`;
+  const url = `${ROOT_API}${URL}/tickets`;
 
   return callAPI({
     url,
-    method: 'GET',
+    method: "GET",
     token: true,
   });
 }

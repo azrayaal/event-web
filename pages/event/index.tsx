@@ -1,14 +1,14 @@
-import Link from 'next/link';
-import { useCallback, useEffect, useState } from 'react';
-import CardsEvent from '../../components/cards/cards-event';
-import Carousels from '../../components/carousel';
-import Footers from '../../components/footer';
-import Navbars from '../../components/header';
-import Layouts from '../../components/layout';
-import { EventListTypes } from '../../services/data-types';
-import { getFeaturedEvent } from '../../services/pages';
-import styles from '../../styles/Home.module.css';
-import Head from 'next/head';
+import Link from "next/link";
+import { useCallback, useEffect, useState } from "react";
+import CardsEvent from "../../components/cards/cards-event";
+import Carousels from "../../components/carousel";
+import Footers from "../../components/footer";
+import Navbars from "../../components/header";
+import Layouts from "../../components/layout";
+import { EventListTypes } from "../../services/data-types";
+import { getFeaturedEvent } from "../../services/pages";
+import styles from "../../styles/Home.module.css";
+import Head from "next/head";
 
 export default function Home(props) {
   // export default function Home(props) {
@@ -18,11 +18,11 @@ export default function Home(props) {
   const getEventList = useCallback(async (value: any) => {
     const response = await getFeaturedEvent(value);
     setEventList(response.data);
-    console.log(response.data);
+    // console.log(response.data);
   }, []);
 
   useEffect(() => {
-    getEventList('');
+    getEventList("");
   }, []);
 
   return (
@@ -31,14 +31,29 @@ export default function Home(props) {
       <Navbars />
       <Head>
         <title>Leisure Event</title>
-        <meta name="description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
-        <meta property="og:title" content="Leisure Event - Get a new Experience at Event" />
+        <meta
+          name="description"
+          content="Kami menyediakan ticket game yang tidak dijual di manapun"
+        />
+        <meta
+          property="og:title"
+          content="Leisure Event - Get a new Experience at Event"
+        />
         <meta property="og:keywords" content="HTML, CSS, JavaScript" />
-        <meta property="og:description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
+        <meta
+          property="og:description"
+          content="Kami menyediakan ticket game yang tidak dijual di manapun"
+        />
         <meta property="og:author" content="azrayaal" />
-        <meta property="og:viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          property="og:viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
         {/* <meta property="og:img" content="/icon/favicon.ico" /> */}
-        <meta property="og:url" content="https://vercel.com/azrayal/leisure-event" />
+        <meta
+          property="og:url"
+          content="https://vercel.com/azrayal/leisure-event"
+        />
         <link rel="icon" href="/pngegg-removebg-preview (1).png" />
       </Head>
       {/* <div className=" bg-slate-100 h-[2000px]"> */}
@@ -61,7 +76,18 @@ export default function Home(props) {
             mx-2"
             >
               {eventList.map((item: EventListTypes) => {
-                return <CardsEvent agency_name={item.agency_name} date={item.date} key={item._id} id={item._id} event_name={item.event_name} banner={item.banner} location={item.location} status={item.status} />;
+                return (
+                  <CardsEvent
+                    agency_name={item.agency_name}
+                    date={item.date}
+                    key={item._id}
+                    id={item._id}
+                    event_name={item.event_name}
+                    banner={item.banner}
+                    location={item.location}
+                    status={item.status}
+                  />
+                );
               })}
             </div>
             <div className="text-center justify-center items-center mt-10">

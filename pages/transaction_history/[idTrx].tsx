@@ -1,15 +1,21 @@
-import jwtDecode from 'jwt-decode';
-import React from 'react';
-import Layouts from '../../components/layout';
-import TransactionDetailcard from '../../components/transaction/transactionDetailcard';
-import { JWTPayloadsTypes, TransactionHistoryTypes, UserTypes } from '../../services/data-types';
-import { getDetailTransactions } from '../../services/pages';
+import jwtDecode from "jwt-decode";
+import React from "react";
+import Layouts from "../../components/layout";
+import TransactionDetailcard from "../../components/transaction/transactionDetailcard";
+import {
+  JWTPayloadsTypes,
+  TransactionHistoryTypes,
+  UserTypes,
+} from "../../services/data-types";
+import { getDetailTransactions } from "../../services/pages";
 
 interface GetDetailTransactionProps {
   transactionDetail: TransactionHistoryTypes;
 }
 
-export default function tansactionDetailHistory(props: GetDetailTransactionProps) {
+export default function tansactionDetailHistory(
+  props: GetDetailTransactionProps
+) {
   const { transactionDetail } = props;
 
   return (
@@ -36,19 +42,19 @@ export async function getServerSideProps({ req, params }: GetServerSideProps) {
   if (!token) {
     return {
       redirect: {
-        destination: '/signin',
+        destination: "/signin",
         permanent: false,
       },
     };
   }
-  const jwtToken = Buffer.from(token, 'base64').toString('ascii');
+  const jwtToken = Buffer.from(token, "base64").toString("ascii");
   const payload: JWTPayloadsTypes = jwtDecode(jwtToken);
   const userFromPayload: UserTypes = payload.user;
   const IMG = process.env.NEXT_PUBLIC_IMG;
   userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;
   const response = await getDetailTransactions(idTrx, jwtToken);
 
-  console.log('response detail', response);
+  // console.log('response detail', response);
 
   return {
     props: {

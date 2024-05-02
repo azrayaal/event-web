@@ -1,15 +1,23 @@
-import { getDetailEvent, getFeaturedEvent, getFeaturedEventdetail } from '../../services/pages';
-import React, { useCallback, useState } from 'react';
+import {
+  getDetailEvent,
+  getFeaturedEvent,
+  getFeaturedEventdetail,
+} from "../../services/pages";
+import React, { useCallback, useState } from "react";
 
-import { useRouter } from 'next/router';
-import EventHeader from '../../components/event/eventHeader/EventHeader';
-import TalentCard from '../../components/event/talent/TalentCard';
-import Footers from '../../components/footer';
-import Navbars from '../../components/header';
-import { CategoryTypes, EventListTypes, TalentTypes } from '../../services/data-types';
-import TikectCategoryItem from '../../components/cards/card-category/categoryItem';
-import { toast } from 'react-toastify';
-import Head from 'next/head';
+import { useRouter } from "next/router";
+import EventHeader from "../../components/event/eventHeader/EventHeader";
+import TalentCard from "../../components/event/talent/TalentCard";
+import Footers from "../../components/footer";
+import Navbars from "../../components/header";
+import {
+  CategoryTypes,
+  EventListTypes,
+  TalentTypes,
+} from "../../services/data-types";
+import TikectCategoryItem from "../../components/cards/card-category/categoryItem";
+import { toast } from "react-toastify";
+import Head from "next/head";
 
 interface dataItemProps {
   dataItem: EventListTypes;
@@ -17,8 +25,12 @@ interface dataItemProps {
   categoryItem: CategoryTypes;
 }
 
-export default function DetailPage({ dataItem, talentItem, categoryItem }: dataItemProps) {
-  const [verifyID, setVerifyID] = useState('');
+export default function DetailPage({
+  dataItem,
+  talentItem,
+  categoryItem,
+}: dataItemProps) {
+  const [verifyID, setVerifyID] = useState("");
   const [ticketCat, setTicketCat] = useState({});
   const router = useRouter();
 
@@ -34,9 +46,10 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
   // }, [isReady]);
 
   const ticketItemChange = (data: CategoryTypes) => {
-    console.log('data nominal=>>', data);
+    console.log("data nominal=>>", data);
     setTicketCat(data);
   };
+  console.log("a");
 
   const onSubmit = () => {
     // alert('ahahah');
@@ -44,58 +57,104 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
       verifyID,
       ticketCat,
     };
-    if (verifyID === '') {
-      toast.error('Nama ticket tidak boleh kosong', { theme: 'colored' });
+    if (verifyID === "") {
+      toast.error("Nama ticket tidak boleh kosong", { theme: "colored" });
     }
-    localStorage.setItem('checkout-item', JSON.stringify(data));
-    localStorage.setItem('data-item', JSON.stringify(dataItem));
+    localStorage.setItem("checkout-item", JSON.stringify(data));
+    localStorage.setItem("data-item", JSON.stringify(dataItem));
     // console.log('data', data);
-    router.push('/payment');
+    router.push("/payment");
   };
-  const renderHTML = (rawHTML: string) => React.createElement('div', { dangerouslySetInnerHTML: { __html: rawHTML } });
+  const renderHTML = (rawHTML: string) =>
+    React.createElement("div", {
+      dangerouslySetInnerHTML: { __html: rawHTML },
+    });
   const IMG = process.env.NEXT_PUBLIC_IMG;
   return (
     <>
       <Head>
         <title>Leisure Event</title>
-        <meta name="description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
-        <meta property="og:title" content="Leisure Event - Get a new Experience at Event" />
+        <meta
+          name="description"
+          content="Kami menyediakan ticket game yang tidak dijual di manapun"
+        />
+        <meta
+          property="og:title"
+          content="Leisure Event - Get a new Experience at Event"
+        />
         <meta property="og:keywords" content="HTML, CSS, JavaScript" />
-        <meta property="og:description" content="Kami menyediakan ticket game yang tidak dijual di manapun" />
+        <meta
+          property="og:description"
+          content="Kami menyediakan ticket game yang tidak dijual di manapun"
+        />
         <meta property="og:author" content="azrayaal" />
-        <meta property="og:viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          property="og:viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
         {/* <meta property="og:img" content="/icon/favicon.ico" /> */}
-        <meta property="og:url" content="https://vercel.com/azrayal/leisure-event" />
+        <meta
+          property="og:url"
+          content="https://vercel.com/azrayal/leisure-event"
+        />
         <link rel="icon" href="/pngegg-removebg-preview (1).png" />
       </Head>
       <Navbars />
-      <EventHeader event_name={dataItem.event_name} date={dataItem.date} location={dataItem.location} agency_name={dataItem.agency_name} status={dataItem.status} maps={dataItem.maps} />
+      <EventHeader
+        event_name={dataItem.event_name}
+        date={dataItem.date}
+        location={dataItem.location}
+        agency_name={dataItem.agency_name}
+        status={dataItem.status}
+        maps={dataItem.maps}
+      />
 
       <div className="h-auto relative mb-24">
         <div className="flex mb-4 ">
           <div className=" w-full sm:w-[70%] h-full  ">
             <div className=" pt-0 sm:pt-10 sm:px-16 px-0 ">
               <div className="sm:border-[1.5px] border-0 sm:py-10 py-0 justify-center flex border-solid border-slate-400 rounded-md drop-shadow-xl">
-                <img src={`${IMG}/${dataItem.banner}`} className="sm:rounded-md rounded-none" alt="" />
+                <img
+                  src={`${IMG}/${dataItem.banner}`}
+                  className="sm:rounded-md rounded-none"
+                  alt=""
+                />
               </div>
               <div className="Description pt-10 sm:px-0 px-10">
                 <h1 className="text-3xl font-bold">{dataItem.event_name}</h1>
-                <p className="text-2xl font-semibold pb-3 pt-5">About this event:</p>
+                <p className="text-2xl font-semibold pb-3 pt-5">
+                  About this event:
+                </p>
                 <div className="text-sm pb-14 text-justify">
                   <div>{renderHTML(dataItem.description)}</div>
                 </div>
-                <p className="text-sm font-semibold pb-3">Terms And Conditions:</p>
-                <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem doloremque corrupti veniam laboriosam!</p>
+                <p className="text-sm font-semibold pb-3">
+                  Terms And Conditions:
+                </p>
+                <p className="text-sm">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Autem doloremque corrupti veniam laboriosam!
+                </p>
               </div>
 
               <div className="py-[1px] my-16 bg-slate-400 rounded sm:mx-0 mx-10" />
 
               <div className="TALENT mb-4">
-                <div className="text-2xl font-bold pb-10 pl-10 sm:pl-0 ">Talent</div>
+                <div className="text-2xl font-bold pb-10 pl-10 sm:pl-0 ">
+                  Talent
+                </div>
                 <div className=" grid-cols-1 grid md:grid-cols-3 sm:grid-cols-2 gap-2 pb-5 mx-6 ">
-                  {talentItem.map((item: TalentTypes) => {
-                    return <TalentCard id={item._id} key={item._id} talent_picture={item.talent_picture} talent_name={item.talent_name} />;
-                  })}
+                  {talentItem &&
+                    talentItem.map((item: TalentTypes) => {
+                      return (
+                        <TalentCard
+                          id={item._id}
+                          key={item._id}
+                          talent_picture={item.talent_picture}
+                          talent_name={item.talent_name}
+                        />
+                      );
+                    })}
                 </div>
               </div>
             </div>
@@ -125,9 +184,16 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
                   <div className="relative h-[100%] py-10 flex items-center justify-center bg-slate-200">
                     <div className="mx-auto max-w-6xl px-12">
                       <div className="flex flex-wrap gap-3">
-                        {categoryItem.map((category: CategoryTypes) => (
-                          <TikectCategoryItem category_name={category.category_name} key={category._id} _id={category._id} price={category.price} onChange={() => ticketItemChange(category)} />
-                        ))}
+                        {categoryItem &&
+                          categoryItem.map((category: CategoryTypes) => (
+                            <TikectCategoryItem
+                              category_name={category.category_name}
+                              key={category._id}
+                              _id={category._id}
+                              price={category.price}
+                              onChange={() => ticketItemChange(category)}
+                            />
+                          ))}
                       </div>
                     </div>
                   </div>
@@ -165,12 +231,13 @@ export default function DetailPage({ dataItem, talentItem, categoryItem }: dataI
 
 export async function getStaticPaths() {
   const data = await getFeaturedEventdetail();
+  // console.log("data.data", data);
   const paths = data.data.map((item: EventListTypes) => ({
     params: {
       id: item._id,
     },
   }));
-  console.log('isi paths=>>', paths);
+  // console.log("isi paths=>>", paths);
   return {
     paths,
     fallback: false,
@@ -186,7 +253,7 @@ interface GetStaticProps {
 export async function getStaticProps({ params }: GetStaticProps) {
   const { id } = params;
   const data = await getDetailEvent(id);
-  console.log('data dari getstprops=>>', data);
+  console.log("data dari getstprops=>>", data);
   return {
     props: {
       dataItem: data,

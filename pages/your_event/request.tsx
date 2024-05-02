@@ -1,56 +1,56 @@
-import { format } from 'date-fns';
-import { Card, FileInput, Textarea } from 'flowbite-react';
-import jwtDecode from 'jwt-decode';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
-import { DayPicker } from 'react-day-picker';
-import 'react-day-picker/dist/style.css';
-import { toast } from 'react-toastify';
-import Layouts from '../../components/layout';
-import { JWTPayloadsTypes, UserTypes } from '../../services/data-types';
-import { postRequest } from '../../services/pages';
+import { format } from "date-fns";
+import { Card, FileInput, Textarea } from "flowbite-react";
+import jwtDecode from "jwt-decode";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
+import { toast } from "react-toastify";
+import Layouts from "../../components/layout";
+import { JWTPayloadsTypes, UserTypes } from "../../services/data-types";
+import { postRequest } from "../../services/pages";
 
 export default function Request() {
-  const [event_name, setEventName] = useState('');
-  const [email, setEmail] = useState('');
-  const [maps, setMaps] = useState('');
-  const [location, setLocation] = useState('');
-  const [agency_name, setAgencyName] = useState('');
-  const [description, setDescription] = useState('');
-  const [image, setImage] = useState<any>('');
+  const [event_name, setEventName] = useState("");
+  const [email, setEmail] = useState("");
+  const [maps, setMaps] = useState("");
+  const [location, setLocation] = useState("");
+  const [agency_name, setAgencyName] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState<any>("");
   const [selected, setSelected] = React.useState<any>();
 
   let footer = <p>Please pick a day.</p>;
   if (selected) {
-    footer = <p>You picked {format(selected, 'PP')}.</p>;
+    footer = <p>You picked {format(selected, "PP")}.</p>;
   }
 
   const route = useRouter();
 
   const onSubmit = async () => {
     const data = new FormData();
-    data.append('event_name', event_name);
-    data.append('date', selected);
-    data.append('maps', maps);
-    data.append('location', location);
-    data.append('agency_name', agency_name);
-    data.append('description', description);
-    data.append('image', image);
+    data.append("event_name", event_name);
+    data.append("date", selected);
+    data.append("maps", maps);
+    data.append("location", location);
+    data.append("agency_name", agency_name);
+    data.append("description", description);
+    data.append("image", image);
 
-    console.log('data--->', data);
+    // console.log('data--->', data);
 
     const response = await postRequest(data);
     if (response.error) {
       toast.error(response.message, {
-        theme: 'colored',
+        theme: "colored",
       });
     } else {
-      toast.success('berhasil kirm request event', {
-        theme: 'colored',
+      toast.success("berhasil kirm request event", {
+        theme: "colored",
       });
-      console.log('data dari resp', response);
-      route.push('/your_event/confirmationRequest');
+      // console.log("data dari resp", response);
+      route.push("/your_event/confirmationRequest");
     }
   };
   return (
@@ -62,7 +62,9 @@ export default function Request() {
               <Card>
                 <div className="inputan1 eventName">
                   <div className=" content-center">
-                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Event Name</label>
+                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">
+                      Event Name
+                    </label>
                     <input
                       className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
                       type=""
@@ -76,20 +78,30 @@ export default function Request() {
 
                 <div className="">
                   <div className="mb-2">
-                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide ">Date</label>
+                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide ">
+                      Date
+                    </label>
                   </div>
                   <Card>
                     <div className="inputan1 date ">
                       <div className=" content-center">
                         <div className="flex justify-center ">
-                          <DayPicker className="" mode="single" selected={selected} onSelect={setSelected} footer={footer} />
+                          <DayPicker
+                            className=""
+                            mode="single"
+                            selected={selected}
+                            onSelect={setSelected}
+                            footer={footer}
+                          />
                         </div>
                       </div>
                     </div>
                   </Card>
                 </div>
 
-                <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide ">Banner</label>
+                <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide ">
+                  Banner
+                </label>
                 <Card>
                   <div className="inputan1 Banner">
                     <div className=" content-center">
@@ -111,7 +123,9 @@ export default function Request() {
 
                 <div className="inputan1 location">
                   <div className=" content-center">
-                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Location</label>
+                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">
+                      Location
+                    </label>
                     <input
                       className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
                       type=""
@@ -124,7 +138,9 @@ export default function Request() {
                 </div>
                 <div className="inputan1 maps">
                   <div className=" content-center">
-                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Maps</label>
+                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">
+                      Maps
+                    </label>
                     <input
                       className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
                       type=""
@@ -137,7 +153,9 @@ export default function Request() {
                 </div>
                 <div className="inputan1 agencyName">
                   <div className=" content-center">
-                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Agency Name</label>
+                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">
+                      Agency Name
+                    </label>
                     <input
                       className=" w-full text-base px-4 py-2 border-b border-gray-300 focus:outline-none rounded-2xl focus:border-indigo-500"
                       type=""
@@ -150,12 +168,25 @@ export default function Request() {
                 </div>
                 <div className="inputan1 description">
                   <div className=" content-center">
-                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">Description</label>
-                    <Textarea id="comment" placeholder="Leave a comment..." required={true} rows={4} value={description} onChange={(event) => setDescription(event.target.value)} />
+                    <label className="ml-3 text-sm font-bold text-gray-700 tracking-wide">
+                      Description
+                    </label>
+                    <Textarea
+                      id="comment"
+                      placeholder="Leave a comment..."
+                      required={true}
+                      rows={4}
+                      value={description}
+                      onChange={(event) => setDescription(event.target.value)}
+                    />
                   </div>
                 </div>
 
-                <button type="button" className="bg-slate-800 w-full hover:bg-slate-700 font-semibold text-white py-2 px-2 border hover:border-transparent rounded-3xl" onClick={onSubmit}>
+                <button
+                  type="button"
+                  className="bg-slate-800 w-full hover:bg-slate-700 font-semibold text-white py-2 px-2 border hover:border-transparent rounded-3xl"
+                  onClick={onSubmit}
+                >
                   Send Request!
                 </button>
               </Card>
@@ -180,12 +211,12 @@ export async function getServerSideProps({ req }: GetServerSideProps) {
   if (!token) {
     return {
       redirect: {
-        destination: '/signin',
+        destination: "/signin",
         permanent: false,
       },
     };
   }
-  const jwtToken = Buffer.from(token, 'base64').toString('ascii');
+  const jwtToken = Buffer.from(token, "base64").toString("ascii");
   const payload: JWTPayloadsTypes = jwtDecode(jwtToken);
   const userFromPayload: UserTypes = payload.user;
   const IMG = process.env.NEXT_PUBLIC_IMG;

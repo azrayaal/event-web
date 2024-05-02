@@ -1,14 +1,14 @@
-import { useRouter } from 'next/router';
-import React from 'react';
-import { toast } from 'react-toastify';
-import { setCheckout } from '../../services/pages';
+import { useRouter } from "next/router";
+import React from "react";
+import { toast } from "react-toastify";
+import { setCheckout } from "../../services/pages";
 
 export default function PaymentSummary() {
   const router = useRouter();
 
   const onsubmit = async () => {
-    const dataItemFromLocal = localStorage.getItem('data-item');
-    const dataCheckOutFromLocal = localStorage.getItem('checkout-item');
+    const dataItemFromLocal = localStorage.getItem("data-item");
+    const dataCheckOutFromLocal = localStorage.getItem("checkout-item");
     const dataItem = JSON.parse(dataItemFromLocal!);
     const datacheckout = JSON.parse(dataCheckOutFromLocal!);
 
@@ -29,14 +29,14 @@ export default function PaymentSummary() {
     const response = await setCheckout(data);
     if (response.error) {
       toast.error(response.message, {
-        theme: 'colored',
+        theme: "colored",
       });
     } else {
-      toast.success('Check-Out Berhasil!!', {
-        theme: 'colored',
+      toast.success("Check-Out Berhasil!!", {
+        theme: "colored",
       });
-      console.log('data co', response);
-      router.push('/payment/confirmation');
+      // console.log('data co', response);
+      router.push("/payment/confirmation");
     }
   };
   return (
@@ -55,7 +55,10 @@ export default function PaymentSummary() {
               <span className="font-normal">123456788</span>
               <br />
               <br />
-              <span className="font-normal text-center">Pembayaran akan segera dikonfirmasi oleh admin setelah pembayaran</span>
+              <span className="font-normal text-center">
+                Pembayaran akan segera dikonfirmasi oleh admin setelah
+                pembayaran
+              </span>
             </p>
           </div>
         </div>

@@ -1,8 +1,12 @@
-import jwtDecode from 'jwt-decode';
-import RequestDetailCard from '../../components/cards/card-requestDetail';
-import Layouts from '../../components/layout';
-import { JWTPayloadsTypes, RequestHistoryTypes, UserTypes } from '../../services/data-types';
-import { getDetailRequest } from '../../services/pages';
+import jwtDecode from "jwt-decode";
+import RequestDetailCard from "../../components/cards/card-requestDetail";
+import Layouts from "../../components/layout";
+import {
+  JWTPayloadsTypes,
+  RequestHistoryTypes,
+  UserTypes,
+} from "../../services/data-types";
+import { getDetailRequest } from "../../services/pages";
 
 interface GetDetailRequestProps {
   requestDetail: RequestHistoryTypes;
@@ -10,7 +14,7 @@ interface GetDetailRequestProps {
 
 export default function DetailRequest(props: GetDetailRequestProps) {
   const { requestDetail } = props;
-  console.log('data detail rq'), requestDetail;
+  // console.log("data detail rq"), requestDetail;
 
   return (
     <Layouts pageTitle="Detail Request">
@@ -36,19 +40,19 @@ export async function getServerSideProps({ req, params }: GetServerSideProps) {
   if (!token) {
     return {
       redirect: {
-        destination: '/signin',
+        destination: "/signin",
         permanent: false,
       },
     };
   }
-  const jwtToken = Buffer.from(token, 'base64').toString('ascii');
+  const jwtToken = Buffer.from(token, "base64").toString("ascii");
   const payload: JWTPayloadsTypes = jwtDecode(jwtToken);
   const userFromPayload: UserTypes = payload.user;
   const IMG = process.env.NEXT_PUBLIC_IMG;
   userFromPayload.avatar = `${IMG}/${userFromPayload.avatar}`;
   const response = await getDetailRequest(idRq, jwtToken);
 
-  console.log('response params', response);
+  // console.log('response params', response);
 
   return {
     props: {
